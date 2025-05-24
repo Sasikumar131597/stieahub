@@ -1,0 +1,32 @@
+.main {
+    padding: 20px;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #e0f7fa, #007bff); /* Blue gradient */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.description {
+    max-width: 1000px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.dashboard-intro-text {
+    font-size: 16px;
+    color: #0a3d62;
+    line-height: 1.6;
+    margin: 0 20px;
+}
+
+.dashboard-cards-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}

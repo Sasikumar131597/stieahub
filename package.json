@@ -1,0 +1,81 @@
+{
+  "name": "admin-dashboard",
+  "version": "0.1.0",
+  "private": true,
+
+  "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.6",
+    "@mui/x-charts": "^7.27.1",
+    "@remixicon/react": "^4.6.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
+    "apexcharts": "^4.5.0",
+    "axios": "^1.8.2",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "boxicons": "^2.1.4",
+    "chartjs-plugin-zoom": "^2.2.0",
+    "d3": "^7.9.0",
+    "d3-geo": "^3.1.1",
+    "d3-geo-projection": "^4.0.0",
+    "echarts": "^5.6.0",
+    "highcharts": "^12.1.2",
+    "highcharts-react-official": "^3.2.1",
+    "html2canvas": "^1.4.1",
+    "leaflet": "^1.9.4",
+    "nth-check": "^2.1.1",
+    "plotly.js": "^3.0.1",
+    "plotly.js-dist": "^3.0.1",
+    "postcss": "^8.5.3",
+    "primereact": "^10.9.2",
+    "react": "^19.0.0",
+    "react-apexcharts": "^1.7.0",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-leaflet": "^5.0.0",
+    "react-plotly.js": "^2.6.0",
+    "react-router-dom": "^7.2.0",
+    "react-scripts": "^5.0.1",
+    "react-select": "^5.10.1",
+    "react-simple-maps": "^1.0.0",
+    "react-slick": "^0.30.3",
+    "react-zoom-pan-pinch": "^3.7.0",
+    "recharts": "^2.15.1",
+    "remixicon": "^4.6.0",
+    "remixicons": "^4.6.1",
+    "serialize-javascript": "^6.0.2",
+    "shpjs": "^6.1.0",
+    "slick-carousel": "^1.8.1",
+    "web-vitals": "^4.2.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

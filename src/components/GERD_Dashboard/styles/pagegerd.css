@@ -1,0 +1,242 @@
+/* General Section Styling */
+.section {
+    padding: 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.section-description {
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.highlight {
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Button Styles */
+button {
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Chart Wrapper for Proper Alignment */
+.chart-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    margin: 10px auto;
+    background: none;
+}
+
+
+
+.chart-toggle-btn:hover {
+    background-color: #1765c0;
+}
+
+/* Year Selector */
+.year-selector {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Cards Wrapper */
+.cards-wrapper {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ApexCharts Customization */
+.apexcharts-graphical, .apexcharts-svg {
+    background: transparent !important;
+}
+
+.apexcharts-xaxis text,
+.apexcharts-yaxis text {
+    fill: #333 !important;
+    font-weight: 500;
+}
+
+.apexcharts-xaxis line,
+.apexcharts-yaxis line {
+    stroke: #ccc !important;
+}
+
+.apexcharts-grid line {
+    stroke: #e0e0e0 !important;
+}
+
+.apexcharts-tooltip {
+    font-size: 14px !important;
+}
+
+.apexcharts-canvas {
+    padding: 5px;
+}
+
+
+
+
+/* Outer Box Styling */
+.box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 24px;
+    width: 90%;
+    max-width: 2000px;
+    transition: width 0.3s ease-in-out;
+    margin-top: 25px;
+}
+
+/* Left Side (Dropdown + Cards) */
+.left-side {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 65%;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Dropdown Movement */
+.dropdown {
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+
+
+/* Individual Tile */
+.tile {
+    background-color: #f9f9f9;
+    padding: 14px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    min-height: 80px;
+}
+
+/* Tile Text */
+.tile p {
+    font-weight: normal;
+    font-size: 14px;
+    color: #333;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .box {
+        flex-direction: column;
+        align-items: center;
+        width: 95%;
+    }
+
+    .left-side {
+        width: 100%;
+        align-items: center;
+    }
+
+    .tiles {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+}
+
+@media (max-width: 768px) {
+    .tiles {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+}
+
+/* Chart Container */
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 65%; /* Increased width */
+    max-width: 2500px; /* Wider max-width */
+    margin: 0 auto; /* Center horizontally */
+    position: relative;
+    padding: 20px;
+}
+
+/* Chart Toggle Button - Reduced Size */
+.chart-toggle-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #1A73E8;
+    color: white;
+    border: none;
+    padding: 5px 8px; /* Reduced padding */
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 3px; /* Reduced gap */
+    font-size: 12px; /* Reduced font size */
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+.chart-toggle-btn:hover {
+    background-color: #1765c0;
+}
+
+/* Styling for the Chart */
+.chart-container svg {
+    width: 100%; /* Ensure it takes full container width */
+    height: auto;
+    max-height: 550px; /* Increased height limit */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1500px) {
+    .chart-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .chart-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .chart-toggle-btn {
+        top: 8px;
+        right: 8px;
+        font-size: 10px; /* Further reduced on smaller screens */
+        padding: 4px 6px;
+    }
+}

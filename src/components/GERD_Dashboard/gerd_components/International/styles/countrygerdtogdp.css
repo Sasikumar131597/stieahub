@@ -1,0 +1,43 @@
+.countrygerdtogdp-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.countrygerdtogdp-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #222;
+}
+
+.countrygerdtogdp-slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.selected-year {
+  font-weight: bold;
+  font-size: 16px;
+  color: #444;
+}
+
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 600px;
+}
+
+.slider-wrapper span {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+}

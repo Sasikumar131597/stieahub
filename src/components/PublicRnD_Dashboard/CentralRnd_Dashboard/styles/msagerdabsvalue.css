@@ -1,0 +1,19 @@
+.slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+}
+.chart-footnote {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.section-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem; /* Adjust if needed */
+    margin-bottom: 15px; /* Adds spacing between title and description */
+    color: #004fa3;
+  }

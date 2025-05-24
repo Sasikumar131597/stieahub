@@ -1,0 +1,79 @@
+/* .central-stacked-area-chart-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0px auto; 
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .central-stacked-area-chart-container h3 {
+    text-align: center;
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+  
+
+  
+  .apexcharts-tooltip {
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    border-radius: 5px !important;
+  }
+  
+  .apexcharts-gridlines-horizontal {
+    stroke: #ccc !important;
+    stroke-dasharray: 5 !important;
+  }
+  
+  .apexcharts-xaxis-label,
+  .apexcharts-yaxis-label {
+    fill: #333 !important;
+    font-size: 12px !important;
+  }
+ 
+  .central-stacked-area-chart-container {
+    position: relative;
+    margin-top: 1px; 
+  }
+  
+  .chart-toolbar-icons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+  }
+  
+  .chart-icon {
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+    transition: color 0.2s;
+  }
+  
+  .chart-icon:hover {
+    color: #007bff;
+  } */
+.chart-footnote-center {
+    font-size: 12px; /* Adjust the size as needed */
+    text-align: center;
+    color: #555; /* Optional: Adjust color for readability */
+  }
+
+  .central-stacked-area-chart-container {
+    width: 90%; /* Increased width */
+    max-width: 1200px; /* Set a max width */
+    margin: 0 auto; /* Center the container */
+  }
+
+  .chart-title {
+    text-align: center;
+    font-weight: normal; /* Ensure normal font weight */
+    font-size: 1.5rem; /* Increased font size */
+    margin-top: 20px; /* Moves the title down */
+    margin-bottom: 20px; /* Adds more spacing below */
+  }
+

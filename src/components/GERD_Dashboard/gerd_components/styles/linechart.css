@@ -1,0 +1,52 @@
+.line-chart-container {
+  width: 100%;
+  max-width: 2000px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.line-chart-container h3 {
+  text-align: center;
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+/* .chart-wrapper {
+  width: 100%;
+  height: 400px;
+} */
+
+.apexcharts-tooltip {
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  border-radius: 5px !important;
+}
+
+.apexcharts-gridlines-horizontal {
+  stroke: #ccc !important;
+  stroke-dasharray: 5 !important;
+}
+
+.apexcharts-xaxis-label,
+.apexcharts-yaxis-label {
+  fill: #333 !important;
+  font-size: 12px !important;
+}
+
+/* Add these styles for axis titles */
+.apexcharts-xaxis-title-text,
+.apexcharts-yaxis-title-text {
+  fill: #000000 !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+}
+
+.chart-footnote-center {
+  font-size: 12px; /* Adjust the size as needed */
+  text-align: center;
+  color: #555; /* Optional: Adjust color for readability */
+}

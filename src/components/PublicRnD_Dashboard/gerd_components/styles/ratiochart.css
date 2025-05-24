@@ -1,0 +1,137 @@
+.ratiochart-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+}
+
+.ratio-chart-section {
+    margin-top: 40px;
+    text-align: left;
+}
+
+.ratio-chart-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* Dropdown Styling */
+select {
+    padding: 8px 12px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #f8f8f8;
+}
+
+/* Ensure chart container fits the new line chart */
+.ratiochart {
+    width: 100%;
+    height: 400px;
+}
+
+/* Tooltip Styling */
+.apexcharts-tooltip {
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    border-radius: 5px !important;
+}
+
+/* Gridline Styling */
+.apexcharts-gridlines-horizontal {
+    stroke: #ccc !important;
+    stroke-dasharray: 5 !important;
+}
+
+.apexcharts-xaxis-label,
+.apexcharts-yaxis-label {
+    fill: #333 !important;
+    font-size: 12px !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .ratiochart-container {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .ratiochart-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    select {
+        width: 100%;
+        font-size: 13px;
+    }
+}
+
+/* Dropdown Wrapper */
+.select-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Adjusting the width of the dropdown */
+.select-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+/* Dropdown Label */
+.select-container label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1E3A8A;
+}
+
+/* Fix Dropdown Length */
+.select-container select {
+    width: 250px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #1E3A8A;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 5px rgba(30, 58, 138, 0.2);
+}
+
+/* Ensure text doesn't get cut off */
+.select-container select option {
+    font-size: 16px;
+    padding: 10px;
+    background-color: white;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Adjust width on smaller screens */
+@media (max-width: 768px) {
+    .select-container select {
+        width: 100%;
+    }
+}

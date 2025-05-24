@@ -1,0 +1,23 @@
+.sunburst-container {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+}
+.labels-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}

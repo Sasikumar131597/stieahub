@@ -1,0 +1,37 @@
+h2 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #004fa3;
+}
+
+.section-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem; /* Adjust if needed */
+    margin-bottom: 15px; /* Adds spacing between title and description */
+    color: #004fa3;
+  }
+
+.multilinechart_md_multiselect {
+    margin-bottom: 20px;
+}
+
+.multilinechart_md_chart-container {
+    display: flex;
+    justify-content: center; /* Center chart horizontally */
+    align-items: center; /* Center chart vertically */
+    width: 100%; /* Ensure full width usage */
+    max-width: 1200px;
+}
+
+.multilinechart_md_container {
+    margin-top: 50px;
+    width: 100%; /* Adjust container width */
+    max-width: 1400px; /* Increase max width */
+    margin: auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

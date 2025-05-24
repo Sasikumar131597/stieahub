@@ -1,0 +1,124 @@
+.section {
+    margin: 40px 0;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #0a3d62;
+    font-family: 'Georgia', serif; /* Apply only to home if needed */
+}
+
+.section-description {
+    font-size: 16px;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Only apply the special font to the homepage sections */
+.homepage .section-title {
+    font-family: 'Merriweather', serif;
+    font-size: 32px;
+    color: #102a43;
+}
+
+/* Highlight inside description */
+.highlight {
+    font-weight: bold;
+    color: #1976d2;
+}
+
+/* Center chart block and make sure only one container is there */
+.chart-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    margin: 10px auto;
+    background: none; /* No background on wrapper */
+}
+
+/* Clean chart container */
+.chart-container {
+    width: 100%;
+    max-width: 1000px;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Avoid weird overflows */
+}
+
+/* Position toggle button inside wrapper, not container */
+.chart-toggle-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #1A73E8;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 10; /* Above chart */
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.chart-toggle-btn:hover {
+    background-color: #1765c0;
+}
+
+/* Year range selector */
+.year-selector {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Cards layout (if present) */
+.cards-wrapper {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Ensure charts (Apex/Plotly) do not get white backgrounds from global theme */
+.apexcharts-graphical, .apexcharts-svg {
+    background: transparent !important;
+}
+
+/* Ensure all axis lines and text are visible */
+.apexcharts-xaxis text,
+.apexcharts-yaxis text {
+    fill: #333 !important;
+    font-weight: 500;
+}
+
+.apexcharts-xaxis line,
+.apexcharts-yaxis line {
+    stroke: #ccc !important;
+}
+
+.apexcharts-grid line {
+    stroke: #e0e0e0 !important;
+}
+
+.apexcharts-tooltip {
+    font-size: 14px !important;
+}
+
+/* Optional: Add padding to charts if required */
+.apexcharts-canvas {
+    padding: 5px;
+}
+

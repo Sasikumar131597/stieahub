@@ -1,0 +1,659 @@
+[
+  {
+    "Year": "1948-49",
+    "R&D": 1.1,
+    "GDP": "",
+    "Central Sector": 1.1,
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1949-50",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1950-51",
+    "R&D": 4.68,
+    "GDP": "",
+    "Central Sector": 4.68,
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1951-52",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1952-53",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1953-54",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1954-55",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1955-56",
+    "R&D": 12.14,
+    "GDP": "",
+    "Central Sector": 12.14,
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1956-57",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1957-58",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1958-59",
+    "R&D": 22.93,
+    "GDP": "",
+    "Central Sector": 21.78,
+    "State Sector": 1,
+    "Private Sector": 0.15,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1959-60",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1960-61",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1961-62",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1962-63",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1963-64",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1964-65",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1965-66",
+    "R&D": 68.31,
+    "GDP": "",
+    "Central Sector": 62.45,
+    "State Sector": 3.51,
+    "Private Sector": 2.43,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1966-67",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1967-68",
+    "R&D": "",
+    "GDP": "",
+    "Central Sector": "",
+    "State Sector": "",
+    "Private Sector": "",
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1968-69",
+    "R&D": 107.56,
+    "GDP": "",
+    "Central Sector": 85.72,
+    "State Sector": 11.99,
+    "Private Sector": 9.85,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1969-70",
+    "R&D": 116.62,
+    "GDP": "",
+    "Central Sector": 91.59,
+    "State Sector": 12.22,
+    "Private Sector": 12.81,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1970-71",
+    "R&D": 139.64,
+    "GDP": "",
+    "Central Sector": 112.47,
+    "State Sector": 12.58,
+    "Private Sector": 14.59,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1971-72",
+    "R&D": 151.64,
+    "GDP": "",
+    "Central Sector": 125.93,
+    "State Sector": 9.53,
+    "Private Sector": 16.18,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1972-73",
+    "R&D": 194.67,
+    "GDP": "",
+    "Central Sector": 155.68,
+    "State Sector": 10.76,
+    "Private Sector": 19.32,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1973-74",
+    "R&D": 216.01,
+    "GDP": "",
+    "Central Sector": 161.53,
+    "State Sector": 24.13,
+    "Private Sector": 30.35,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1974-75",
+    "R&D": 291.6,
+    "GDP": "",
+    "Central Sector": 231.14,
+    "State Sector": 24,
+    "Private Sector": 36.46,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1975-76",
+    "R&D": 356.71,
+    "GDP": "",
+    "Central Sector": 287.63,
+    "State Sector": 26.73,
+    "Private Sector": 42.35,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1976-77",
+    "R&D": 374.16,
+    "GDP": "",
+    "Central Sector": 300.54,
+    "State Sector": 25.2,
+    "Private Sector": 48.42,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1977-78",
+    "R&D": 430.62,
+    "GDP": "",
+    "Central Sector": 343.92,
+    "State Sector": 28.5,
+    "Private Sector": 58.2,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1978-79",
+    "R&D": 528.6,
+    "GDP": "",
+    "Central Sector": 412.49,
+    "State Sector": 40.24,
+    "Private Sector": 75.87,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1979-80",
+    "R&D": 638.54,
+    "GDP": "",
+    "Central Sector": 500.36,
+    "State Sector": 46.04,
+    "Private Sector": 92.14,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1980-81",
+    "R&D": 760.52,
+    "GDP": "",
+    "Central Sector": 580.49,
+    "State Sector": 59.34,
+    "Private Sector": 120.69,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1981-82",
+    "R&D": 940.73,
+    "GDP": "",
+    "Central Sector": 721.94,
+    "State Sector": 71.79,
+    "Private Sector": 147,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1982-83",
+    "R&D": 1206.03,
+    "GDP": "",
+    "Central Sector": 912,
+    "State Sector": 97.05,
+    "Private Sector": 196.98,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1983-84",
+    "R&D": 1381.1,
+    "GDP": "",
+    "Central Sector": 1053.37,
+    "State Sector": 119.9,
+    "Private Sector": 207.83,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1984-85",
+    "R&D": 1781.55,
+    "GDP": "",
+    "Central Sector": 1422.25,
+    "State Sector": 126.11,
+    "Private Sector": 233.19,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1985-86",
+    "R&D": 2068.78,
+    "GDP": "",
+    "Central Sector": 1654.06,
+    "State Sector": 162.78,
+    "Private Sector": 251.94,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1986-87",
+    "R&D": 2435.4,
+    "GDP": "",
+    "Central Sector": 1979.21,
+    "State Sector": 164.56,
+    "Private Sector": 291.63,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1987-88",
+    "R&D": 2853.07,
+    "GDP": "",
+    "Central Sector": 2358.88,
+    "State Sector": 183.92,
+    "Private Sector": 310.27,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1988-89",
+    "R&D": 3347.26,
+    "GDP": "",
+    "Central Sector": 2675.59,
+    "State Sector": 254.05,
+    "Private Sector": 417.62,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1989-90",
+    "R&D": 3725.74,
+    "GDP": "",
+    "Central Sector": 2933.92,
+    "State Sector": 301.23,
+    "Private Sector": 490.59,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1990-91",
+    "R&D": 3974.17,
+    "GDP": "",
+    "Central Sector": 3058.27,
+    "State Sector": 365.92,
+    "Private Sector": 549.98,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1991-92",
+    "R&D": 4512.81,
+    "GDP": "",
+    "Central Sector": 3467.29,
+    "State Sector": 408.58,
+    "Private Sector": 636.94,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1992-93",
+    "R&D": 5004.6,
+    "GDP": "",
+    "Central Sector": 3664.84,
+    "State Sector": 503.51,
+    "Private Sector": 836.25,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1993-94",
+    "R&D": 6073.02,
+    "GDP": "",
+    "Central Sector": 4528.98,
+    "State Sector": 561.5,
+    "Private Sector": 982.54,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1994-95",
+    "R&D": 6622.44,
+    "GDP": "",
+    "Central Sector": 4710.51,
+    "State Sector": 593.06,
+    "Private Sector": 1318.87,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1995-96",
+    "R&D": 7483.88,
+    "GDP": "",
+    "Central Sector": 5199.79,
+    "State Sector": 657.02,
+    "Private Sector": 1627.07,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1996-97",
+    "R&D": 8913.61,
+    "GDP": "",
+    "Central Sector": 5727.79,
+    "State Sector": 855.07,
+    "Private Sector": 2330.75,
+    "Higher Education Sector": ""
+  },
+  {
+    "Year": "1997-98",
+    "R&D": 10611.34,
+    "GDP": "",
+    "Central Sector": 6884.8,
+    "State Sector": 926.76,
+    "Private Sector": 2438.25,
+    "Higher Education Sector": 361.53
+  },
+  {
+    "Year": "1998-99",
+    "R&D": 12473.17,
+    "GDP": "",
+    "Central Sector": 8412.16,
+    "State Sector": 1041.4,
+    "Private Sector": 2641.05,
+    "Higher Education Sector": 378.56
+  },
+  {
+    "Year": "1999-00",
+    "R&D": 14397.6,
+    "GDP": "",
+    "Central Sector": 9826.27,
+    "State Sector": 1289.88,
+    "Private Sector": 2657.83,
+    "Higher Education Sector": 623.64
+  },
+  {
+    "Year": "2000-01",
+    "R&D": 16198.8,
+    "GDP": "",
+    "Central Sector": 11050.2,
+    "State Sector": 1574.32,
+    "Private Sector": 2923.32,
+    "Higher Education Sector": 650.94
+  },
+  {
+    "Year": "2001-02",
+    "R&D": 17038.15,
+    "GDP": "",
+    "Central Sector": 11536.33,
+    "State Sector": 1494.33,
+    "Private Sector": 3292.69,
+    "Higher Education Sector": 714.8
+  },
+  {
+    "Year": "2002-03",
+    "R&D": 18088.16,
+    "GDP": "",
+    "Central Sector": 12251.17,
+    "State Sector": 1588.15,
+    "Private Sector": 3498.3,
+    "Higher Education Sector": 750.54
+  },
+  {
+    "Year": "2003-04",
+    "R&D": 20086.34,
+    "GDP": "",
+    "Central Sector": 13034.69,
+    "State Sector": 1689.78,
+    "Private Sector": 4471.27,
+    "Higher Education Sector": 890.6
+  },
+  {
+    "Year": "2004-05",
+    "R&D": 24117.24,
+    "GDP": "",
+    "Central Sector": 15079.95,
+    "State Sector": 1941.53,
+    "Private Sector": 6038.96,
+    "Higher Education Sector": 1056.8
+  },
+  {
+    "Year": "2005-06",
+    "R&D": 29932.58,
+    "GDP": "",
+    "Central Sector": 17872.02,
+    "State Sector": 2334.6,
+    "Private Sector": 8471.95,
+    "Higher Education Sector": 1254.01
+  },
+  {
+    "Year": "2006-07",
+    "R&D": 34238.39,
+    "GDP": "",
+    "Central Sector": 19551.8,
+    "State Sector": 2757.79,
+    "Private Sector": 10485.58,
+    "Higher Education Sector": 1443.21
+  },
+  {
+    "Year": "2007-08",
+    "R&D": 39437.77,
+    "GDP": "",
+    "Central Sector": 21898.88,
+    "State Sector": 2951.8,
+    "Private Sector": 12926.14,
+    "Higher Education Sector": 1660.96
+  },
+  {
+    "Year": "2008-09",
+    "R&D": 47353.38,
+    "GDP": "",
+    "Central Sector": 27513.88,
+    "State Sector": 3562.54,
+    "Private Sector": 14365.4,
+    "Higher Education Sector": 1911.56
+  },
+  {
+    "Year": "2009-10",
+    "R&D": 53041.3,
+    "GDP": "",
+    "Central Sector": 31670.54,
+    "State Sector": 3865.24,
+    "Private Sector": 15305.55,
+    "Higher Education Sector": 2199.97
+  },
+  {
+    "Year": "2010-11",
+    "R&D": 60196.75,
+    "GDP": "",
+    "Central Sector": 33095.18,
+    "State Sector": 4457.81,
+    "Private Sector": 19337.02,
+    "Higher Education Sector": 3306.74
+  },
+  {
+    "Year": "2011-12",
+    "R&D": 65961.33,
+    "GDP": 873.63,
+    "Central Sector": 34021.44,
+    "State Sector": 5137.56,
+    "Private Sector": 23295.71,
+    "Higher Education Sector": 3506.62
+  },
+  {
+    "Year": "2012-13",
+    "R&D": 73982.79,
+    "GDP": 921.3,
+    "Central Sector": 37894.46,
+    "State Sector": 5282.86,
+    "Private Sector": 27096.51,
+    "Higher Education Sector": 3708.96
+  },
+  {
+    "Year": "2013-14",
+    "R&D": 79355.89,
+    "GDP": 980.14,
+    "Central Sector": 38879.89,
+    "State Sector": 5951.15,
+    "Private Sector": 30514.8,
+    "Higher Education Sector": 4010.05
+  },
+  {
+    "Year": "2014-15",
+    "R&D": 87473.44,
+    "GDP": 1052.77,
+    "Central Sector": 43094.9,
+    "State Sector": 6327.32,
+    "Private Sector": 32538.39,
+    "Higher Education Sector": 5512.83
+  },
+  {
+    "Year": "2015-16",
+    "R&D": 95452.44,
+    "GDP": 1136.95,
+    "Central Sector": 46887.17,
+    "State Sector": 6447.94,
+    "Private Sector": 36022.15,
+    "Higher Education Sector": 6095.18
+  },
+  {
+    "Year": "2016-17",
+    "R&D": 103099.26,
+    "GDP": 1230.82,
+    "Central Sector": 50219.42,
+    "State Sector": 6866.96,
+    "Private Sector": 39124.71,
+    "Higher Education Sector": 6888.17
+  },
+  {
+    "Year": "2017-18",
+    "R&D": 113825.03,
+    "GDP": 1314.46,
+    "Central Sector": 56920.02,
+    "State Sector": 7264.81,
+    "Private Sector": 41855.88,
+    "Higher Education Sector": 7784.33
+  },
+  {
+    "Year": "2018-19",
+    "R&D": 124740.14,
+    "GDP": 1399.29,
+    "Central Sector": 65423.9,
+    "State Sector": 8029.21,
+    "Private Sector": 42489.95,
+    "Higher Education Sector": 8797.08
+  },
+  {
+    "Year": "2019-20",
+    "R&D": 132567.01,
+    "GDP": 1453.46,
+    "Central Sector": 69317.09,
+    "State Sector": 8554.79,
+    "Private Sector": 44753.54,
+    "Higher Education Sector": 9941.59
+  },
+  {
+    "Year": "2020-21",
+    "R&D": 127380.96,
+    "GDP": 1368.71,
+    "Central Sector": 61281.48,
+    "State Sector": 8476.35,
+    "Private Sector": 46388.13,
+    "Higher Education Sector": 11235
+  }
+]
