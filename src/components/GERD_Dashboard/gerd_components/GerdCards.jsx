@@ -24,7 +24,7 @@ const GerdCards = ({ total_gerd_data, sectorGerdData, selectedYear }) => {
         <div key={index} className={`dashboard-box box-${index + 1}`}>
           <div className="card-key">{item.label}</div>
           <div className="card-value">
-            {typeof item.value === "number" ? `INR ${item.value.toFixed(2)} Cr` : item.value}
+            {typeof item.value === "number" ? `INR ${item.value.toFixed(2)} Cr` : `INR ${item.value} Cr`}
           </div>
         </div>
       ))}

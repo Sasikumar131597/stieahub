@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { fetchTotalGerdData, fetchGerdSectorData } from "../helpers/apiHelper";
 import "./styles/pagegerd.css";
 import PageTitle from "../PageTitle";
@@ -10,7 +10,7 @@ import Spinner from "../helpers/spinner";
 import RatioChart from "./gerd_components/RatioChart";
 import StackedAreaChart from "./gerd_components/StackedAreaChart";
 import { FaChartLine, FaChartArea } from "react-icons/fa";
-import NavGerdCards from "./gerd_components/NavGerdCards"; 
+import NavGerdCards from "./gerd_components/NavGerdCards";
 import axios from "axios";
 
 function GERD_Home() {
@@ -20,77 +20,35 @@ function GERD_Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   // const [chartData, setChartData] = useState([]);
-  const[lineChartData, setLineChartData] = useState();
+  const [lineChartData, setLineChartData] = useState();
+  const [lineStackedData, setLineStackedData] = useState();
   const [pieData1, setPieData1] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
   const [availableYears, setAvailableYears] = useState([]);
   const [chartType, setChartType] = useState("line");
 
-
-  
-  useEffect(() => {
-    const fetchData = async () => {
+const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
+        const trendOverData = await axios.get('http://development.stieahub.in/Codigniter_api/public/form_1_india');
 
-        // const { formattedData: gerdData, error: gerdError } = await fetchTotalGerdData();
+        setLineChartData(trendOverData?.data);
 
-        // my st
-        axios.get('http://development.stieahub.in/Codigniter_api/public/form_1_india').then((resp) => {
-          setLineChartData(resp?.data);
-         // console.log('lineData', resp);
-           
-        })
-
-  //       axios({
-  //         url: 'http://development.stieahub.in/Codigniter_api/public/form_1_india',
-  //         method: 'GET',
-  //          headers: {
-  //   'Content-Type': 'application/json',
-  //    'Access-Control-Allow-Origin': '*'
-  // }
-  //       }).then((resp) => {
-  //         console.log('sasiChartData', resp);
-  //       })
-
-        // my ed
-        // if (gerdError) throw new Error(gerdError);
-
-        const gerdDict = lineChartData.reduce((acc, item) => {
-          acc[item.year] = item;
+        const gerdDict = trendOverData?.data?.reduce((acc, item) => {
+          acc[item?.year] = item;
           return acc;
         }, {});
 
         setTotalGerdData(gerdDict);
-        // setChartData(lineChartData);
 
-        const sortedYears = lineChartData.map((item) => item.year).sort();
+
+        const sortedYears = trendOverData?.data?.map((item) => item?.year).sort();
         setAvailableYears(sortedYears);
 
-        const latestValidYear = sortedYears.reverse().find((year) => gerdDict[year]?.value);
+        const latestValidYear = sortedYears?.reverse()?.find((year) => gerdDict[year]?.value);
         setSelectedYear(latestValidYear);
 
-
-
-        const { formattedData: sectorData, error: sectorError } = await fetchGerdSectorData();
-        if (sectorError) throw new Error(sectorError);
-
-        const sectorDict = sectorData.reduce((acc, item) => {
-          acc[item.year] = item;
-          return acc;
-        }, {});
-
-        setSectorGerdData(sectorDict);
-
-        setPieData1(
-            sectorData.map((item) => ({
-              year: item.year,
-              publicRND: parseFloat(item.centralRND || 0) + parseFloat(item.stateRND || 0),
-              privateRND: parseFloat(item.privateRND || 0),
-              heiRND: parseFloat(item.heiRND || 0),
-            }))
-          );
 
 
         setDataUpdated((prev) => !prev);
@@ -101,16 +59,43 @@ function GERD_Home() {
       }
     };
 
+  useEffect(() => {
+    
     fetchData();
   }, []);
 
-  console.log('sasiChartData', lineChartData);
-  // console.log('prevchartData', chartData);
+  const fetchSectorData = async () => {
+
+
+    const sectorWiseData = await axios.get('http://development.stieahub.in/Codigniter_api/public/form_1_india_sectorwise');
+
+    const sectorDict = sectorWiseData?.data?.reduce((acc, item) => {
+      acc[item?.year] = item;
+      return acc;
+    }, {});
+
+    setSectorGerdData(sectorDict);
+
+    setPieData1(
+      sectorWiseData?.data?.map((item) => ({
+        year: item?.year,
+        publicRND: parseFloat(item?.centralRND || 0) + parseFloat(item?.stateRND || 0),
+        privateRND: parseFloat(item?.privateRND || 0),
+        heiRND: parseFloat(item?.heiRND || 0),
+      }))
+    );
+
+  }
+
+  useEffect(() => {
+
+    fetchSectorData();
+
+  }, [selectedYear]);
 
   if (loading) return <Spinner />;
-  // if (!selectedYear) return <p>Loadingq...</p>;
 
-  
+
 
   return (
     <main className="bg-gray-50 p-4">
@@ -121,8 +106,8 @@ function GERD_Home() {
         </p>
         <p className="highlight">
           - <a href="https://www.oecd.org/en/publications/2015/10/frascati-manual-2015_g1g57dcb.html" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-              Frascati Manual, OECD
-            </a>
+            Frascati Manual, OECD
+          </a>
         </p>
       </div>
 
@@ -144,55 +129,55 @@ function GERD_Home() {
       </div>
 
       <div style={{ position: "relative" }}>
-  <div className="chart-selector" 
-       style={{ 
-         position: "absolute", 
-         top: "10px", 
-         right: "250px",
-         zIndex: 10, 
-         background: "rgba(255, 255, 255, 0.8)", 
-         padding: "5px 10px", 
-         borderRadius: "5px"
-       }}>
-    <label htmlFor="chartType">Select Chart Type: </label>
-    <select id="chartType" value={chartType} onChange={(e) => setChartType(e.target.value)} className="dropdown-chart">
-      <option value="line">GERD</option>
-      <option value="area">Sector-Wise</option>
-    </select>
-  </div>
+        <div className="chart-selector"
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "250px",
+            zIndex: 10,
+            background: "rgba(255, 255, 255, 0.8)",
+            padding: "5px 10px",
+            borderRadius: "5px"
+          }}>
+          <label htmlFor="chartType">Select Chart Type: </label>
+          <select id="chartType" value={chartType} onChange={(e) => setChartType(e.target.value)} className="dropdown-chart">
+            <option value="line">GERD</option>
+            <option value="area">Sector-Wise</option>
+          </select>
+        </div>
 
-  {chartType === "line" ? <LineChartComponent chartData={lineChartData} /> : <StackedAreaChart sectorGerdData={sectorGerdData} />}
-</div>
+        {chartType === "line" ? <LineChartComponent chartData={lineChartData} /> : <StackedAreaChart sectorGerdData={sectorGerdData} />}
+      </div>
 
       <div className="container">
         <div className="box flex justify-between items-center">
-            {/* Left Side - Dropdown and Cards */}
-        <div className="left-side flex flex-col" style={{ width: "30%" }}>
-    <div className="dropdown">
-                <YearRange selectedYear={selectedYear} setSelectedYear={setSelectedYear} availableYears={availableYears} />
+          {/* Left Side - Dropdown and Cards */}
+          <div className="left-side flex flex-col" style={{ width: "30%" }}>
+            <div className="dropdown">
+              <YearRange selectedYear={selectedYear} setSelectedYear={setSelectedYear} availableYears={availableYears} />
             </div>
             <div className="tiles">
-                <GerdCards total_gerd_data={totalGerdData} sectorGerdData={sectorGerdData} selectedYear={selectedYear} />
+              <GerdCards total_gerd_data={totalGerdData} sectorGerdData={sectorGerdData} selectedYear={selectedYear} />
             </div>
-            </div>
+          </div>
 
-            {/* Right Side - Pie Chart */}
-            
-            <PieChart1 className="w-1/2"
-                pieData={[
-                { name: "Public R&D", value: sectorGerdData[selectedYear]?.publicRND || 0 },
-                { name: "Private R&D", value: sectorGerdData[selectedYear]?.privateRND || 0 },
-                { name: "HEI R&D", value: sectorGerdData[selectedYear]?.heiRND || 0 },
-                ]}
-                selectedYear={selectedYear}
-            />     
-                    <p className="chart-footnote" >
-                        <b>Source: </b><span >Data on GERD and sectoral R&D expenditures are from NSTMIS, Department of Science and Technology, Government of India
-</span>
-                </p>
+          {/* Right Side - Pie Chart */}
+
+          <PieChart1 className="w-1/2"
+            pieData={[
+              { name: "Public R&D", value: sectorGerdData[selectedYear]?.publicRND || 0 },
+              { name: "Private R&D", value: sectorGerdData[selectedYear]?.privateRND || 0 },
+              { name: "HEI R&D", value: sectorGerdData[selectedYear]?.heiRND || 0 },
+            ]}
+            selectedYear={selectedYear}
+          />
+          <p className="chart-footnote" >
+            <b>Source: </b><span >Data on GERD and sectoral R&D expenditures are from NSTMIS, Department of Science and Technology, Government of India
+            </span>
+          </p>
         </div>
 
-        </div>
+      </div>
 
 
       <br />
@@ -200,12 +185,12 @@ function GERD_Home() {
       <div className="text-center my-7">
         <h1 className="section-title">R&D Intensity</h1>
         <p className="section-description">
-        GERD is often presented as a ratio of GERD divided by gross domestic product (GDP) as an indicator of the R&D intensity of a country’s economy, both over time and in comparison with other countries
+          GERD is often presented as a ratio of GERD divided by gross domestic product (GDP) as an indicator of the R&D intensity of a country’s economy, both over time and in comparison with other countries
         </p>
         <p className="highlight">
           - <a href="https://www.oecd.org/en/publications/2015/10/frascati-manual-2015_g1g57dcb.html" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-              Frascati Manual, OECD
-            </a>
+            Frascati Manual, OECD
+          </a>
         </p>
       </div>
 
