@@ -11,6 +11,7 @@ import RatioChart from "./gerd_components/RatioChart";
 import StackedAreaChart from "./gerd_components/StackedAreaChart";
 import { FaChartLine, FaChartArea } from "react-icons/fa";
 import NavPublicCards from "./NavPublicCards";
+import axios from "axios";
 
 function PublicRnd() {
     const [parsedData, setParsedData] = useState({});
@@ -26,7 +27,10 @@ function PublicRnd() {
         const fetchData = async () => {
             setLoading(true);
             setError(null);
-            const { data, error } = await fetchConsolidatedPublicData();
+           // const { data, error } = await fetchConsolidatedPublicData();
+
+            const publicRD = await axios.get('http://development.stieahub.in/Codigniter_api/public/public_rnd');
+           const data = await publicRD?.data;
 
             if (error) {
                 setError(error);
