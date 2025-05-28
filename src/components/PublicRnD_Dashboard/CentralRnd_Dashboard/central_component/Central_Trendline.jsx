@@ -3,7 +3,6 @@ import ReactApexChart from "react-apexcharts";
 import "../styles/centraltrendline.css";
 
 const Central_Trendline = ({ chartData }) => {
-  console.log("dc", chartData)
   const chartRef = useRef(null);
 
   if (!chartData || chartData.length === 0) {

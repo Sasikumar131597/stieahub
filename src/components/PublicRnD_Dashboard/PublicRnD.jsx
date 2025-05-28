@@ -29,7 +29,7 @@ function PublicRnd() {
             setError(null);
            // const { data, error } = await fetchConsolidatedPublicData();
 
-            const publicRD = await axios.get('http://development.stieahub.in/Codigniter_api/public/public_rnd');
+            const publicRD = await axios.get('https://development.stieahub.in/Codigniter_api/public/public_rnd');
            const data = await publicRD?.data;
 
             if (error) {

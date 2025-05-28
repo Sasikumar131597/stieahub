@@ -10,6 +10,7 @@ import MultilineChart_MSA from "./central_component/MultilineChart_MSA";
 import MultilineChart_MD from "./central_component/MultilineChart_MD";
 import MSAgerdabsvalue from "./central_component/MSAgerdabsvalue";
 import MDgerdabsvalue from "./central_component/MDgerdabsvalue";
+import axios from "axios";
 
 function Central_Home() {
   const [totalGerdData, setTotalGerdData] = useState({});
@@ -54,11 +55,14 @@ function Central_Home() {
         setLoading(true);
         setError(null);
 
+        const gerddatav = await axios.get('https://development.stieahub.in/Codigniter_api/public/gerddata');
+        
         // Fetch GERD Data
-        const { formattedData: gerdData, error: gerdError } = await fetchTotalGerdData();
-        if (gerdError) throw new Error(gerdError);
-        setTotalGerdData(gerdData);
-        setChartData(gerdData);
+        // const { formattedData: gerdData, error: gerdError } = await fetchTotalGerdData();
+        // if (gerdError) throw new Error(gerdError);
+
+        setTotalGerdData(gerddatav?.data);
+        setChartData(gerddatav?.data);
 
         // Fetch Sunburst Data
         const { availableYears, transformData,names, error: sunburstError } = await fetchSunburstData();
@@ -130,11 +134,16 @@ function Central_Home() {
         setTrendlineError(null);
         setStackedAreaError(null);
 
-        const { trendlineData, stackedAreaData, error } = await fetchCentralTrendlineData();
-        if (error) throw new Error(error);
+        // const { trendlineData, stackedAreaData, error } = await fetchCentralTrendlineData();
+        // if (error) throw new Error(error);
 
-        setTrendlineData(trendlineData); // Pass Central Sector Data to Trendline
-        setStackedAreaData(stackedAreaData); // Pass MSA & MD Data to Stacked Area Chart
+        
+        const treddata = await axios.get('https://development.stieahub.in/Codigniter_api/public/trendlinedata');
+
+        const stackeddata = await axios.get('https://development.stieahub.in/Codigniter_api/public/sectorstackedarea');
+
+        setTrendlineData(treddata?.data); // Pass Central Sector Data to Trendline
+        setStackedAreaData(stackeddata?.data); // Pass MSA & MD Data to Stacked Area Chart
       } catch (err) {
         setTrendlineError(err.message);
         setStackedAreaError(err.message);

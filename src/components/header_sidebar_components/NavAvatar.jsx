@@ -1,7 +1,7 @@
 import React from 'react'
-import profileImg from '../../images/user.png';
+import profileImg from '../../images/admin-user.png';
 function NavAvatar() {
-    const name="Tony S";
+    const name="Admin User ";
   return (
     <li className='nav-item dropdown pe-3'>
         <a
@@ -16,7 +16,7 @@ function NavAvatar() {
         <ul className='dropdown-menu dropdown-menu-end dropdown-menu arrow profile'>
             <li className='dropdown-header'>
                 <h6>Hi, {name}</h6>
-                <span>Data Scientist</span>
+                <span></span>
             </li>
             <li>
                 <hr className='dropdown-divider' />
