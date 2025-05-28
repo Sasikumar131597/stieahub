@@ -18,8 +18,8 @@ import React, { useState, useEffect } from "react";
              {
                  name: "GERD Absolute Value (in USD millions)",
                  data: data[year]?.map(d => ({
-                     x: d.country,
-                     y: d.value
+                     x: d?.country,
+                     y: d?.value
                  })) || []
              }
          ],
@@ -48,7 +48,7 @@ import React, { useState, useEffect } from "react";
              },
              dataLabels: {
                  enabled: true,
-                 formatter: (val) => val.toLocaleString(),  // Format as number with commas
+                 formatter: (val) => val?.toLocaleString(),  // Format as number with commas
                  offsetY: -20,
                  style: {
                      fontSize: "12px",
@@ -59,7 +59,7 @@ import React, { useState, useEffect } from "react";
                  enabled: false  // Disable tooltip
              },
              xaxis: {
-                 categories: data[year]?.map(d => d.country) || [],
+                 categories: data[year]?.map(d => d?.country) || [],
                  labels: {
                      rotate: -45,
                      style: { fontSize: "12px" }
@@ -82,7 +82,7 @@ import React, { useState, useEffect } from "react";
 
              <h2 style={{ marginBottom: "10px", fontSize: "18px", fontWeight: "bold" }}>
                  GERD Absolute Value - {year}</h2>
-             <Chart options={chartData.options} series={chartData.series} type="bar" height={400} />
+             <Chart options={chartData?.options} series={chartData?.series} type="bar" height={400} />
 
              <div style={{ marginTop: '20px', padding: '0 10px' }}>
                  <Slider
@@ -91,7 +91,7 @@ import React, { useState, useEffect } from "react";
                      value={year}
                      onChange={handleYearChange}
                      step={1}
-                     marks={yearRange.map(y => ({ value: y, label: y.toString() }))}
+                     marks={yearRange?.map(y => ({ value: y, label: y?.toString() }))}
                      valueLabelDisplay="off"
                  />
              </div>

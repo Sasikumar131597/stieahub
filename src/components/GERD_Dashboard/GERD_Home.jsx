@@ -27,11 +27,22 @@ function GERD_Home() {
   const [availableYears, setAvailableYears] = useState([]);
   const [chartType, setChartType] = useState("line");
 
+  const Piedata  = useCallback(() => {
+  return (<PieChart1 className="w-1/2"
+            pieData={[
+              { name: "Public R&D", value: sectorGerdData[selectedYear]?.publicRND || 0 },
+              { name: "Private R&D", value: sectorGerdData[selectedYear]?.privateRND || 0 },
+              { name: "HEI R&D", value: sectorGerdData[selectedYear]?.heiRND || 0 },
+            ]}
+            selectedYear={selectedYear}
+          />)
+} ,[selectedYear,sectorGerdData]);
+
 const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
-        const trendOverData = await axios.get('http://development.stieahub.in/Codigniter_api/public/form_1_india');
+        const trendOverData = await axios.get('https://development.stieahub.in/Codigniter_api/public/form_1_india');
 
         setLineChartData(trendOverData?.data);
 
@@ -67,9 +78,10 @@ const fetchData = async () => {
   const fetchSectorData = async () => {
 
 
-    const sectorWiseData = await axios.get('http://development.stieahub.in/Codigniter_api/public/form_1_india_sectorwise');
+    const sectorWiseData = await axios.get('https://development.stieahub.in/Codigniter_api/public/form_1_india_sectorwise');
 
-    const sectorDict = sectorWiseData?.data?.reduce((acc, item) => {
+    // console.log("sector",sectorWiseData?.data);
+    const sectorDict = await sectorWiseData?.data?.reduce((acc, item) => {
       acc[item?.year] = item;
       return acc;
     }, {});
@@ -91,9 +103,14 @@ const fetchData = async () => {
 
     fetchSectorData();
 
-  }, [selectedYear]);
+  }, [selectedYear,setLineChartData]);
 
   if (loading) return <Spinner />;
+
+console.log("selectedyear",selectedYear);
+console.log("setSelectedYear",setSelectedYear);
+console.log("availableYears",availableYears);
+
 
 
 
@@ -162,15 +179,8 @@ const fetchData = async () => {
           </div>
 
           {/* Right Side - Pie Chart */}
-
-          <PieChart1 className="w-1/2"
-            pieData={[
-              { name: "Public R&D", value: sectorGerdData[selectedYear]?.publicRND || 0 },
-              { name: "Private R&D", value: sectorGerdData[selectedYear]?.privateRND || 0 },
-              { name: "HEI R&D", value: sectorGerdData[selectedYear]?.heiRND || 0 },
-            ]}
-            selectedYear={selectedYear}
-          />
+          {Piedata()}
+          
           <p className="chart-footnote" >
             <b>Source: </b><span >Data on GERD and sectoral R&D expenditures are from NSTMIS, Department of Science and Technology, Government of India
             </span>

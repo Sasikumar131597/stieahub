@@ -9,7 +9,7 @@ import Central_Home from "./components/PublicRnD_Dashboard/CentralRnd_Dashboard/
 import State_Home from "./components/PublicRnD_Dashboard/StateRnD_Dashboard/State_Home";
 
 const routes = [
-    { path: "/project", element: <Main />, exact: true },
+    { path: "/", element: <Main />, exact: true },
     {
         path: "/gerd_dashboard",
         element: <GerdDashboardLayout />,

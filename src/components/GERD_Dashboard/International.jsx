@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import CountrySectorProportion from "./gerd_components/International/CountrySectorProportion";
 import CountryGerdtoGdp from "./gerd_components/International/CountryGerdtoGdp";
 import CountryGerdabsvalue from "./gerd_components/International/CountryGerdabsvalue";
@@ -6,6 +6,7 @@ import PageTitle from "../PageTitle";
 import './styles/international.css';  // Ensure this has proper section and chart-container styles
 import { fetchCountrySectorProportionData, fetchGerdToGdpData, fetchGerdAbsValueData } from "../helpers/apiHelper";
 import Spinner from "../helpers/spinner";  // Import Spinner component
+import axios from "axios";
 
 const International = () => {
     const [sectorProportionData, setSectorProportionData] = useState({});
@@ -15,40 +16,43 @@ const International = () => {
     const [loading, setLoading] = useState(true);  // Added loading state
     const [error, setError] = useState(null);      // Added error state
 
-    useEffect(() => {
-        const fetchData = async () => {
+
+const fetchData = useCallback(async () => {
             setLoading(true);
             setError(null);
-            try {
-                // Fetch all data in parallel
+                            // Fetch all data in parallel
                 const [sectorData, gerdToGdp, gerdAbs] = await Promise.all([
                     fetchCountrySectorProportionData(),
                     fetchGerdToGdpData(),
-                    fetchGerdAbsValueData()
+                     fetchGerdAbsValueData()
                 ]);
                 // Set data for each component
-                setSectorProportionData(sectorData.formattedData || {});
-                setGerdToGdpData(gerdToGdp.data || {});
-                setGerdAbsValueData(gerdAbs.data || {});
+
+                 const gerdToGdpv = await axios.get("https://development.stieahub.in/Codigniter_api/public/international_rd_internsity");
+                
+                const sectorDatav = await axios.get("https://development.stieahub.in/Codigniter_api/public/international_rd_expenditure");
+
+                 setSectorProportionData(sectorDatav?.data?.formattedData || {});
+                 setGerdToGdpData(gerdToGdpv?.data || {});
+                setGerdAbsValueData(gerdAbs?.data || {});
 
                 // Set year range dynamically if needed
-                const allYears = Object.keys({
-                    ...sectorData.data,
-                    ...gerdToGdp.data,
-                    ...gerdAbs.data
-                }).map(year => parseInt(year));
+                const allYears = Object?.keys({
+                    ...sectorData?.data,
+                    ...gerdToGdp?.data,
+                    ...gerdAbs?.data
+                })?.map(year => parseInt(year));
 
-                if (allYears.length > 0) {
+                if (allYears?.length > 0) {
                     setYearRange([Math.min(...allYears), Math.max(...allYears)]);
                 }
 
                 setLoading(false);
-            } catch (err) {
-                setError("Failed to fetch data. Please try again later.");
-                setLoading(false);
-            }
-        };
+            
+        }, []) 
 
+    useEffect(() => {
+    
         fetchData();
     }, []);
 
@@ -60,13 +64,14 @@ const International = () => {
         );
     }
 
-    if (error) {
-        return (
-            <div className="error-container">
-                <p>{error}</p>
-            </div>
-        );
-    }
+    // if (error) {
+    //     return (
+    //         <div className="error-container">
+    //             <p>{error}</p>
+    //         </div>
+    //     );
+    // }
+
 
     return (
         <main id="main" className="main">

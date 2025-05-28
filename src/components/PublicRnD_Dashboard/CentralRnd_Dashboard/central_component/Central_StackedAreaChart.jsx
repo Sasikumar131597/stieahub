@@ -27,7 +27,7 @@ ChartJS.register(
 );
 
 const Central_StackedAreaChart = ({ chartData }) => {
-  console.log(chartData,"sd")
+  
   const chartRef = useRef(null);
 
   if (!chartData || chartData.length === 0) {
