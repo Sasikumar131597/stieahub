@@ -3,6 +3,7 @@ import MapComponent from "./components/MapComponent";
 import { Slider, Tabs, Tab, Grid } from "@mui/material";
 import { fetchMapAbsData, fetchMapGSDPData, fetchMapGDPData } from "../../helpers/apiHelper"; // API function
 import Spinner from "../../helpers/spinner"; // Ensure spinner styling is applied
+import axios from "axios";
 
 const TAB_NAMES = [
   "Map with Absolute Values",
@@ -26,17 +27,26 @@ const State_Home = () => {
       setLoading(true);
 
       // Fetch Map 1 data (Absolute Values)
-      const { years: absYears, states: absStates, error: absError } = await fetchMapAbsData();
+      // const { years: absYears, states: absStates, error: absError } = await fetchMapAbsData();
+
+      const absv = await axios.get('https://development.stieahub.in/Codigniter_api/public/mapabsvalues');
 
       // Fetch Map 2 data (R&D Intensity with GSDP)
       const { years: gsdpYears, states: gsdpStates, error: gsdpError } = await fetchMapGSDPData();
 
+      const gdpv = await axios.get('https://development.stieahub.in/Codigniter_api/public/gdprdvalues');
+
+      console.log("absyear",gdpv?.data?.years);
+      console.log("absdata",gdpv?.data?.data);
+
       // Fetch Map 3 data (R&D Intensity with GDP)
       const { years: gdpYears, states: gdpStates, error: gdpError } = await fetchMapGDPData();
 
-      if (!absError && absYears.length > 0) {
-        setYears(absYears);
-        setMap1Data(absStates);
+      if (absv?.data?.years.length > 0) {
+        // setYears(absYears);
+        // setMap1Data(absStates);
+        setYears(absv?.data?.years);
+        setMap1Data(absv?.data?.data);
       }
 
       if (!gsdpError && gsdpYears.length > 0) {

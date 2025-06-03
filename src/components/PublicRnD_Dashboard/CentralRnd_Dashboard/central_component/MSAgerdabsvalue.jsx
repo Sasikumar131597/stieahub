@@ -10,7 +10,7 @@ const MSAgerdabsvalue = ({ msaData }) => {
         return <p>Loading data...</p>;
     }
 
-    const years = [...msaData.years].reverse();
+    const years = [...msaData.years];
     const agencies = Object.keys(msaData.agencies);
     const selectedYear = years[yearIndex];
 
