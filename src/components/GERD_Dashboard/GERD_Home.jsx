@@ -42,8 +42,8 @@ const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
-        const trendOverData = await axios.get('https://development.stieahub.in/Codigniter_api/public/form_1_india');
-
+        const trendOverData = await axios.get('https://development.stieahub.in/Codigniter_api/public/gerddatavalues');
+        // console.log(trendOverData?.data);
         setLineChartData(trendOverData?.data);
 
         const gerdDict = trendOverData?.data?.reduce((acc, item) => {
@@ -78,9 +78,9 @@ const fetchData = async () => {
   const fetchSectorData = async () => {
 
 
-    const sectorWiseData = await axios.get('https://development.stieahub.in/Codigniter_api/public/form_1_india_sectorwise');
+    const sectorWiseData = await axios.get('https://development.stieahub.in/Codigniter_api/public/getsectordatavalues');
 
-    // console.log("sector",sectorWiseData?.data);
+    console.log("sector",sectorWiseData?.data);
     const sectorDict = await sectorWiseData?.data?.reduce((acc, item) => {
       acc[item?.year] = item;
       return acc;
@@ -106,11 +106,6 @@ const fetchData = async () => {
   }, [selectedYear,setLineChartData]);
 
   if (loading) return <Spinner />;
-
-console.log("selectedyear",selectedYear);
-console.log("setSelectedYear",setSelectedYear);
-console.log("availableYears",availableYears);
-
 
 
 
