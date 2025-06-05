@@ -86,7 +86,7 @@ data.datasets.sort((a, b) => {
   const sumB = b.data.reduce((acc, curr) => acc + curr, 0);
   return sumB - sumA;  // Sort in descending order (larger datasets first)
 });
-console.log(data.datasets)
+// console.log(data.datasets)
   const options = {
     responsive: true,
     maintainAspectRatio: false,

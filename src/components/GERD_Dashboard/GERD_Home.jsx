@@ -38,12 +38,14 @@ function GERD_Home() {
           />)
 } ,[selectedYear,sectorGerdData]);
 
+// console.log("piedd",sectorGerdData);
+
 const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
         const trendOverData = await axios.get('https://development.stieahub.in/Codigniter_api/public/gerddatavalues');
-        // console.log(trendOverData?.data);
+
         setLineChartData(trendOverData?.data);
 
         const gerdDict = trendOverData?.data?.reduce((acc, item) => {
@@ -51,6 +53,7 @@ const fetchData = async () => {
           return acc;
         }, {});
 
+        // console.log("gerddd",gerdDict);
         setTotalGerdData(gerdDict);
 
 
@@ -80,7 +83,6 @@ const fetchData = async () => {
 
     const sectorWiseData = await axios.get('https://development.stieahub.in/Codigniter_api/public/getsectordatavalues');
 
-    console.log("sector",sectorWiseData?.data);
     const sectorDict = await sectorWiseData?.data?.reduce((acc, item) => {
       acc[item?.year] = item;
       return acc;

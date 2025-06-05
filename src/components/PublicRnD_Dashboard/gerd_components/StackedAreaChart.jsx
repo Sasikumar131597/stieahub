@@ -27,7 +27,7 @@ ChartJS.register(
 );
 
 const StackedAreaChart = ({ sectorGerdData }) => {
-  console.log(sectorGerdData);
+  // console.log(sectorGerdData);
   const chartRef = useRef(null);
 
   if (!sectorGerdData || sectorGerdData.length === 0) {
