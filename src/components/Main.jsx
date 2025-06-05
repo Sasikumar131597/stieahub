@@ -6,7 +6,7 @@ import DashboardCards from "./GERD_Dashboard/DashboardCards";
 function Main() {
   return (
     <main id="main" className="main">
-      <PageTitle page="STI Statistics Dashboard" />
+      <PageTitle page="STI Ecosystem Metrics and Analytics" />
 
       <section className="description">
         <p className="dashboard-intro-text">

@@ -57,37 +57,19 @@ function Central_Home() {
 
         const gerddatav = await axios.get('https://development.stieahub.in/Codigniter_api/public/gerddata');
         
-        
-        // Fetch GERD Data
-        // const { formattedData: gerdData, error: gerdError } = await fetchTotalGerdData();
-        // if (gerdError) throw new Error(gerdError);
 
         setTotalGerdData(gerddatav?.data);
         setChartData(gerddatav?.data);
-
-        // Fetch Sunburst Data
-        // const { availableYears, transformData,names, error: sunburstError } = await fetchSunburstData();
-        // if (sunburstError) throw new Error(sunburstError);
-
         
 
-        const years_api = await axios.get('https://development.stieahub.in/Codigniter_api/public/centraldropdownyears');
-        console.log(years_api?.data[0]);
+        const sunburnt_api = await axios.get('https://development.stieahub.in/Codigniter_api/public/getsunbuntdata');
 
-        const sunburnt_api = await axios.get('https://development.stieahub.in/Codigniter_api/public/getcenterrdexpbreak');
-        // console.log("sunburn",sunburnt_api?.data);
 
-        setAvailableYears(years_api?.data);
-        setSelectedYear(years_api?.data[0]); // Default to the latest year
+        setAvailableYears(sunburnt_api?.data?.availableYears);
+        setSelectedYear(sunburnt_api?.data?.selectedYear); // Default to the latest year
         setSunburstData(sunburnt_api?.data);
 
-        // setAvailableYears(availableYears);
-        // setSelectedYear(availableYears[0]); // Default to the latest year
-        // setSunburstData(transformData(availableYears[0]));
-        // setNames(names);
-
-
-        // setNames(names);
+        
       } catch (err) {
         setError(err.message);
       } finally {
@@ -100,8 +82,7 @@ function Central_Home() {
         setMsaLoading(true);
         setMsaError(null);
 
-        // const { years, agencies, error } = await fetchMSAData();
-        // if (error) throw new Error(error);
+       
         const msamultidataapi = await axios.get('https://development.stieahub.in/Codigniter_api/public/getmsamultilinevalue');
 
         setMsaData({
@@ -109,7 +90,6 @@ function Central_Home() {
             agencies: msamultidataapi?.data?.agencies
           });
 
-        // setMsaData({ years, agencies });
       } catch (err) {
         setMsaError(err.message);
       } finally {
@@ -121,9 +101,6 @@ function Central_Home() {
       try {
         setMsaBarLoading(true);
         setMsaBarError(null);
-
-        // const { years, agencies, error } = await fetchMSABarData();
-        // if (error) throw new Error(error);
 
         const msabardataapi = await axios.get('https://development.stieahub.in/Codigniter_api/public/msaabsvalue');
 
@@ -143,16 +120,12 @@ function Central_Home() {
         setMdLoading(true);
         setMdError(null);
 
-        // const { years, departments, error } = await fetchMDData();
-        // if (error) throw new Error(error);
-
         const mddataapi = await axios.get("https://development.stieahub.in/Codigniter_api/public/getmdmultilinevalue");
         setMdData({
             years: mddataapi?.data?.years,
             departments: mddataapi?.data?.departments
           });
 
-        // setMdData({ years, departments });
       } catch (err) {
         setMdError(err.message);
       } finally {
@@ -167,8 +140,7 @@ function Central_Home() {
         setTrendlineError(null);
         setStackedAreaError(null);
 
-        // const { trendlineData, stackedAreaData, error } = await fetchCentralTrendlineData();
-        // if (error) throw new Error(error);
+       
         const treddata = await axios.get('https://development.stieahub.in/Codigniter_api/public/trendlinedata');
 
         const stackeddata = await axios.get('https://development.stieahub.in/Codigniter_api/public/sectorstackedarea');
@@ -193,15 +165,19 @@ function Central_Home() {
 
 const handleYearChange = async (event) => {
   const year = event.target.value;
-  // console.log('y',year);
+  
   setSelectedYear(year);
   setSunburstLoading(true);
 
   try {
-    const { transformData } = await fetchSunburstData();
-    // const sunburnt_api = await axios.get('https://development.stieahub.in/Codigniter_api/public/getcenterrdexpbreak');
-        // console.log("sunburn",sunburnt_api?.data);
-    setSunburstData(transformData(year));
+        const response = await axios.get('https://development.stieahub.in/Codigniter_api/public/getsunbuntdata', {
+            params: {
+                year: year
+            }
+        });
+
+        
+    setSunburstData(response?.data);
   } catch (error) {
     console.error("Error fetching Sunburst data:", error);
   } finally {
