@@ -26,36 +26,26 @@ const State_Home = () => {
     const loadData = async () => {
       setLoading(true);
 
-      // Fetch Map 1 data (Absolute Values)
-      // const { years: absYears, states: absStates, error: absError } = await fetchMapAbsData();
-
       const absv = await axios.get('https://development.stieahub.in/Codigniter_api/public/mapabsvalues');
-
-      // Fetch Map 2 data (R&D Intensity with GSDP)
-      const { years: gsdpYears, states: gsdpStates, error: gsdpError } = await fetchMapGSDPData();
 
       const gdpv = await axios.get('https://development.stieahub.in/Codigniter_api/public/gdprdvalues');
 
-      console.log("absyear",gdpv?.data?.years);
-      console.log("absdata",gdpv?.data?.data);
 
-      // Fetch Map 3 data (R&D Intensity with GDP)
-      const { years: gdpYears, states: gdpStates, error: gdpError } = await fetchMapGDPData();
+      const gdpintersity_api = await axios.get('https://development.stieahub.in/Codigniter_api/public/getrdinternsitygdp');
 
       if (absv?.data?.years.length > 0) {
-        // setYears(absYears);
-        // setMap1Data(absStates);
         setYears(absv?.data?.years);
         setMap1Data(absv?.data?.data);
       }
 
-      if (!gsdpError && gsdpYears.length > 0) {
-        setMap2Data(gsdpStates);
+      if ( gdpv?.data?.years.length > 0) {
+        setMap2Data(gdpv?.data?.data);
       }
 
-      if (!gdpError && gdpYears.length > 0) {
-        setMap3Data(gdpStates);
+      if ( gdpintersity_api?.data?.years.length > 0) {
+        setMap3Data(gdpintersity_api?.data?.data);
       }
+      
 
       setYearIndex(0); // Set default index to the first available year
       setLoading(false);
