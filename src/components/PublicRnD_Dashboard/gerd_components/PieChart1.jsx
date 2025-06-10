@@ -107,7 +107,8 @@ const PieChart1 = ({ pieData, selectedYear }) => {
   return (
     <div className="pie-chart-container">
       <h5>R&D Expenditure Breakdown ({selectedYear})</h5>
-      <ReactApexChart options={chartState.options} series={chartState.series} type="pie" width={450} />
+      {chartState?.series.length > 0 && ( <ReactApexChart options={chartState.options} series={chartState.series} type="pie" width={450} />)}
+     
     </div>
   );
 };

@@ -29,8 +29,10 @@ function PublicRnd() {
             setError(null);
            // const { data, error } = await fetchConsolidatedPublicData();
 
-            const publicRD = await axios.get('https://development.stieahub.in/Codigniter_api/public/public_rnd');
+            const publicRD = await axios.get('https://development.stieahub.in/Codigniter_api/public/getpublic_rnd');
            const data = await publicRD?.data;
+
+          //  console.log("pub",publicRD?.data);
 
             if (error) {
                 setError(error);
@@ -80,6 +82,9 @@ function PublicRnd() {
             });
 
             setRatioData(formattedRatioData);
+
+            // console.log("formattedRatioData",formattedRatioData);
+
             setLoading(false);
         };
 
@@ -96,6 +101,8 @@ function PublicRnd() {
         { name: "Central R&D", value: currentYearData.central || 0 },
         { name: "State R&D", value: currentYearData.state || 0 },
     ];
+
+    
 
     const trendLineData = availableYears.map(year => ({
         year,

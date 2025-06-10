@@ -27,18 +27,20 @@ function GERD_Home() {
   const [availableYears, setAvailableYears] = useState([]);
   const [chartType, setChartType] = useState("line");
 
-  const Piedata  = useCallback(() => {
-  return (<PieChart1 className="w-1/2"
-            pieData={[
-              { name: "Public R&D", value: sectorGerdData[selectedYear]?.publicRND || 0 },
-              { name: "Private R&D", value: sectorGerdData[selectedYear]?.privateRND || 0 },
-              { name: "HEI R&D", value: sectorGerdData[selectedYear]?.heiRND || 0 },
-            ]}
-            selectedYear={selectedYear}
-          />)
-} ,[selectedYear,sectorGerdData]);
+//   const Piedata  = useCallback(() => {
+//   return (<PieChart1 className="w-1/2"
+//             pieData={[
+//               { name: "Public R&D", value: sectorGerdData[selectedYear]?.publicRND || 0 },
+//               { name: "Private R&D", value: sectorGerdData[selectedYear]?.privateRND || 0 },
+//               { name: "HEI R&D", value: sectorGerdData[selectedYear]?.heiRND || 0 },
+//             ]}
+//             selectedYear={selectedYear}
+//           />)
+// } ,[selectedYear,sectorGerdData]);
+// console.log('selectedYear', selectedYear, 'sectorGerdData', sectorGerdData);
 
-// console.log("piedd",sectorGerdData);
+// console.log("piedd",sectorGerdData[selectedYear]?.publicRND);
+
 
 const fetchData = async () => {
       try {
@@ -80,8 +82,9 @@ const fetchData = async () => {
 
   const fetchSectorData = async () => {
 
+    const sectorWiseData = await axios.get('https://development.stieahub.in/Codigniter_api/public/gettestsector');
 
-    const sectorWiseData = await axios.get('https://development.stieahub.in/Codigniter_api/public/getsectordatavalues');
+    // console.log("sectorWiseData",sectorWiseData?.data);
 
     const sectorDict = await sectorWiseData?.data?.reduce((acc, item) => {
       acc[item?.year] = item;
@@ -89,6 +92,10 @@ const fetchData = async () => {
     }, {});
 
     setSectorGerdData(sectorDict);
+
+    console.log("sectordict",sectorDict);
+
+    
 
     setPieData1(
       sectorWiseData?.data?.map((item) => ({
@@ -109,6 +116,7 @@ const fetchData = async () => {
 
   if (loading) return <Spinner />;
 
+if (!selectedYear) return <p>Loading...</p>;
 
 
   return (
@@ -176,7 +184,15 @@ const fetchData = async () => {
           </div>
 
           {/* Right Side - Pie Chart */}
-          {Piedata()}
+          {/* {Piedata()} */}
+          <PieChart1 className="w-1/2"
+            pieData={[
+              { name: "Public R&D", value: sectorGerdData[selectedYear]?.publicRND || 0 },
+              { name: "Private R&D", value: sectorGerdData[selectedYear]?.privateRND || 0 },
+              { name: "HEI R&D", value: sectorGerdData[selectedYear]?.heiRND || 0 },
+            ]}
+            selectedYear={selectedYear}
+          />
           
           <p className="chart-footnote" >
             <b>Source: </b><span >Data on GERD and sectoral R&D expenditures are from NSTMIS, Department of Science and Technology, Government of India

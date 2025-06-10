@@ -40,7 +40,7 @@ const PieChart1 = ({ pieData, selectedYear }) => {
       tooltip: {
         enabled: true,
         y: {
-          formatter: (val) => `INR ${val.toFixed(2)} Cr`,
+          formatter: (val) => `INR ${val?.toFixed(2)} Cr`,
         },
       },
       dataLabels: {
@@ -79,35 +79,43 @@ const PieChart1 = ({ pieData, selectedYear }) => {
 
   // Ensure pieData is valid
   const processedData = pieData
-    ? pieData.map((item) => ({
-        name: item.name,
-        value: item.value === "No data available" ? 0 : parseFloat(item.value) || 0,
+    ? pieData?.map((item) => ({
+        name: item?.name,
+        value: item?.value === "No data available" ? 0 : parseFloat(item?.value) || 0,
       }))
     : [];
 
   // Calculate total value
-  const total = processedData.reduce((sum, item) => sum + item.value, 0);
+  const total = processedData?.reduce((sum, item) => sum + item?.value, 0);
+  console.log('chartState', chartState);
 
   // Update state when pieData changes
-  useEffect(() => {
-    if (processedData.length > 0) {
+
+  const filteredchartdata = () => {
+ 
       setChartState((prevState) => ({
         ...prevState,
-        series: processedData.map((item) => item.value),
-        options: { ...prevState.options, labels: processedData.map((item) => item.name) },
+        series: processedData?.map((item) => item?.value),
+        options: { ...prevState?.options, labels: processedData?.map((item) => item?.name) },
       }));
-    }
+    
+  }
+  useEffect(() => {
+    filteredchartdata();
   }, [pieData]);
 
   // Handle cases where no valid data exists
-  if (!pieData || pieData.length === 0 || total === 0) {
+  if (!pieData || pieData?.length === 0 || total === 0) {
     return <p className="no-data">Data not available for {selectedYear}.</p>;
   }
 
   return (
     <div className="pie-chart-container">
-      <h5>R&D Expenditure Breakdown ({selectedYear})</h5>
-      <ReactApexChart options={chartState.options} series={chartState.series} type="pie" width={600} /> 
+      <h5>R&D Expenditure Breakdowno ({selectedYear})</h5>
+      {chartState?.series.length > 0 && (
+        <ReactApexChart options={chartState?.options} series={chartState?.series} type="pie" width={600} />
+      )}
+      {/* <ReactApexChart options={chartState?.options} series={chartState?.series} type="pie" width={600} />  */}
     </div>
   );
 };

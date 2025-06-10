@@ -14,7 +14,7 @@ function Logo() {
 
   return (
     <div className='d-flex align-items-center justify-content-between'>
-      <a href='/' className='logo d-flex align-items-center'>
+      <a href='/' className='logo d-flex align-items-center no-underline'>
         <span className='d-none d-lg-block'>STI Ecosystem Metrics and Analytics</span>
       </a>
       <i
