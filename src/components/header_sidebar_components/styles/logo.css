@@ -21,3 +21,6 @@
     color: #012970;
     font-family: 'Nunito', sans-serif;
 }
+.no-underline {
+  text-decoration: none;
+}

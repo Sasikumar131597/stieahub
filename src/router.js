@@ -11,7 +11,7 @@ import State_Home from "./components/PublicRnD_Dashboard/StateRnD_Dashboard/Stat
 const routes = [
     { path: "/", element: <Main />, exact: true },
     {
-        path: "/gerd_dashboard",
+        path: "gerd_dashboard",
         element: <GerdDashboardLayout />,
         children: [
             { index: true, element: <GERD_Home /> },  // Default child for /gerd_dashboard
@@ -19,8 +19,8 @@ const routes = [
             {
                 path: "public_rnd",
                 element: <PublicRnD />,
-                children: [
-                ]
+                // children: [
+                // ]
             },
             { path: "central_rnd", element: <Central_Home /> },
             {path : "state_rnd",element: <State_Home />},
