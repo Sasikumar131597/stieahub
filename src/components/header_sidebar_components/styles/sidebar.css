@@ -2,7 +2,8 @@
 .sidebar {
     position: fixed;
     top: 60px;
-    left: 0;
+    /* left: 0; */
+    right:0;
     bottom: 0;
     width: 300px;
     z-index: 996;
@@ -37,7 +38,7 @@
 @media (min-width: 1200px) {
     #main,
     #footer {
-        margin-left: 300px; /* Matches sidebar width */
+        /* margin-left: 300px; Matches sidebar width */
         transition: margin-left 0.3s ease-in-out;
     }
 }

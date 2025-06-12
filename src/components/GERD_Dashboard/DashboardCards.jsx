@@ -4,6 +4,7 @@ import "./styles/dashboardcards.css";
 import {
     FaHandshake, FaUsers, FaBinoculars, FaChartLine, FaCoins
 } from "react-icons/fa";
+import { BiSolidInstitution } from "react-icons/bi";
 import {GrTechnology} from "react-icons/gr";
 import { IoCashOutline } from "react-icons/io5";
 import { GiCoins } from "react-icons/gi";
@@ -18,11 +19,26 @@ const DashboardCards = () => {
             icon: <GiCoins />,
             description: "Explore R&D expenditure across countries and sectors"
         },
+
         {
-            label: "STI-Partnership",
-            link: "https://sticonnect.info/public/",
+            label: "Scientific Workforce",
+            link: "",
             icon: <FaHandshake />,
-            description: "View bilateral STI partnership projects"
+            description: "Description"
+        },
+        
+        {
+            label: "Startups",
+            link: "",
+            icon: <FaUsers />,
+            description: "Description"
+        },
+        
+        {
+            label: "R & D Institutions",
+            link: "",
+            icon: <BiSolidInstitution />,
+            description: "Description"
         },
         {
             label: "Critical Technology Tracker",
@@ -30,24 +46,28 @@ const DashboardCards = () => {
             icon: <GrTechnology />,
             description: "Insights on critical and emerging technologies"
         },
+
+        {
+            label: "STI-Partnership",
+            link: "https://sticonnect.info/public/",
+            icon: <FaHandshake />,
+            description: "View bilateral STI partnership projects"
+        },
+
         {
             label: "DEIA in STEMM",
             link: "#",
             icon: <FaUsers />,
             description: "Data on inclusivity in STEMM"
         },
-        {
-            label: "Foresight",
-            link: "#",
-            icon: <FaBinoculars />,
-            description: "Trends and signals on future of technologies"
-        },
+    
         {
             label: "Other STI Indicators",
             link: "#",
             icon: <FaChartLine />,
             description: "Explore other key indicators (research personnel, start-ups and more..)"
         },
+        
     ];
 
     return (
