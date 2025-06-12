@@ -32,7 +32,6 @@ function PublicRnd() {
             const publicRD = await axios.get('https://development.stieahub.in/Codigniter_api/public/getpublic_rnd');
            const data = await publicRD?.data;
 
-          //  console.log("pub",publicRD?.data);
 
             if (error) {
                 setError(error);
@@ -82,8 +81,6 @@ function PublicRnd() {
             });
 
             setRatioData(formattedRatioData);
-
-            // console.log("formattedRatioData",formattedRatioData);
 
             setLoading(false);
         };

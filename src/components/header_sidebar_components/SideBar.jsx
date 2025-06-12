@@ -30,11 +30,15 @@ const sidebarNavItems = [
 
         ]
     },
-    { type: 'single', name: 'STI Partnership', icon: <FaHandshake size={20} />, link: 'https://sticonnect.info/public/' },
+
+    { type: 'single', name: 'Scientific Workforce', icon: <FaChartLine size={20} />, link: '#' },
+    { type: 'single', name: 'Startups', icon: <FaChartLine size={20} />, link: '#' },
+    { type: 'single', name: 'R & D Institutions', icon: <FaChartLine size={20} />, link: '#' },
     { type: 'single', name: 'Critical Technology Tracker', icon: <GrTechnology size={20} />, link: '#' },
+    { type: 'single', name: 'STI Partnership', icon: <FaHandshake size={20} />, link: 'https://sticonnect.info/public/' },
     { type: 'single', name: 'DEIA in STEMM', icon: <FaUsers size={20} />, link: '#' },
-    { type: 'single', name: 'Foresights', icon: <FaBinoculars size={20} />, link: '#' },
-    { type: 'single', name: 'STI Indicators', icon: <FaChartLine size={20} />, link: '#' },
+    { type: 'single', name: 'Other STI Indicators', icon: <FaChartLine size={20} />, link: '#' },
+    
 ];
 
 function SideBar() {

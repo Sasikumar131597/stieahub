@@ -27,19 +27,7 @@ function GERD_Home() {
   const [availableYears, setAvailableYears] = useState([]);
   const [chartType, setChartType] = useState("line");
 
-//   const Piedata  = useCallback(() => {
-//   return (<PieChart1 className="w-1/2"
-//             pieData={[
-//               { name: "Public R&D", value: sectorGerdData[selectedYear]?.publicRND || 0 },
-//               { name: "Private R&D", value: sectorGerdData[selectedYear]?.privateRND || 0 },
-//               { name: "HEI R&D", value: sectorGerdData[selectedYear]?.heiRND || 0 },
-//             ]}
-//             selectedYear={selectedYear}
-//           />)
-// } ,[selectedYear,sectorGerdData]);
-// console.log('selectedYear', selectedYear, 'sectorGerdData', sectorGerdData);
 
-// console.log("piedd",sectorGerdData[selectedYear]?.publicRND);
 
 
 const fetchData = async () => {
@@ -55,7 +43,6 @@ const fetchData = async () => {
           return acc;
         }, {});
 
-        // console.log("gerddd",gerdDict);
         setTotalGerdData(gerdDict);
 
 
@@ -64,8 +51,6 @@ const fetchData = async () => {
 
         const latestValidYear = sortedYears?.reverse()?.find((year) => gerdDict[year]?.value);
         setSelectedYear(latestValidYear);
-
-
 
         setDataUpdated((prev) => !prev);
       } catch (err) {
@@ -84,7 +69,6 @@ const fetchData = async () => {
 
     const sectorWiseData = await axios.get('https://development.stieahub.in/Codigniter_api/public/gettestsector');
 
-    // console.log("sectorWiseData",sectorWiseData?.data);
 
     const sectorDict = await sectorWiseData?.data?.reduce((acc, item) => {
       acc[item?.year] = item;
@@ -92,10 +76,6 @@ const fetchData = async () => {
     }, {});
 
     setSectorGerdData(sectorDict);
-
-    console.log("sectordict",sectorDict);
-
-    
 
     setPieData1(
       sectorWiseData?.data?.map((item) => ({

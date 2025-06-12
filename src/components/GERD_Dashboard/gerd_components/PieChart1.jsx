@@ -87,7 +87,6 @@ const PieChart1 = ({ pieData, selectedYear }) => {
 
   // Calculate total value
   const total = processedData?.reduce((sum, item) => sum + item?.value, 0);
-  console.log('chartState', chartState);
 
   // Update state when pieData changes
 
@@ -111,7 +110,7 @@ const PieChart1 = ({ pieData, selectedYear }) => {
 
   return (
     <div className="pie-chart-container">
-      <h5>R&D Expenditure Breakdowno ({selectedYear})</h5>
+      <h5>R&D Expenditure Breakdown ({selectedYear})</h5>
       {chartState?.series.length > 0 && (
         <ReactApexChart options={chartState?.options} series={chartState?.series} type="pie" width={600} />
       )}

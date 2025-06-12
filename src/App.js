@@ -22,13 +22,15 @@ function App() {
       <Header />
       <SideBar />
       <Routes>
-                {routes.map((route, index) => (
-                    <Route key={index} path={route.path} element={route.element}>
-                        {route.children?.map((child, childIndex) => (
-                            <Route key={childIndex} index={child.index} path={child.path} element={child.element} />
-                        ))}
-                    </Route>
-                ))}
+             {routes?.map((config) => {
+          return (
+            <Route path={config?.path} element={config?.element}>
+              {config?.children?.map((child) => {
+                return <Route path={child?.path} element={child?.element} />;
+              })}
+            </Route>
+          );
+        })}
             </Routes>
     </Router>
   );
