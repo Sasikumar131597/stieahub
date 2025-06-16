@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import './styles/sidebar.css';
-import { FaHome, FaHandshake, FaUsers, FaBinoculars, FaChartLine, FaAngleRight } from "react-icons/fa";
+import { FaHome, FaHandshake, FaUsers, FaChartLine, FaAngleRight } from "react-icons/fa";
 import { GrTechnology } from "react-icons/gr";
 import { GiCoins } from "react-icons/gi";
 import { GoDotFill } from "react-icons/go";
 import { MdOutlineSubdirectoryArrowRight } from "react-icons/md";  // New generic subcategory icon
+import { FaUsersCog } from "react-icons/fa";
+import { HiBuildingOffice } from "react-icons/hi2";
+import { FaUniversity } from "react-icons/fa";
 
 
 const sidebarNavItems = [
@@ -31,9 +34,9 @@ const sidebarNavItems = [
         ]
     },
 
-    { type: 'single', name: 'Scientific Workforce', icon: <FaChartLine size={20} />, link: '#' },
-    { type: 'single', name: 'Startups', icon: <FaChartLine size={20} />, link: '#' },
-    { type: 'single', name: 'R & D Institutions', icon: <FaChartLine size={20} />, link: '#' },
+    { type: 'single', name: 'Scientific Workforce', icon: <FaUsersCog size={20} />, link: '#' },
+    { type: 'single', name: 'Startups', icon: <HiBuildingOffice size={20} />, link: '#' },
+    { type: 'single', name: 'R & D Institutions', icon: <FaUniversity size={20} />, link: '#' },
     { type: 'single', name: 'Critical Technology Tracker', icon: <GrTechnology size={20} />, link: '#' },
     { type: 'single', name: 'STI Partnership', icon: <FaHandshake size={20} />, link: 'https://sticonnect.info/public/' },
     { type: 'single', name: 'DEIA in STEMM', icon: <FaUsers size={20} />, link: '#' },

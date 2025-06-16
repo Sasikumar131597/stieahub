@@ -2,19 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./styles/dashboardcards.css";
 import {
-    FaHandshake, FaUsers, FaBinoculars, FaChartLine 
+    FaHandshake, FaUsers, FaChartLine 
 } from "react-icons/fa";
 import { FaUniversity } from "react-icons/fa";
 import {GrTechnology} from "react-icons/gr";
-import { IoCashOutline } from "react-icons/io5";
 import { GiCoins } from "react-icons/gi";
-
-import { GiMoneyStack } from "react-icons/gi";
 import { FaUsersCog } from "react-icons/fa";
-import { IoBusiness } from "react-icons/io5";
-import { MdRocketLaunch } from "react-icons/md";
-import { FaCoins } from "react-icons/fa";
-import { FaRupeeSign } from "react-icons/fa";
 import { HiBuildingOffice } from "react-icons/hi2";
 
 const DashboardCards = () => {
@@ -23,7 +16,6 @@ const DashboardCards = () => {
             label: "GERD",
             link: "/gerd_dashboard",
             icon: <GiCoins />,
-            // icon: <FaCoins />,
             description: "Explore R&D expenditure across countries and sectors"
         },
 
@@ -37,8 +29,6 @@ const DashboardCards = () => {
         {
             label: "Startups",
             link: "",
-            // icon: <IoBusiness />,
-            // icon: <MdRocketLaunch /> ,
             icon : <HiBuildingOffice />,
             description: "Description"
         },
