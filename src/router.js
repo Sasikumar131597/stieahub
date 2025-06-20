@@ -7,6 +7,7 @@ import NotFoundPage from "./components/helpers/404";
 import International from "./components/GERD_Dashboard/International";
 import Central_Home from "./components/PublicRnD_Dashboard/CentralRnd_Dashboard/Central_Home";
 import State_Home from "./components/PublicRnD_Dashboard/StateRnD_Dashboard/State_Home";
+import StartupDashboardLayout from "./components/Startup_Dashboard";
 
 // const routes = [
 //     { path: "/", element: <Main />, exact: true },
@@ -36,6 +37,11 @@ export const routes = [
     path: "/",
     element:<Main />,
   }, 
+
+  {
+    path: "startup_dashboard",
+    element: <StartupDashboardLayout />,
+  },
   {
     path: "gerd_dashboard",
     element: <GerdDashboardLayout />,

@@ -1,0 +1,115 @@
+.statscontainer {
+  display: flex;
+  gap: 24px;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.statcard {
+  flex: 1;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.cardheader {
+  padding: 16px;
+  border-bottom: 3px solid;
+  display: flex;
+  justify-content: center;
+}
+
+.cardicon {
+  font-size: 24px;
+}
+
+.cardcontent {
+  padding: 20px;
+  text-align: center;
+}
+
+.cardtitle {
+  font-size: 22px;
+  font-weight: 500;
+  /* color: #6B7280; */
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.cardvalue {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 20px 20px 20px 20px;
+}
+
+.cardRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.chartRow {
+  display: flex;
+  /* justify-content: center; */
+  margin-top: 2rem;
+}
+
+.businesstypescontainer {
+  display: flex;
+  /* justify-content: center; */
+  gap: 24px;
+  padding: 24px;
+  background-color: #F9FAFB;
+  font-family: 'Inter', sans-serif;
+}
+
+.businesstype {
+  text-align: center;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 200px;
+}
+
+.iconcontainer {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.amount {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.typename {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.iconContainer {
+    width: 50px;
+    height: 50px;
+    border-Radius: 50%;
+    display: flex;
+    align-Items: center;
+    justify-Content: center;
+    margin: 0 auto 15px;
+  }
+  

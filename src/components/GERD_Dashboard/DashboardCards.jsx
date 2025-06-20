@@ -28,7 +28,7 @@ const DashboardCards = () => {
         
         {
             label: "Startups",
-            link: "",
+            link: "/startup_dashboard",
             icon : <HiBuildingOffice />,
             description: "Description"
         },
@@ -43,7 +43,7 @@ const DashboardCards = () => {
             label: "Critical Technology Tracker",
             link: "#",
             icon: <GrTechnology />,
-            description: "Insights on critical and emerging technologies"
+            description: "Insights on Critical Technologies"
         },
 
         {
