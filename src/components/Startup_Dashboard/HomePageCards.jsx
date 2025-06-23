@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { FaIndustry, FaChartPie, FaUsers, FaRegBuilding } from 'react-icons/fa';
 import { HiMiniBuildingOffice } from "react-icons/hi2";
 import { BsBuildingsFill } from "react-icons/bs";
-import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
 import axios from 'axios';
 import Styles from './css/HomePageCards.module.css';
+import StagePiechart from './StagePiechart';
+import TopSectors from './TopSectors';
+import TopStates from './TopStates';
+// import TopSectorChart from './TopSectorChart';
 
 
 const HomePageCards = () => {
   const [counts, setCounts] = useState({ startups: 0, industries: 0, sectors: 0 });
   const [businessTypes, setBusinessTypes] = useState([]);
-  const [stageData, setStageData] = useState([]);
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
@@ -24,10 +26,6 @@ const HomePageCards = () => {
         const typesResponse = await axios.get('https://development.stieahub.in/Codigniter_api/public/getcardsnatureofentity');
         setBusinessTypes(typesResponse.data.data);
 
-        // Fetch pie chart data
-        const pieResponse = await axios.get('https://development.stieahub.in/Codigniter_api/public/natureofpiechart');
-        setStageData(pieResponse.data.data);
-
         setLoading(false);
       } catch (error) {
         console.error('Error:', error);
@@ -37,28 +35,7 @@ const HomePageCards = () => {
     fetchData();
   }, []);
 
-  // Prepare pie chart data from API response
-  const getPieData = () => {
-    if (!stageData || stageData.length === 0) return [];
-    
-    const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
-    
-    return stageData.map((item, index) => ({
-      label: item.stage_name,
-      value: parseInt(item.count),
-      color: colors[index % colors.length]
-    }));
-  };
 
-  const pieData = getPieData();
-
-  const getPieArcLabel = (params) => {
-    if (pieData.length === 0) return '0%';
-    
-    const TOTAL = pieData.map((item) => item.value).reduce((a, b) => a + b, 0);
-    const percent = params.value / TOTAL;
-    return `${(percent * 100).toFixed(0)}%`;
-  };
 
   // Function to get count for specific business type
   const getBusinessTypeCount = (value) => {
@@ -102,37 +79,15 @@ const HomePageCards = () => {
 
       <div className={Styles.chartRow}>
         <div className={Styles.statcard}> 
-            <h5>Stage of Startup</h5>
-          {pieData.length > 0 ? (
-            <PieChart
-              series={[
-                {
-                  outerRadius: 150,
-                  data: pieData,
-                  arcLabel: getPieArcLabel,
-                },
-              ]}
-              width={500}
-              height={350}
-              sx={{
-                [`& .${pieArcLabelClasses.root}`]: {
-                  fill: 'white',
-                  fontSize: 20,
-                },
-              }}
-              margin={{ top: 0, bottom: 0, left: 0, right: 0 }}
-              slotProps={{
-                legend: {
-                  hidden: true,
-                },
-              }}
-            />
-          ) : (
-            <div className={Styles.loadingMessage}>Loading pie chart data...</div>
-          )}
+            <StagePiechart />
         </div>
+      </div>
 
-        
+      <div className={Styles.chartRow}>
+        <div className={Styles.statcard}> 
+            <TopSectors />
+            {/* <TopSectorChart /> */}
+        </div>
       </div>
 
       {!loading && (
@@ -169,10 +124,11 @@ const HomePageCards = () => {
             </div>
           </div>
         </div>
-      )}
-      {/* <progress value={75} max={100} /> */}
 
-      
+
+
+      )}
+      <TopStates />
     </div>
     
   );
