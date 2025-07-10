@@ -8,6 +8,10 @@ import International from "./components/GERD_Dashboard/International";
 import Central_Home from "./components/PublicRnD_Dashboard/CentralRnd_Dashboard/Central_Home";
 import State_Home from "./components/PublicRnD_Dashboard/StateRnD_Dashboard/State_Home";
 import StartupDashboardLayout from "./components/Startup_Dashboard";
+import IndustriesList from "./components/Startup_Dashboard/IndustriesList";
+import HomePageCards from "./components/Startup_Dashboard/HomePageCards";
+import Startupmap from "./components/Startup_Dashboard/Startupmap";
+import Geographpage from "./components/Startup_Dashboard/Geographpage";
 
 // const routes = [
 //     { path: "/", element: <Main />, exact: true },
@@ -41,6 +45,22 @@ export const routes = [
   {
     path: "startup_dashboard",
     element: <StartupDashboardLayout />,
+    children: [{
+        path: "/startup_dashboard",
+        element: <HomePageCards />,
+    },
+    {
+        path: "industries",
+        element: <IndustriesList />
+    },
+    {
+        path: "geography",
+        element: <Geographpage />
+    }
+
+    
+    
+    ]
   },
   {
     path: "gerd_dashboard",

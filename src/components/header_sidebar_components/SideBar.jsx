@@ -35,7 +35,20 @@ const sidebarNavItems = [
     },
 
     { type: 'single', name: 'Scientific Workforce', icon: <FaUsersCog size={20} />, link: '#' },
-    { type: 'single', name: 'Startups', icon: <HiBuildingOffice size={20} />, link: '#' },
+    // { type: 'single', name: 'Startups', icon: <HiBuildingOffice size={20} />, link: '/startup_dashboard' , isReactRouter: true},
+
+    {
+        type: 'group',
+        name: 'Startups',
+        icon: <HiBuildingOffice size={20} />,
+        link: '/startup_dashboard',
+        items: [
+                { name: 'Industries', icon: <FaAngleRight size={14} />, link: '/startup_dashboard/industries', isReactRouter: true },
+                { name: 'Geography', icon: <FaAngleRight size={14} />, link: '/startup_dashboard/geography', isReactRouter: true }
+                
+        ]
+    },
+    
     { type: 'single', name: 'R & D Institutions', icon: <FaUniversity size={20} />, link: '#' },
     { type: 'single', name: 'Critical Technology Tracker', icon: <GrTechnology size={20} />, link: '#' },
     { type: 'single', name: 'STI Partnership', icon: <FaHandshake size={20} />, link: 'https://sticonnect.info/public/' },

@@ -48,10 +48,12 @@ const StagePiechart = () => {
           panKey: 'shift'
         },
         title: {
-          text: 'Startup Stage Distribution'
+          text: 'Stage of Startup'
         },
         tooltip: {
-          pointFormat: '<b>{point.percentage:.0f}%</b>'
+          formatter: function() {
+            return `<b>${this.point.name}</b><br/>Count: <b>${this.point.y}</b>`;
+          }
         },
         plotOptions: {
           pie: {
@@ -60,6 +62,7 @@ const StagePiechart = () => {
             dataLabels: [{
               enabled: true,
               distance: 20,
+              format: '{point.name}: {point.y}',
               style: {
                 fontWeight: 'bold'
               }
@@ -103,7 +106,7 @@ const StagePiechart = () => {
   if (loading) return <div>Loading chart data...</div>;
   if (error) return <div>Error loading data: {error}</div>;
 
-  return <div ref={chartContainerRef} style={{ width: '50%', height: '400px' }} />;
+  return <div ref={chartContainerRef} style={{ width: '100%', height: '600px' }} />;
 };
 
 export default StagePiechart;

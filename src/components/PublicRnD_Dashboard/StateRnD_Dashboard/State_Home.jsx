@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MapComponent from "./components/MapComponent";
 import { Slider, Tabs, Tab, Grid } from "@mui/material";
-import { fetchMapAbsData, fetchMapGSDPData, fetchMapGDPData } from "../../helpers/apiHelper"; // API function
 import Spinner from "../../helpers/spinner"; // Ensure spinner styling is applied
 import axios from "axios";
 
