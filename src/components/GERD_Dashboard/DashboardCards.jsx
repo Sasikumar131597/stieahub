@@ -23,21 +23,21 @@ const DashboardCards = () => {
             label: "Scientific Workforce",
             link: "",
             icon: <FaUsersCog />,
-            description: "Description"
+            description: "Explore the science workforce landscape"
         },
         
         {
             label: "Startups",
             link: "/startup_dashboard",
             icon : <HiBuildingOffice />,
-            description: "Description"
+            description: "Explore the Startup ecosystem across domains and regions"
         },
         
         {
             label: "R & D Institutions",
             link: "",
             icon: <FaUniversity />,
-            description: "Description"
+            description: "Map research activity across institutions"
         },
         {
             label: "Critical Technology Tracker",
@@ -54,7 +54,8 @@ const DashboardCards = () => {
         },
 
         {
-            label: "DEIA in STEMM",
+            // label: "DEIA in STEMM",
+            label: "Inclusivity in STEMM",
             link: "#",
             icon: <FaUsers />,
             description: "Data on inclusivity in STEMM"

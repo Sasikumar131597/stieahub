@@ -16,9 +16,10 @@
 }
 
 .project_title{
-    font-size: 26px;
+    font-size: 17px;
     font-weight: 700;
-    color: #012970;
+    /* color: #012970; */
+    color: white;
     font-family: 'Nunito', sans-serif;
 }
 .no-underline {

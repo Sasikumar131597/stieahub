@@ -112,4 +112,32 @@
     justify-Content: center;
     margin: 0 auto 15px;
   }
+
+  .Topindustrihead {
+    font-size: 1.2em;
+    font-weight: bold;
+    fill: rgb(51, 51, 51);
+    text-align: center;
+  }
+
+  .title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #2d3748;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.modernContent {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4a5568;
+  background-color: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+  border-left: 4px solid #3b82f6;
+}
   

@@ -5,9 +5,12 @@ import { BsBuildingsFill } from "react-icons/bs";
 import axios from 'axios';
 import Styles from './css/HomePageCards.module.css';
 import StagePiechart from './StagePiechart';
-import TopSectors from './TopSectors';
 import TopStates from './TopStates';
-// import TopSectorChart from './TopSectorChart';
+import Grid from '@mui/material/Grid2';
+import StatusStartup from './StatusStartup';
+import TopTenSectors from './TopTenSectors';
+import IndustryBubbleChart from './IndustryBubbleChart';
+import StartupBanner from '../../images/Startup-SAMPLE.png';
 
 
 const HomePageCards = () => {
@@ -44,19 +47,35 @@ const HomePageCards = () => {
   };
 
   return (
+    <div>
+      <img src={StartupBanner}  />
     <div className={Styles.container}>
       <div className={Styles.cardRow}>
-        <div className={Styles.statcard}> 
-          <div className={Styles.cardheader} style={{ backgroundColor: '#3b669d', borderColor: '#3B82F6' }}>
+          <Grid container spacing={2}>
+            <Grid size={12}>
+              <div className={Styles.modernContent}>
+                "A startup is a fairly new entrepreneurial venture or company which aims to meet a marketplace need by developing or offering an innovative product, process or service." 
+                <br />
+                <a href="https://www.startupindia.gov.in/content/sih/en/ecosystem-page-.html" target="_blank"><p align="right">- Department for Promotion of Industry and Internal Trade(DPIIT)</p></a>
+                
+                <br />
+                Startups are the pillars of innovation and engines of growth for any country. This dashboard is a representation of startups in the country, empowering stakeholders with insights on startup ecosystem development and analysis on the national innovation economy.
+              </div>
+            </Grid>
+          </Grid>
+        </div>
+      <div className={Styles.cardRow}>
+         <Grid container spacing={2}>
+        <Grid size={4} className={Styles.statcard}>
+            <div className={Styles.cardheader} style={{ backgroundColor: '#3b669d', borderColor: '#3B82F6' }}>
             <HiMiniBuildingOffice className={Styles.cardicon} style={{ color: 'white' }} />
           </div>
           <div className={Styles.cardcontent}>
             <h3 className={Styles.cardtitle}>No. of Startups</h3>
             <p className={Styles.cardvalue}>{counts.startups}</p>
           </div>
-        </div>
-
-        <div className={Styles.statcard}>
+        </Grid>
+        <Grid size={4} className={Styles.statcard}>
           <div className={Styles.cardheader} style={{ backgroundColor: '#329a69', borderColor: '#10B981' }}>
             <FaIndustry className={Styles.cardicon} style={{ color: 'white' }} />
           </div>
@@ -64,9 +83,8 @@ const HomePageCards = () => {
             <h3 className={Styles.cardtitle}>No. of Industries</h3>
             <p className={Styles.cardvalue}>{counts.industries}</p>
           </div>
-        </div>
-
-        <div className={Styles.statcard}>
+        </Grid>
+        <Grid size={4} className={Styles.statcard}>
           <div className={Styles.cardheader} style={{ backgroundColor: '#943735', borderColor: '#EF4444' }}>
             <FaChartPie className={Styles.cardicon} style={{ color: 'white' }} />
           </div>
@@ -74,61 +92,84 @@ const HomePageCards = () => {
             <h3 className={Styles.cardtitle}>No. of Sectors</h3>
             <p className={Styles.cardvalue}>{counts.sectors}</p>
           </div>
-        </div>
+        </Grid>
+      </Grid>
+        
       </div>
 
-      <div className={Styles.chartRow}>
-        <div className={Styles.statcard}> 
-            <StagePiechart />
-        </div>
-      </div>
 
-      <div className={Styles.chartRow}>
-        <div className={Styles.statcard}> 
-            <TopSectors />
-            {/* <TopSectorChart /> */}
-        </div>
-      </div>
+      
 
-      {!loading && (
-        <div className={Styles.chartRow}>
-          <div className={Styles.statcard}> 
-            <h5>Nature of Entity</h5>
-            <div className={Styles.businesstypescontainer}>
-              <div className={Styles.businesstype} style={{ borderTop: '4px solid #6366F1' }}>
-                <div className={Styles.iconcontainer} style={{ backgroundColor: '#EEF2FF' }}>
-                  <FaUsers style={{ color: '#6366F1', fontSize: '24px' }} />
-                </div>
-                <div className={Styles.amount} style={{ color: '#111827' }}>{getBusinessTypeCount(1)}</div>
-                <div className={Styles.typename} style={{ color: '#111827' }}>Limited Liability</div>
-                <div className={Styles.typename} style={{ color: '#111827' }}>Partnership</div>
-              </div>
+     <div className={Styles.cardRow}>
+       <Grid container spacing={2}>
+            <Grid size={6}>
+                  <StagePiechart />
+            </Grid>
+          <Grid size={6}>
+                    <h3 className={Styles.Topindustrihead}>Top Industries</h3>
+                    <IndustryBubbleChart />
+          </Grid>
+        </Grid>
+       </div>
+
+
+       <div className={Styles.cardRow}>
+       <Grid container spacing={2}>
+
+              <Grid size={6}>
+                      <h3 className={Styles.Topindustrihead}>Top Sectors</h3>
+                      <TopTenSectors />
+              </Grid>
+                <Grid size={6}>
+                    <h3 className={Styles.Topindustrihead}>Top 10 States</h3>
+                    <TopStates />
+                </Grid>
               
-              <div className={Styles.businesstype} style={{ borderTop: '4px solid #10B981' }}>
-                <div className={Styles.iconcontainer} style={{ backgroundColor: '#ECFDF5' }}>
-                  <BsBuildingsFill style={{ color: '#10B981', fontSize: '24px' }} />
+        </Grid>
+       </div>
+
+       <div className={Styles.cardRow}>
+       <Grid container spacing={2}>
+            <Grid size={6}>
+                  <div className={Styles.statcard}> 
+                  <b><h2 className={Styles.cardtitle} align="center" style={{ fontSize: '20px', fontWeight: 'bold' , marginBottom: '20px'}}>Nature of Entity</h2></b>
+                  <div className={Styles.businesstypescontainer}>
+                    <div className={Styles.businesstype} style={{ borderTop: '4px solid #6366F1' }}>
+                      <div className={Styles.iconcontainer} style={{ backgroundColor: '#EEF2FF' }}>
+                        <FaUsers style={{ color: '#6366F1', fontSize: '24px' }} />
+                      </div>
+                      <div className={Styles.amount} style={{ color: '#111827' }}>{getBusinessTypeCount(1)}</div>
+                      <div className={Styles.typename} style={{ color: '#111827' }}>Limited Liability</div>
+                      <div className={Styles.typename} style={{ color: '#111827' }}>Partnership</div>
+                    </div>
+                    
+                    <div className={Styles.businesstype} style={{ borderTop: '4px solid #10B981' }}>
+                      <div className={Styles.iconcontainer} style={{ backgroundColor: '#ECFDF5' }}>
+                        <BsBuildingsFill style={{ color: '#10B981', fontSize: '24px' }} />
+                      </div>
+                      <div className={Styles.amount} style={{ color: '#111827' }}>{getBusinessTypeCount(2)}</div>
+                      <div className={Styles.typename} style={{ color: '#111827' }}>Private Limited</div>
+                      <div className={Styles.typename} style={{ color: '#111827' }}>Company</div>
+                    </div>
+                    
+                    <div className={Styles.businesstype} style={{ borderTop: '4px solid #F59E0B' }}>
+                      <div className={Styles.iconcontainer} style={{ backgroundColor: '#FFFBEB' }}>
+                        <FaRegBuilding style={{ color: '#F59E0B', fontSize: '24px' }} />
+                      </div>
+                      <div className={Styles.amount} style={{ color: '#111827' }}>{getBusinessTypeCount(3)}</div>
+                      <div className={Styles.typename} style={{ color: '#111827' }}>Registered</div>
+                      <div className={Styles.typename} style={{ color: '#111827' }}>Partnership</div>
+                    </div>
+                  </div>
                 </div>
-                <div className={Styles.amount} style={{ color: '#111827' }}>{getBusinessTypeCount(2)}</div>
-                <div className={Styles.typename} style={{ color: '#111827' }}>Private Limited</div>
-                <div className={Styles.typename} style={{ color: '#111827' }}>Company</div>
-              </div>
-              
-              <div className={Styles.businesstype} style={{ borderTop: '4px solid #F59E0B' }}>
-                <div className={Styles.iconcontainer} style={{ backgroundColor: '#FFFBEB' }}>
-                  <FaRegBuilding style={{ color: '#F59E0B', fontSize: '24px' }} />
-                </div>
-                <div className={Styles.amount} style={{ color: '#111827' }}>{getBusinessTypeCount(3)}</div>
-                <div className={Styles.typename} style={{ color: '#111827' }}>Registered</div>
-                <div className={Styles.typename} style={{ color: '#111827' }}>Partnership</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-
-      )}
-      <TopStates />
+            </Grid>
+                <Grid size={6}>
+                  <StatusStartup />
+                </Grid>
+       </Grid>
+                
+       </div>
+    </div>
     </div>
     
   );

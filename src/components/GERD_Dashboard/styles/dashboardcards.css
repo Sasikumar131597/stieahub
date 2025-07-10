@@ -15,7 +15,7 @@
 
 .dashboard-tile {
     height: 150px;
-    background: linear-gradient(135deg, #2196f3, #1976d2);
+    /* background: linear-gradient(135deg, #2196f3, #1976d2); */
     border-radius: 16px;
     position: relative;
     overflow: hidden;
@@ -54,14 +54,16 @@
 
 /* Front (icon + label) */
 .dashboard-tile-front {
-    background: linear-gradient(135deg, #2196f3, #1976d2);
+    /* background: linear-gradient(135deg, #2196f3, #1976d2); */
+    background: linear-gradient(135deg, #4a4a7c, #020049);
     color: white;
     font-weight: bold;
 }
 
 /* Back (label + description + CTA) */
 .dashboard-tile-back {
-    background: linear-gradient(135deg, #64b5f6, #42a5f5);
+    /* background: linear-gradient(135deg, #64b5f6, #42a5f5); */
+    background: linear-gradient(135deg, #4a4a7c, #020049);
     transform: rotateY(180deg);
     color: white;
     text-align: center;

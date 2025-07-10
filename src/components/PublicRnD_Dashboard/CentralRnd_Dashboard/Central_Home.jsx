@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { fetchTotalGerdData, fetchSunburstData, fetchMSAData, fetchMDData, fetchCentralTrendlineData, fetchMSABarData } from "../../helpers/apiHelper"; // Import fetchMSABarData
 import "./centralhome.css";
 import CentralTrendline from "./central_component/Central_Trendline";
 import CentralStackedAreaChart from "./central_component/Central_StackedAreaChart";
 import CentralSunburst from "./central_component/CentralSunburst";
 import Spinner from "../../helpers/spinner";
-import { FaChartLine, FaChartArea } from "react-icons/fa";
 import MultilineChart_MSA from "./central_component/MultilineChart_MSA";
 import MultilineChart_MD from "./central_component/MultilineChart_MD";
 import MSAgerdabsvalue from "./central_component/MSAgerdabsvalue";
-import MDgerdabsvalue from "./central_component/MDgerdabsvalue";
 import axios from "axios";
 
 function Central_Home() {
   const [totalGerdData, setTotalGerdData] = useState({});
-  const [sectorGerdData, setSectorGerdData] = useState({});
   const [loading, setLoading] = useState(true);
   const [sunburstLoading, setSunburstLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -22,7 +18,6 @@ function Central_Home() {
   const [chartType, setChartType] = useState("line");
   const [sunburstData, setSunburstData] = useState([]);
   const [availableYears, setAvailableYears] = useState([]);
-  const [names, setNames] = useState([]);
   const [selectedYear, setSelectedYear] = useState("");
 
   // MSA Data State

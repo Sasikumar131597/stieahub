@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import CountrySectorProportion from "./gerd_components/International/CountrySectorProportion";
 import CountryGerdtoGdp from "./gerd_components/International/CountryGerdtoGdp";
 import CountryGerdabsvalue from "./gerd_components/International/CountryGerdabsvalue";
-import PageTitle from "../PageTitle";
 import './styles/international.css';  // Ensure this has proper section and chart-container styles
 import { fetchCountrySectorProportionData, fetchGerdToGdpData, fetchGerdAbsValueData } from "../helpers/apiHelper";
 import Spinner from "../helpers/spinner";  // Import Spinner component

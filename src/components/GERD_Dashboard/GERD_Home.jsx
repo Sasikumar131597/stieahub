@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { fetchTotalGerdData, fetchGerdSectorData } from "../helpers/apiHelper";
+import React, { useState, useEffect } from "react";
 import "./styles/pagegerd.css";
-import PageTitle from "../PageTitle";
 import YearRange from "./gerd_components/YearRange";
 import GerdCards from "./gerd_components/GerdCards";
 import LineChartComponent from "./gerd_components/GERD_TrendLine";
@@ -9,7 +7,6 @@ import PieChart1 from "./gerd_components/PieChart1";
 import Spinner from "../helpers/spinner";
 import RatioChart from "./gerd_components/RatioChart";
 import StackedAreaChart from "./gerd_components/StackedAreaChart";
-import { FaChartLine, FaChartArea } from "react-icons/fa";
 import NavGerdCards from "./gerd_components/NavGerdCards";
 import axios from "axios";
 
@@ -21,7 +18,6 @@ function GERD_Home() {
   const [error, setError] = useState(null);
   // const [chartData, setChartData] = useState([]);
   const [lineChartData, setLineChartData] = useState();
-  const [lineStackedData, setLineStackedData] = useState();
   const [pieData1, setPieData1] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
   const [availableYears, setAvailableYears] = useState([]);
