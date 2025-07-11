@@ -47,7 +47,7 @@ const Startupmap = () => {
     );
   };
 
-  if (loading) return <div className="loading">Loading startup data...</div>;
+  if (loading) return <div className="loading">Loading startup map...</div>;
 
   return (
     <div 
@@ -68,7 +68,7 @@ const Startupmap = () => {
             geographies.map((geo) => {
               const stateName = geo?.properties?.st_nm || 'Unknown State';
               const stateData = getStateData(stateName);
-              const isHovered = hoveredState?.id === geo.id;
+              // const isHovered = hoveredState?.id === geo.id;
               
               // Default color if no data
               let fillColor = '#EAEAEC';
@@ -179,3 +179,5 @@ const Startupmap = () => {
 };
 
 export default Startupmap;
+
+

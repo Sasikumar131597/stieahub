@@ -97,7 +97,9 @@ if (!selectedYear) return <p>Loading...</p>;
 
   return (
     <main className="bg-gray-50 p-4">
+
       <div className="text-center my-6">
+          {/* <img src={StartupBanner}  /> */}
         <h1 className="section-title">Gross Domestic Expenditure on R&D (GERD)</h1>
         <p className="section-description">
           "Gross domestic expenditure on R&D (GERD) is the main aggregate statistic used to describe a country’s research and development (R&D) activities, which covers all expenditures for R&D performed in the national territory during a specific reference period. GERD is a primary indicator for international comparisons of R&D activity"
