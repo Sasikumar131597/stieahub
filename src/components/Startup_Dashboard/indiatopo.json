@@ -16947,8 +16947,6 @@
           "arcs": [[877]],
           "type": "Polygon",
           "properties": {
-            "district": "Lakshadweep",
-            "dt_code": "587",
             "st_nm": "Lakshadweep",
             "st_code": "31",
             "year": "2011_c"

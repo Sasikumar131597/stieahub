@@ -92,10 +92,8 @@ const LineChartComponent = ({ chartData }) => {
                     <p>No data available.</p>
                 )}
             </div>
-            <p className="chart-footnote" >
-                        <b>Source: </b><span >Data on Public R&D, Central Sector R&D and State Sector R&D expenditures are from NSTMIS, Department of Science and Technology, Government of India
-</span>
-                </p>
+                <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on Public R&D, Central Sector R&D and State Sector R&D expenditures are from NSTMIS, Department of Science and Technology, Government of India
+</p>
         </div>
     );
 };

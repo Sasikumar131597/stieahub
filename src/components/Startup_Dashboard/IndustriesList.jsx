@@ -21,13 +21,9 @@ const IndustriesList = () => {
   const [sectorsLoading, setSectorsLoading] = useState(false);
   const [sectorsError, setSectorsError] = useState(null);
 
-  // Function to dynamically import industry images
-  const getIndustryImage = (id) => {
-    try {
-      return require(`../../images/Industry_images/${id}.png`);
-    } catch (err) {
-      // return require('../../images/Industry_images/default.jpg');
-    }
+  // Function to get industry image URL
+  const getIndustryImageUrl = (id) => {
+    return `https://development.stieahub.in/Codigniter_api/public/assets/images/Industry_imgs/${id}.png`;
   };
 
   // Styles object
@@ -98,6 +94,7 @@ const IndustriesList = () => {
       top: 0,
       left: 0,
       transition: 'all 0.3s ease',
+      backgroundColor: '#f5f5f5', // Fallback background color
     },
     countOverlay: {
       position: 'absolute',
@@ -210,8 +207,11 @@ const IndustriesList = () => {
 
   return (
     <div>
-      {/* <img src={StartupBanner} alt="Startup Banner" style={{width: '100%'}} /> */}
+      
       <div style={styles.container}>
+        <h3 style={{ fontWeight: "bold" }}>Industries and Sectors</h3>
+        <p>This section lets you analyse the architecture of the Indian startups. View the foundational Industries that form the pillars of economic growth in India. Then, examine the intricate framework of the Sectors built upon them to understand the market’s structure and identify the most influential areas of innovation.</p>
+
         <div style={styles.grid}>
           {industries.map((industry) => (
             <div 
@@ -223,14 +223,16 @@ const IndustriesList = () => {
             >
               <div style={styles.imageContainer}>
                 <img 
-                  src={getIndustryImage(industry.id)} 
+                  src={getIndustryImageUrl(industry.id)} 
                   alt={industry.industry_category_name}
                   style={{
                     ...styles.image,
                     transform: hoveredCard === industry.id ? 'scale(1.1)' : 'scale(1)'
                   }}
                   onError={(e) => {
-                    // e.target.src = require('../../images/Industry_images/default.jpg');
+                    e.target.style.backgroundColor = '#e0e0e0';
+                    e.target.style.objectFit = 'contain';
+                    e.target.src = ''; // Clear the src to prevent infinite error loop
                   }}
                 />
                 <div style={{

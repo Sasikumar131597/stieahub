@@ -139,9 +139,12 @@ const options = {
       <div className="ratiochart">
         <Chart options={options} series={series} type="line" height={400} />
       </div>
-      <p className="chart-footnote" >
+      {/* <p className="chart-footnote" >
         <b>Source: </b><span >Data on GERD and GDP/GNP are from NSTMIS, Department of Science and Technology, Government of India. Data on GDP from NSTMIS compiled from Economic Survey of India reports. For the years upto 1989-90, Gross National Product (GNP) had been used as denominator in place of Gross Domestic Product (GDP)</span>
-      </p>
+      </p> */}
+
+      <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on GERD and GDP/GNP are from NSTMIS, Department of Science and Technology, Government of India. Data on GDP from NSTMIS compiled from Economic Survey of India reports. For the years upto 1989-90, Gross National Product (GNP) had been used as denominator in place of Gross Domestic Product (GDP)
+    </p>
     </div>
   );
 };

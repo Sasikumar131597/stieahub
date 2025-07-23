@@ -13,157 +13,147 @@ import axios from "axios";
 function GERD_Home() {
   const [totalGerdData, setTotalGerdData] = useState({});
   const [sectorGerdData, setSectorGerdData] = useState({});
-  const [dataUpdated, setDataUpdated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const [chartData, setChartData] = useState([]);
   const [lineChartData, setLineChartData] = useState();
-  const [pieData1, setPieData1] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
   const [availableYears, setAvailableYears] = useState([]);
   const [chartType, setChartType] = useState("line");
 
+  const  Styles= {
+    cardRow: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+      gap: '1.5rem',
+    },
+    modernContent: {
+      fontSize: '16px',
+      lineHeight: 1.6,
+      color: '#4a5568',
+      backgroundColor: 'white',
+      padding: '24px',
+      borderRadius: '12px',
+      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+      marginBottom: '24px',
+      borderLeft: '4px solid #3b82f6',
+    },
+};
 
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const trendOverData = await axios.get('https://development.stieahub.in/Codigniter_api/public/gerddatavalues');
 
+      setLineChartData(trendOverData?.data);
 
-const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const trendOverData = await axios.get('https://development.stieahub.in/Codigniter_api/public/gerddatavalues');
+      const gerdDict = trendOverData?.data?.reduce((acc, item) => {
+        acc[item?.year] = item;
+        return acc;
+      }, {});
 
-        setLineChartData(trendOverData?.data);
+      setTotalGerdData(gerdDict);
 
-        const gerdDict = trendOverData?.data?.reduce((acc, item) => {
-          acc[item?.year] = item;
-          return acc;
-        }, {});
+      const sortedYears = trendOverData?.data?.map((item) => item?.year).sort();
+      setAvailableYears(sortedYears);
 
-        setTotalGerdData(gerdDict);
+      const latestValidYear = sortedYears?.reverse()?.find((year) => gerdDict[year]?.value);
+      setSelectedYear(latestValidYear);
 
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        const sortedYears = trendOverData?.data?.map((item) => item?.year).sort();
-        setAvailableYears(sortedYears);
-
-        const latestValidYear = sortedYears?.reverse()?.find((year) => gerdDict[year]?.value);
-        setSelectedYear(latestValidYear);
-
-        setDataUpdated((prev) => !prev);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchSectorData = async () => {
+    try {
+      const sectorWiseData = await axios.get('https://development.stieahub.in/Codigniter_api/public/gettestsector');
+      const sectorDict = sectorWiseData?.data?.reduce((acc, item) => {
+        acc[item?.year] = item;
+        return acc;
+      }, {});
+      setSectorGerdData(sectorDict);
+    } catch (error) {
+      console.error("Error fetching sector data:", error);
+    }
+  };
 
   useEffect(() => {
-    
     fetchData();
   }, []);
 
-  const fetchSectorData = async () => {
-
-    const sectorWiseData = await axios.get('https://development.stieahub.in/Codigniter_api/public/gettestsector');
-
-
-    const sectorDict = await sectorWiseData?.data?.reduce((acc, item) => {
-      acc[item?.year] = item;
-      return acc;
-    }, {});
-
-    setSectorGerdData(sectorDict);
-
-    setPieData1(
-      sectorWiseData?.data?.map((item) => ({
-        year: item?.year,
-        publicRND: parseFloat(item?.centralRND || 0) + parseFloat(item?.stateRND || 0),
-        privateRND: parseFloat(item?.privateRND || 0),
-        heiRND: parseFloat(item?.heiRND || 0),
-      }))
-    );
-
-  }
-
   useEffect(() => {
-
-    fetchSectorData();
-
-  }, [selectedYear,setLineChartData]);
+    if (selectedYear) {
+      fetchSectorData();
+    }
+  }, [selectedYear]);
 
   if (loading) return <Spinner />;
-
-if (!selectedYear) return <p>Loading...</p>;
-
+  if (!selectedYear) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
-    <main className="bg-gray-50 p-4">
-
-      <div className="text-center my-6">
-          {/* <img src={StartupBanner}  /> */}
-        <h1 className="section-title">Gross Domestic Expenditure on R&D (GERD)</h1>
-        <p className="section-description">
-          "Gross domestic expenditure on R&D (GERD) is the main aggregate statistic used to describe a country’s research and development (R&D) activities, which covers all expenditures for R&D performed in the national territory during a specific reference period. GERD is a primary indicator for international comparisons of R&D activity"
-        </p>
-        <p className="highlight">
-          - <a href="https://www.oecd.org/en/publications/2015/10/frascati-manual-2015_g1g57dcb.html" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-            Frascati Manual, OECD
-          </a>
-        </p>
-      </div>
-
-      <div className="text-center">
-        <p className="section-description">
-          R&D performance of India is understood using the following sectoral composition:
-        </p>
-        <div className="flex justify-center">
-          <ul className="list-disc text-left pl-5">
-            <li>Public Sector</li>
-            <li>Private Sector</li>
-            <li>Higher Education Institutions</li>
-          </ul>
+    <div>
+      <img src="https://development.stieahub.in/Codigniter_api/public/assets/images/Banners/GERD_Home.png"  />
+    <main className="p-4 max-w-7xl mx-auto" >
+      <div style={Styles.cardRow} >
+              <div className={Styles.modernContent}>
+                "Gross domestic expenditure on R&D (GERD) is the main aggregate statistic used to describe a country's research and development (R&D) activities, which covers all expenditures for R&D performed in the national territory during a specific reference period. GERD is a primary indicator for international comparisons of R&D activity." 
+                <br />
+                <a href="https://www.oecd.org/en/publications/2015/10/frascati-manual-2015_g1g57dcb.html" target="_blank"><p align="right">- Frascati Manual, OECD</p></a>
+                </div>
         </div>
-      </div>
-
-      <div className="flex justify-center gap-4 my-4">
-        <NavGerdCards />
-      </div>
-
-      <div style={{ position: "relative" }}>
-        <div className="chart-selector"
-          style={{
-            position: "absolute",
-            top: "10px",
-            right: "250px",
-            zIndex: 10,
-            background: "rgba(255, 255, 255, 0.8)",
-            padding: "5px 10px",
-            borderRadius: "5px"
-          }}>
-          <label htmlFor="chartType">Select Chart Type: </label>
-          <select id="chartType" value={chartType} onChange={(e) => setChartType(e.target.value)} className="dropdown-chart">
-            <option value="line">GERD</option>
-            <option value="area">Sector-Wise</option>
-          </select>
+      
+      {/* First Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 mb-4">
+        {/* Left side - NavGerdCards */}
+        <div className="lg:col-span-2">
+          <NavGerdCards />
         </div>
-
-        {chartType === "line" ? <LineChartComponent chartData={lineChartData} /> : <StackedAreaChart sectorGerdData={sectorGerdData} />}
-      </div>
-
-      <div className="container">
-        <div className="box flex justify-between items-center">
-          {/* Left Side - Dropdown and Cards */}
-          <div className="left-side flex flex-col" style={{ width: "30%" }}>
-            <div className="dropdown">
-              <YearRange selectedYear={selectedYear} setSelectedYear={setSelectedYear} availableYears={availableYears} />
-            </div>
-            <div className="tiles">
-              <GerdCards total_gerd_data={totalGerdData} sectorGerdData={sectorGerdData} selectedYear={selectedYear} />
-            </div>
+        
+        {/* Right side - GERD Trend */}
+        <div className="lg:col-span-6 bg-white p-4 rounded-lg shadow-md relative">
+          <div className="absolute top-4 right-4 z-10">
+            <select 
+              value={chartType} 
+              onChange={(e) => setChartType(e.target.value)} 
+              className="border p-1 rounded text-sm"
+            >
+              <option value="line">GERD Trend</option>
+              <option value="area">Sector-Wise</option>
+            </select>
           </div>
+          {chartType === "line" ? (
+            <LineChartComponent chartData={lineChartData} />
+          ) : (
+            <StackedAreaChart sectorGerdData={sectorGerdData} />
+          )}
+        </div>
+      </div>
 
-          {/* Right Side - Pie Chart */}
-          {/* {Piedata()} */}
-          <PieChart1 className="w-1/2"
+      {/* Second Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 mb-4">
+        {/* Left side - YearRange */}
+        <div className="lg:col-span-2 bg-white p-4 rounded-lg shadow-md">
+          <YearRange 
+            selectedYear={selectedYear} 
+            setSelectedYear={setSelectedYear} 
+            availableYears={availableYears} 
+          />
+          <div className="mt-4">
+            <GerdCards 
+              total_gerd_data={totalGerdData} 
+              sectorGerdData={sectorGerdData} 
+              selectedYear={selectedYear} 
+            />
+          </div>
+        </div>
+        
+        {/* Right side - PieChart1 */}
+        <div className="lg:col-span-4 bg-white p-4 rounded-lg shadow-md">
+          <PieChart1
             pieData={[
               { name: "Public R&D", value: sectorGerdData[selectedYear]?.publicRND || 0 },
               { name: "Private R&D", value: sectorGerdData[selectedYear]?.privateRND || 0 },
@@ -171,32 +161,33 @@ if (!selectedYear) return <p>Loading...</p>;
             ]}
             selectedYear={selectedYear}
           />
-          
-          <p className="chart-footnote" >
-            <b>Source: </b><span >Data on GERD and sectoral R&D expenditures are from NSTMIS, Department of Science and Technology, Government of India
-            </span>
-          </p>
+          <p style={{fontSize:"12px",textAlign:"center"}}> <b>Source: </b>Data on GERD and sectoral R&D expenditures are from NSTMIS, Department of Science and Technology, Government of India</p>
         </div>
-
+        
       </div>
 
-
-      <br />
-      <br />
-      <div className="text-center my-7">
-        <h1 className="section-title">R&D Intensity</h1>
-        <p className="section-description">
-          GERD is often presented as a ratio of GERD divided by gross domestic product (GDP) as an indicator of the R&D intensity of a country’s economy, both over time and in comparison with other countries
-        </p>
-        <p className="highlight">
+      {/* Third Row - Full width RatioChart */}
+      <div className="bg-white p-4 rounded-lg shadow-md mb-8">
+        <div className="mb-4">
+          <h2 className="text-gray-800">R&D Intensity</h2>
+          <p className="text-sm text-gray-600">
+            GERD is often presented as a ratio of GERD divided by gross domestic product (GDP) as an indicator of the R&D intensity of a country’s economy, both over time and in comparison with other countries
+            <p align="right">
           - <a href="https://www.oecd.org/en/publications/2015/10/frascati-manual-2015_g1g57dcb.html" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
             Frascati Manual, OECD
           </a>
         </p>
+          
+          </p>
+        </div>
+        <RatioChart ratioData={totalGerdData} availableYears={availableYears} />
       </div>
 
-      <RatioChart ratioData={totalGerdData} availableYears={availableYears} />
+      {/* Footer/Source */}
+      <div className="text-sm text-gray-600 mt-8">
+        </div>
     </main>
+    </div>
   );
 }
 
