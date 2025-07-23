@@ -52,19 +52,14 @@ const HomePageCards = () => {
           <Grid container spacing={2}>
             <Grid size={12}>
               <div className={Styles.modernContent}>
-                "A startup is a fairly new entrepreneurial venture or company which aims to meet a marketplace need by developing or offering an innovative product, process or service." 
-                <br />
-                <a href="https://www.startupindia.gov.in/content/sih/en/ecosystem-page-.html" target="_blank"><p align="right">- Department for Promotion of Industry and Internal Trade(DPIIT)</p></a>
-                 </div>
+                  "Startups are the engines of exponential growth, manifesting the power of innovation. Several big companies today are startups of yesterday. They were born with a spirit of enterprise and adventure, kept alive due to hardwork and perseverance, and today have become shining beacons of innovation" - Prime Minister Narendra Modi
+               </div>
             </Grid>
           </Grid>
           
         </div>
-        <p>
-            Every Startup begins with a seed of an idea, planted with courage and nurtured with relentless effort. The indian startup ecosystem is a fertile ground for these ideas to take root and flourish into impactful organisations that solve real-world problems. The journey of growth is the cornerstone of a self-reliant and innovative new India.
-          </p>
-          <h5 style={{ fontWeight: "bold" }}>About this Dashboard</h5>
-          <p>This dashboard provides a bird’s-eye view of the startup ecosystem’s lifecycle and scale. It is a strategic tool for visualising the collective progress and potential of India’s most innovative ventures. Key features include a snapshot of total startups, their stages, nature & status; Industry, Sector and geographical analysis.</p>
+          <h5 style={{ fontWeight: "bold" }}>About this Dashboard:</h5>
+          <p>Startups in India have become synonymous with the country's fast-paced growth journey. This dashboard is designed to give insights into the startup ecosystem of India, providing a snapshot of entrepreneurship and innovation in the country. By highlighting key Industrial sectors in which these startups function and the top-performing geographical areas in the country, this dashboard enables concerned stakeholders to identify gaps and strengths and take evidence-backed policy measures to better support startups in the country.</p>
 
       <div className={Styles.cardRow}>
          <Grid container spacing={2}>

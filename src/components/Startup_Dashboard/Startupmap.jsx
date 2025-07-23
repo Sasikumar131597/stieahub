@@ -1,31 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
-import indiaTopoJson from './indiatopo.json';
+import indiaTopoJson from './INDIA_STATES.json';
 
 const Startupmap = () => {
   const [hoveredState, setHoveredState] = useState(null);
   const [startupData, setStartupData] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [loading, setLoading] = useState(true);
+  const [maxCount, setMaxCount] = useState(1);
 
-  // Safe name normalization
-  const normalizeName = (name) => {
-    if (!name) return '';
-    return name.toString().toLowerCase().trim();
-  };
+  const normalize = (str) => str?.toLowerCase().trim().replace(/\s+/g, '');
 
-  // Fetch startup data
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          'https://development.stieahub.in/Codigniter_api/public/startupscountstates'
-        );
-        const data = await response.json();
-        setStartupData(Array.isArray(data) ? data : []);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setStartupData([]);
+        const res = await fetch('https://development.stieahub.in/Codigniter_api/public/startupscountstates');
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          setStartupData(data);
+          const max = Math.max(...data.map(item => parseInt(item.count || 0)), 1);
+          setMaxCount(max);
+        } else {
+          setStartupData([]);
+        }
+      } catch (err) {
+        console.error('Error fetching data:', err);
       } finally {
         setLoading(false);
       }
@@ -33,171 +32,208 @@ const Startupmap = () => {
     fetchData();
   }, []);
 
-  // Track mouse position for tooltip
+  const getStateData = (stateName) => {
+    const normalizedName = normalize(stateName);
+    if (normalizedName.includes('lakshadweep') || normalizedName.includes('ld')) {
+      return startupData.find(item => 
+        normalize(item.state_name).includes('lakshadweep') || 
+        normalize(item.state_name).includes('ld')
+      );
+    }
+    if (normalizedName.includes('andaman') || normalizedName.includes('nicobar')) {
+      return startupData.find(item => 
+        normalize(item.state_name).includes('andaman') || 
+        normalize(item.state_name).includes('nicobar')
+      );
+    }
+    return startupData.find(item => normalize(item.state_name) === normalizedName);
+  };
+
+  const getColorForCount = (count) => {
+    if (count === 0) return '#f0f0f0';
+    const intensity = Math.min(0.2 + (count / maxCount) * 0.8, 1);
+    return `rgba(26, 6, 74, ${intensity})`;
+  };
+
+  const getStateStyle = (count, stateName) => {
+    const normalizedName = normalize(stateName);
+    const isIsland = normalizedName.includes('lakshadweep') || 
+                    normalizedName.includes('andaman') || 
+                    normalizedName.includes('nicobar');
+    const fillColor = getColorForCount(count);
+    
+    return {
+      default: {
+        fill: fillColor,
+        stroke: isIsland ? '#824388ff' : '#FFFFFF',
+        strokeWidth: isIsland ? 1.5 : 0.8,
+        outline: 'none'
+      },
+      hover: {
+        fill: fillColor,
+        stroke: isIsland ? '#000000ff' : '#1a064a',
+        strokeWidth: isIsland ? 2.5 : 2,
+        filter: isIsland 
+          ? 'drop-shadow(0 0 8px rgba(0, 0, 0, 0.7))' 
+          : 'drop-shadow(0 0 6px rgba(26, 6, 74, 0.5))',
+        transition: 'all 100ms'
+      }
+    };
+  };
+
   const handleMouseMove = (e) => {
     setPosition({ x: e.clientX, y: e.clientY });
   };
 
-  // Get startup data for a state with safe access
-  const getStateData = (stateName) => {
-    if (!stateName || !Array.isArray(startupData)) return null;
-    const normalized = normalizeName(stateName);
-    return startupData.find(item => 
-      item?.state_name && normalizeName(item.state_name) === normalized
-    );
-  };
-
-  // Enhanced color calculation with #4718b9 base color
-  const getHeatColor = (count) => {
-    if (!count) return '#F5F0FA'; // Very light purple for no data
-    
-    const num = parseInt(count);
-    const maxCount = 20000;
-    
-    // Opacity range from 0.3 to 1.0
-    const opacity = Math.min(0.3 + (num / maxCount * 0.7), 1.0).toFixed(2);
-    
-    return `rgba(71, 24, 185, ${opacity})`; // #4718b9 with varying opacity
-  };
-
-  if (loading) return <div className="loading">Loading startup map...</div>;
+  if (loading) return <div>Loading startup map...</div>;
 
   return (
-    <div 
-      style={{ width: '100%', position: 'relative' }}
-      onMouseMove={handleMouseMove}
-    >
+    <div onMouseMove={handleMouseMove} style={{ position: 'relative', width: '100%' }}>
       <ComposableMap
         projection="geoMercator"
-        projectionConfig={{
-          scale: 1000,
+        projectionConfig={{ 
+          scale: 1000, 
           center: [78.9629, 22.5937],
+          precision: 0.1
         }}
         width={800}
         height={600}
+        style={{
+          backgroundColor: '#f0f0f0'
+        }}
       >
+        {/* Main India Map */}
         <Geographies geography={indiaTopoJson}>
           {({ geographies }) =>
             geographies.map((geo) => {
-              const stateName = geo?.properties?.st_nm || 'Unknown State';
+              const rawName = geo?.properties?.STNAME || 'Unknown';
+              const stateName = rawName;
               const stateData = getStateData(stateName);
-              const count = stateData?.count ? parseInt(stateData.count) : 0;
-              const fillColor = getHeatColor(count);
-
+              const count = parseInt(stateData?.count || 0);
+              
               return (
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  onMouseEnter={() => setHoveredState({
-                    id: geo.id,
-                    name: stateName,
-                    count: count ? count.toLocaleString() : 'No data'
-                  })}
+                  onMouseEnter={() => setHoveredState({ name: stateName, count })}
                   onMouseLeave={() => setHoveredState(null)}
-                  style={{
-                    default: {
-                      fill: fillColor,
-                      outline: 'none',
-                      stroke: '#FFF',
-                      strokeWidth: 0.5,
-                      transition: 'all 0.3s ease'
-                    },
-                    hover: {
-                      fill: fillColor, // Same color
-                      outline: 'none',
-                      stroke: '#FFF',
-                      strokeWidth: 2,
-                      filter: 'drop-shadow(0 0 4px rgba(71, 24, 185, 0.5))'
-                    },
-                    pressed: {
-                      outline: 'none',
-                    },
-                  }}
+                  style={getStateStyle(count, stateName)}
                 />
               );
             })
           }
         </Geographies>
+
+        {/* Island Territories */}
+        <Geographies geography={indiaTopoJson}>
+          {({ geographies }) =>
+            geographies
+              .filter(geo => {
+                const name = normalize(geo?.properties?.STNAME || '');
+                return name.includes('lakshadweep') || name.includes('andaman') || name.includes('nicobar');
+              })
+              .map((geo) => {
+                const stateName = geo?.properties?.STNAME || 'Island Territory';
+                const stateData = getStateData(stateName);
+                const count = parseInt(stateData?.count || 0);
+                
+                return (
+                  <Geography
+                    key={`island-${geo.rsmKey}`}
+                    geography={geo}
+                    onMouseEnter={() => setHoveredState({ name: stateName, count })}
+                    onMouseLeave={() => setHoveredState(null)}
+                    style={getStateStyle(count, stateName)}
+                  />
+                );
+              })
+          }
+        </Geographies>
       </ComposableMap>
 
-      {/* Floating Tooltip */}
+      {/* Color Gradient Scale (Legend) */}
+      <div style={{
+        position: 'absolute',
+        top: '20px',
+        right: '20px',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        padding: '10px',
+        borderRadius: '5px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        zIndex: 10,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        minWidth: '200px'
+      }}>
+        <div style={{ 
+          marginBottom: '8px', 
+          fontWeight: 'bold', 
+          color: '#1a064a',
+          fontSize: '14px'
+        }}>
+          Number of Startups
+        </div>
+        
+        {/* Gradient Bar */}
+        <div style={{
+          display: 'flex',
+          width: '100%',
+          height: '20px',
+          marginBottom: '8px',
+          background: 'linear-gradient(to right, #f0f0f0, rgba(26, 6, 74, 1))',
+          borderRadius: '3px'
+        }}/>
+        
+        {/* Labels */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          fontSize: '12px'
+        }}>
+          <span>0</span>
+          <span>{maxCount}</span>
+        </div>
+      </div>
+
+      {/* Tooltip */}
       {hoveredState && (
         <div
           style={{
             position: 'fixed',
-            left: `${Math.min(position.x + 15, window.innerWidth - 200)}px`,
-            top: `${position.y - 30}px`,
-            backgroundColor: 'rgba(255,255,255,0.95)',
+            left: Math.min(position.x + 15, window.innerWidth - 200),
+            top: position.y - 30,
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
             padding: '8px 12px',
             borderRadius: '4px',
             boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-            border: '1px solid #ddd',
+            border: `2px solid ${
+              normalize(hoveredState.name).includes('lakshadweep') || 
+              normalize(hoveredState.name).includes('andaman') || 
+              normalize(hoveredState.name).includes('nicobar') 
+                ? '#3a3636ff' 
+                : '#1a064a'
+            }`,
             pointerEvents: 'none',
             zIndex: 100,
             minWidth: '160px',
-            maxWidth: '200px',
-            backdropFilter: 'blur(2px)',
-            color: '#333'
+            color: '#333',
+            fontSize: '13px'
           }}
         >
-          <div style={{ fontWeight: 'bold', marginBottom: '4px', color: '#4718b9' }}>
+          <strong style={{ 
+            color: '#1a064a'
+          }}>
             {hoveredState.name}
-          </div>
+          </strong>
           <div>
-            Startups: <strong>{hoveredState.count}</strong>
+            Startups: <strong>{hoveredState.count ? hoveredState.count.toLocaleString() : 'No data'}</strong>
           </div>
         </div>
       )}
-
-      {/* Enhanced Legend */}
-      <div style={{
-        position: 'absolute',
-        top: '0px',
-        backgroundColor: 'rgba(255,255,255,0.95)',
-        padding: '5px',
-        borderRadius: '5px',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-        border: '1px solid #eee',
-        backdropFilter: 'blur(2px)'
-      }}>
-        <h6 style={{ 
-          margin: '0 0 10px 0', 
-          fontSize: '14px', 
-          fontWeight: '600'
-        }}>
-          Startup Counts
-        </h6>
-        {[
-          { color: 'rgba(71, 24, 185, 1)', label: 'High (15,000+)' },
-          { color: 'rgba(71, 24, 185, 0.7)', label: 'Medium (10,000+)' },
-          { color: 'rgba(71, 24, 185, 0.5)', label: 'Low (5,000+)' },
-          { color: 'rgba(71, 24, 185, 0.3)', label: 'Very Low (<5,000)' },
-          { color: '#F5F0FA', label: 'No data' },
-        ].map((item, i) => (
-          <div key={i} style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            margin: '6px 0',
-            padding: '4px 6px',
-            borderRadius: '3px',
-            backgroundColor: i === 4 ? 'rgba(0,0,0,0.03)' : 'transparent'
-          }}>
-            <div style={{
-              width: '18px',
-              height: '18px',
-              backgroundColor: item.color,
-              marginRight: '10px',
-              borderRadius: '3px',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-            }} />
-            <span style={{ fontSize: '13px', color: '#333' }}>{item.label}</span>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
 
 export default Startupmap;
-
-
