@@ -183,7 +183,7 @@ const handleYearChange = async (event) => {
   if (loading) return <Spinner />;
   if (error) return <p>Error: {error}</p>;
   return (
-    <main className="bg-gray-50 p-6 flex flex-col items-center">
+    <main className="p-6 flex flex-col items-center">
       <div className="text-center ">
         <h1 className="section-title">Central Sector R&D</h1>
         <p className="section-description">

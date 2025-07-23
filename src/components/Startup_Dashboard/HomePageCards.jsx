@@ -10,8 +10,6 @@ import Grid from '@mui/material/Grid2';
 import StatusStartup from './StatusStartup';
 import TopTenSectors from './TopTenSectors';
 import IndustryBubbleChart from './IndustryBubbleChart';
-import StartupBanner from '../../images/Startup-SAMPLE.png';
-
 
 const HomePageCards = () => {
   const [counts, setCounts] = useState({ startups: 0, industries: 0, sectors: 0 });
@@ -48,7 +46,7 @@ const HomePageCards = () => {
 
   return (
     <div>
-      <img src={StartupBanner}  />
+      <img src="https://development.stieahub.in/Codigniter_api/public/assets/images/Banners/STIEA_Startup.png"  />
     <div className={Styles.container}>
       <div className={Styles.cardRow}>
           <Grid container spacing={2}>
@@ -57,13 +55,17 @@ const HomePageCards = () => {
                 "A startup is a fairly new entrepreneurial venture or company which aims to meet a marketplace need by developing or offering an innovative product, process or service." 
                 <br />
                 <a href="https://www.startupindia.gov.in/content/sih/en/ecosystem-page-.html" target="_blank"><p align="right">- Department for Promotion of Industry and Internal Trade(DPIIT)</p></a>
-                
-                <br />
-                Startups are the pillars of innovation and engines of growth for any country. This dashboard is a representation of startups in the country, empowering stakeholders with insights on startup ecosystem development and analysis on the national innovation economy.
-              </div>
+                 </div>
             </Grid>
           </Grid>
+          
         </div>
+        <p>
+            Every Startup begins with a seed of an idea, planted with courage and nurtured with relentless effort. The indian startup ecosystem is a fertile ground for these ideas to take root and flourish into impactful organisations that solve real-world problems. The journey of growth is the cornerstone of a self-reliant and innovative new India.
+          </p>
+          <h5 style={{ fontWeight: "bold" }}>About this Dashboard</h5>
+          <p>This dashboard provides a bird’s-eye view of the startup ecosystem’s lifecycle and scale. It is a strategic tool for visualising the collective progress and potential of India’s most innovative ventures. Key features include a snapshot of total startups, their stages, nature & status; Industry, Sector and geographical analysis.</p>
+
       <div className={Styles.cardRow}>
          <Grid container spacing={2}>
         <Grid size={4} className={Styles.statcard}>
@@ -104,10 +106,13 @@ const HomePageCards = () => {
        <Grid container spacing={2}>
             <Grid size={6}>
                   <StagePiechart />
+                  <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Stages - Early Traction, Scaling, Validation, and Ideation are from DPIIT (Startup India).</p>
             </Grid>
           <Grid size={6}>
                     <h3 className={Styles.Topindustrihead}>Top Industries</h3>
                     <IndustryBubbleChart />
+                    <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Startup Industries is from DPIIT (Startup India).</p>
+            
           </Grid>
         </Grid>
        </div>
@@ -119,10 +124,12 @@ const HomePageCards = () => {
               <Grid size={6}>
                       <h3 className={Styles.Topindustrihead}>Top Sectors</h3>
                       <TopTenSectors />
+                      <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Startup Sectors is from DPIIT (Startup India).</p>
               </Grid>
                 <Grid size={6}>
                     <h3 className={Styles.Topindustrihead}>Top 10 States</h3>
                     <TopStates />
+                    <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Startup geographies is from DPIIT (Startup India).</p>
                 </Grid>
               
         </Grid>
@@ -160,11 +167,14 @@ const HomePageCards = () => {
                       <div className={Styles.typename} style={{ color: '#111827' }}>Registered</div>
                       <div className={Styles.typename} style={{ color: '#111827' }}>Partnership</div>
                     </div>
-                  </div>
+                    </div>
+                    <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Nature of Entity - Limited Liability Partnership, Private Limited Company, and Registered Partnership are from DPIIT (Startup India).</p>
                 </div>
             </Grid>
                 <Grid size={6}>
                   <StatusStartup />
+                  <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Status - Approved, Cancelled, and Expired are from DPIIT (Startup India).</p>
+                 
                 </Grid>
        </Grid>
                 

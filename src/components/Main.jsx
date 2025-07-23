@@ -3,7 +3,6 @@ import "./header_sidebar_components/styles/main.css";
 import PageTitle from "./PageTitle";
 import DashboardCards from "./GERD_Dashboard/DashboardCards";
 import Footer from "./header_sidebar_components/Footer";
-import HomeBanner from '../images/STIEA-sample.png';
 
 function Main() {
   return (
@@ -11,7 +10,7 @@ function Main() {
       {/* <PageTitle page="STI Ecosystem Metrics and Analytics" /> */}
 
       <section>
-            <img src={HomeBanner}  />
+            <img src="https://development.stieahub.in/Codigniter_api/public/assets/images/Banners/STIEA-Home.png"  />
       </section>
 
       {/* <section className="description">
