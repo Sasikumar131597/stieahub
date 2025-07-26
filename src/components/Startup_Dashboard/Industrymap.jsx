@@ -270,9 +270,6 @@ const IndustryMap = () => {
 
   // Define your custom HEX color gradient
   const colorGradient = [
-    '#f0f0f0',  // 0 (no data)
-    '#e6f9e6',  // lightest green
-    '#c2f0c2',
     '#99e699',
     '#70db70',
     '#47d147',
@@ -302,13 +299,13 @@ const IndustryMap = () => {
     return {
       default: {
         fill: fillColor,
-        stroke: isIsland ? '#824388ff' : '#FFFFFF',
+        stroke: isIsland ? '#9acc95ff' : '#FFFFFF',
         strokeWidth: isIsland ? 1.5 : 0.8,
         outline: 'none'
       },
       hover: {
         fill: fillColor,
-        stroke: isIsland ? '#000000ff' : '#1a064a',
+        stroke: isIsland ? '#8bc79cff' : '#1a064a',
         strokeWidth: isIsland ? 2.5 : 2,
         filter: isIsland 
           ? 'drop-shadow(0 0 8px rgba(0, 0, 0, 0.7))' 
@@ -424,7 +421,7 @@ const IndustryMap = () => {
           width: '100%',
           height: '20px',
           marginBottom: '8px',
-          background: 'linear-gradient(to right, #f0f0f0, hsl(120, 80%, 40%))',
+          background: 'linear-gradient(to right, #73c268ff, hsla(120, 87%, 31%, 1.00))',
           borderRadius: '3px'
         }}/>
         
@@ -469,7 +466,7 @@ const IndustryMap = () => {
             {hoveredState.name}
           </strong>
           <div>
-            Industries: <strong>{hoveredState.count}</strong>
+            Start up count: <strong>{hoveredState.count}</strong>
           </div>
           <div>
             Top Industry: <strong>{hoveredState.industry}</strong>

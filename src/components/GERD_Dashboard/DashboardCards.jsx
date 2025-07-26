@@ -41,7 +41,7 @@ const DashboardCards = () => {
         },
         {
             label: "Critical Technology Tracker",
-            link: "#",
+            link: "ctt_dashboard",
             icon: <GrTechnology />,
             description: "Insights on Critical Technologies"
         },
