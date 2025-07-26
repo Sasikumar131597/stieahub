@@ -122,7 +122,7 @@ export const fetchCountrySectorProportionData = async () => {
     const rawData = response.data?.data || [];
 
     // Transform raw data into the format expected by the chart
-    const headers = rawData[0];  // First row is the header
+   // const headers = rawData[0];  // First row is the header
     const formattedData = rawData.slice(1).map(row => ({
       country: row[0],
       Business: parseFloat(row[1]) || 0,
@@ -234,7 +234,7 @@ export const fetchConsolidatedPublicData = async () => {
             throw new Error("Insufficient data received");
         }
 
-        const headerRow = rawData[0];  // Expected: ["Year", "Central", "State", "Public_R&D", "Public R&D GNP", "Public R&D GDP", "Central GDP", "Central GNP", "State GDP", "State GNP"]
+        // const headerRow = rawData[0];  // Expected: ["Year", "Central", "State", "Public_R&D", "Public R&D GNP", "Public R&D GDP", "Central GDP", "Central GNP", "State GDP", "State GNP"]
         const rows = rawData.slice(1);  // Data rows
 
         const transformedData = {};

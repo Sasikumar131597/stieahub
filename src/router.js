@@ -11,6 +11,9 @@ import StartupDashboardLayout from "./components/Startup_Dashboard";
 import IndustriesList from "./components/Startup_Dashboard/IndustriesList";
 import HomePageCards from "./components/Startup_Dashboard/HomePageCards";
 import Geographpage from "./components/Startup_Dashboard/Geographpage";
+import CTTDashboardLayout from "./components/CTT_Dashboard";
+import HomePage from "./components/CTT_Dashboard/Home_Page";
+import TechnologyPage from "./components/CTT_Dashboard/TechnologyPage";
 
 // const routes = [
 //     { path: "/", element: <Main />, exact: true },
@@ -33,77 +36,85 @@ import Geographpage from "./components/Startup_Dashboard/Geographpage";
 //     { path: '*', element: <NotFoundPage /> }
 // ];
 
-
-
 export const routes = [
   {
     path: "/",
-    element:<Main />,
-  }, 
-
+    element: <Main />,
+  },
+  {
+    path: "ctt_dashboard",
+    element: <CTTDashboardLayout />,
+    children: [
+      {
+        path: "/ctt_dashboard",
+        element: <HomePage />,
+      },
+      {
+        path: "technology/:techid",
+        element: <TechnologyPage />
+      },
+    ],
+  },
   {
     path: "startup_dashboard",
     element: <StartupDashboardLayout />,
-    children: [{
+    children: [
+      {
         path: "/startup_dashboard",
         element: <HomePageCards />,
-    },
-    {
+      },
+      {
         path: "industries",
-        element: <IndustriesList />
-    },
-    {
+        element: <IndustriesList />,
+      },
+      {
         path: "geography",
-        element: <Geographpage />
-    }
-
-    
-    
-    ]
+        element: <Geographpage />,
+      },
+    ],
   },
   {
     path: "gerd_dashboard",
     element: <GerdDashboardLayout />,
-    children: [{
+    children: [
+      {
         path: "/gerd_dashboard",
         element: <GERD_Home />,
-    },
-    {
+      },
+      {
         path: "international_gerd",
-        element: <International />
-    },
-    {
+        element: <International />,
+      },
+      {
         path: "public_rnd",
         element: <PublicRnD />,
-    },
-    {
+      },
+      {
         path: "central_rnd",
         element: <Central_Home />,
-    },
-    {
+      },
+      {
         path: "state_rnd",
-        element: <State_Home />
-    }
-
-    ]
+        element: <State_Home />,
+      },
+    ],
   },
-   { path: '*', element: <NotFoundPage /> },
-//   {
-//     path: "dashboard",
-//     element: <Dashboard />,
-//     children: [
-//       {
-//         path: "/dashboard",
-//         element: (
-//           <>
-//           <Header />
-//           <LanguageTranslation />
-//           </>
-//         )
-//       },
-//     ]    
-//   },
+  { path: "*", element: <NotFoundPage /> },
+  //   {
+  //     path: "dashboard",
+  //     element: <Dashboard />,
+  //     children: [
+  //       {
+  //         path: "/dashboard",
+  //         element: (
+  //           <>
+  //           <Header />
+  //           <LanguageTranslation />
+  //           </>
+  //         )
+  //       },
+  //     ]
+  //   },
 ];
-
 
 export default routes;

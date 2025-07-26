@@ -52,7 +52,7 @@ const HomePageCards = () => {
           <Grid container spacing={2}>
             <Grid size={12}>
               <div className={Styles.modernContent}>
-                  "Startups are the engines of exponential growth, manifesting the power of innovation. Several big companies today are startups of yesterday. They were born with a spirit of enterprise and adventure, kept alive due to hardwork and perseverance, and today have become shining beacons of innovation" - Prime Minister Narendra Modi
+                  "Startups are the engines of exponential growth, manifesting the power of innovation. Several big companies today are startups of yesterday. They were born with a spirit of enterprise and adventure, kept alive due to hardwork and perseverance, and today have become shining beacons of innovation" - Prime Minister Shri Narendra Modi
                </div>
             </Grid>
           </Grid>
@@ -104,7 +104,7 @@ const HomePageCards = () => {
                   <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Stages - Early Traction, Scaling, Validation, and Ideation are from DPIIT (Startup India).</p>
             </Grid>
           <Grid size={6}>
-                    <h3 className={Styles.Topindustrihead}>Top Industries</h3>
+                    <h3 className={Styles.Topindustrihead}>Industrial sectors with highest startups</h3>
                     <IndustryBubbleChart />
                     <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Startup Industries is from DPIIT (Startup India).</p>
             

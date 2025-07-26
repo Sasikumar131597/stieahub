@@ -50,7 +50,7 @@ const sidebarNavItems = [
     },
     
     { type: 'single', name: 'R & D Institutions', icon: <FaUniversity size={20} />, link: '#' },
-    { type: 'single', name: 'Critical Technology Tracker', icon: <GrTechnology size={20} />, link: '#' },
+    { type: 'single', name: 'Critical Technology Tracker', icon: <GrTechnology size={20} />, link: '/ctt_dashboard' },
     { type: 'single', name: 'STI Partnership', icon: <FaHandshake size={20} />, link: 'https://sticonnect.info/public/' },
     { type: 'single', name: 'DEIA in STEMM', icon: <FaUsers size={20} />, link: '#' },
     { type: 'single', name: 'Other STI Indicators', icon: <FaChartLine size={20} />, link: '#' },
