@@ -15,9 +15,7 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { styled } from '@mui/material/styles';
-// import TechnologyPage from "./TechnologyPage";
 
-// Styled navigation button
 const NavButton = styled(Button)(({ theme }) => ({
   color: 'white',
   margin: theme.spacing(0, 1),
@@ -53,14 +51,12 @@ const SmallCard = styled(Card)(({ theme }) => ({
   }
 }));
 
-// Styled card content to ensure consistent text display
 const StyledCardContent = styled(CardContent)({
   display: 'flex',
   flexDirection: 'column',
   height: 'auto',
 });
 
-// Styled technology name typography
 const TechnologyName = styled(Typography)({
   fontSize: '16px',
   textAlign: 'center',
@@ -126,25 +122,21 @@ const HomePage = () => {
             <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
               <NavButton 
                 onClick={() => navigate('')}
-                className={window?.location?.pathname === '' ? 'active' : ''}
               >
                 Home
               </NavButton>
               <NavButton 
                 onClick={() => navigate('')}
-                className={window?.location?.pathname === '' ? 'active' : ''}
               >
                 About Us
               </NavButton>
               <NavButton 
                 onClick={() => navigate('')}
-                className={window?.location?.pathname === '' ? 'active' : ''}
               >
                 FAQ
               </NavButton>
               <NavButton 
                 onClick={() => navigate('')}
-                className={window?.location?.pathname === '' ? 'active' : ''}
               >
                 Contact
               </NavButton>
@@ -172,7 +164,6 @@ const HomePage = () => {
         </Grid>
       </Container>
 
-      {/* <TechnologyPage /> */}
     </>
   );
 };

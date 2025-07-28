@@ -2,7 +2,6 @@ import React from "react";
 import "./header_sidebar_components/styles/main.css";
 import PageTitle from "./PageTitle";
 import DashboardCards from "./GERD_Dashboard/DashboardCards";
-import Footer from "./header_sidebar_components/Footer";
 
 function Main() {
   return (
@@ -25,9 +24,6 @@ function Main() {
         <DashboardCards />
       </section>
 
-      <section className="footercontainer"> 
-        <Footer />
-       </section>
     </main>
     
   );
