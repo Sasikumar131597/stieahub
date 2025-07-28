@@ -72,24 +72,25 @@ const HomePageCards = () => {
             <p className={Styles.cardvalue}>{counts.startups}</p>
           </div>
         </Grid>
-        <Grid size={4} className={Styles.statcard}>
+        <Grid size={8} className={Styles.statcard}>
           <div className={Styles.cardheader} style={{ backgroundColor: '#329a69', borderColor: '#10B981' }}>
             <FaIndustry className={Styles.cardicon} style={{ color: 'white' }} />
           </div>
           <div className={Styles.cardcontent}>
-            <h3 className={Styles.cardtitle}>No. of Industries</h3>
-            <p className={Styles.cardvalue}>{counts.industries}</p>
+            <h3 className={Styles.cardtitle}>No. of Industries <span className={Styles.cardvalue}>{counts.industries} </span></h3>
+            {/* <p className={Styles.cardvalue}>{counts.industries}</p> */}
           </div>
-        </Grid>
-        <Grid size={4} className={Styles.statcard}>
           <div className={Styles.cardheader} style={{ backgroundColor: '#943735', borderColor: '#EF4444' }}>
             <FaChartPie className={Styles.cardicon} style={{ color: 'white' }} />
           </div>
           <div className={Styles.cardcontent}>
-            <h3 className={Styles.cardtitle}>No. of Sectors</h3>
-            <p className={Styles.cardvalue}>{counts.sectors}</p>
+            <h3 className={Styles.cardtitle}>No. of Sectors  <span className={Styles.cardvalue}>{counts.sectors}</span></h3>
+            {/* <p className={Styles.cardvalue}>{counts.sectors}</p> */}
           </div>
         </Grid>
+        {/* <Grid size={4} className={Styles.statcard}>
+
+        </Grid> */}
       </Grid>
         
       </div>

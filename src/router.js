@@ -15,26 +15,6 @@ import CTTDashboardLayout from "./components/CTT_Dashboard";
 import HomePage from "./components/CTT_Dashboard/Home_Page";
 import TechnologyPage from "./components/CTT_Dashboard/TechnologyPage";
 
-// const routes = [
-//     { path: "/", element: <Main />, exact: true },
-//     {
-//         path: "gerd_dashboard",
-//         element: <GerdDashboardLayout />,
-//         children: [
-//             { index: true, element: <GERD_Home /> },  // Default child for /gerd_dashboard
-//             { path:"international_gerd",element: <International />},
-//             {
-//                 path: "public_rnd",
-//                 element: <PublicRnD />,
-//                 // children: [
-//                 // ]
-//             },
-//             { path: "central_rnd", element: <Central_Home /> },
-//             {path : "state_rnd",element: <State_Home />},
-//         ]
-//     },
-//     { path: '*', element: <NotFoundPage /> }
-// ];
 
 export const routes = [
   {
@@ -100,21 +80,7 @@ export const routes = [
     ],
   },
   { path: "*", element: <NotFoundPage /> },
-  //   {
-  //     path: "dashboard",
-  //     element: <Dashboard />,
-  //     children: [
-  //       {
-  //         path: "/dashboard",
-  //         element: (
-  //           <>
-  //           <Header />
-  //           <LanguageTranslation />
-  //           </>
-  //         )
-  //       },
-  //     ]
-  //   },
+ 
 ];
 
 export default routes;

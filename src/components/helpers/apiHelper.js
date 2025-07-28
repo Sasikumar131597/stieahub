@@ -173,40 +173,7 @@ export const fetchGerdToGdpData = async () => {
 };
 export const fetchGerdAbsValueData = async () => {
     try {
-        // const response = await axios.get(`${BASE_URL}/fetch-data/`, {
-        //     params: {
-        //         sheet_name: "GERD Data",                     // Adjust if needed
-        //         worksheet_name: "Country_GERD(abs)",    // Set the correct worksheet name
-        //         range: "$A1:$H",                             // Adjust range if needed
-        //     },
-        //     headers: {
-        //         "ngrok-skip-browser-warning": "true"
-        //     }
-        // });
-
-
-
-        // const rawData = response.data?.data || [];
-
-        // if (rawData.length < 2) {
-        //     throw new Error("Insufficient data received");
-        // }
-
-        // // First row contains headers
-        // const headerRow = rawData[0];  // ["", "2016", "2017", ...]
-        // const years = headerRow.slice(1);  // ["2016", "2017", "2018", ...]
-
-        // // Initialize transformed data object
-        // const transformedData = {};
-
-        // // Populate data for each year
-        // years.forEach((year, index) => {
-        //     transformedData[year] = rawData.slice(1).map(row => ({
-        //         country: row[0],  // Country name
-        //         value: parseFloat(row[index + 1]) || 0  // Absolute GERD value for the year
-        //     }));
-        // });
-
+      
          const gerdAbs = await axios.get("https://development.stieahub.in/Codigniter_api/public/international_comparison");
         // console.log("gerd data d",gerdAbs);
         return { data: gerdAbs?.data, error: null };

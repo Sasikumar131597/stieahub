@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Highcharts from 'highcharts';
 
-// The plugin is wrapped in a function so it can be called after Highcharts is loaded.
+// Apply Highcharts animation plugin
 const applyHighchartsPlugin = (H) => {
-    // Animated dataLabels functionality plugin for Highcharts
     (function (H) {
         const FLOAT = /^-?\d+\.?\d*$/;
 
@@ -72,11 +72,10 @@ const applyHighchartsPlugin = (H) => {
 
             return ret;
         });
-    }(H));
+    })(H);
 };
 
-
-// Dataset from Publications - 2015-2024.csv
+// Dataset
 const dataset = {
     "USA": { "2015": 384, "2016": 500, "2017": 680, "2018": 949, "2019": 1032, "2020": 1263, "2021": 1499, "2022": 1709, "2023": 1788, "2024": 743 },
     "CHINA": { "2015": 232, "2016": 320, "2017": 502, "2018": 810, "2019": 1226, "2020": 1858, "2021": 2599, "2022": 3299, "2023": 3848, "2024": 1642 },
@@ -100,7 +99,6 @@ const endYear = 2024;
 const nbr = 15;
 
 const PopulationChart = () => {
-    const [Highcharts, setHighcharts] = useState(null);
     const [year, setYear] = useState(startYear);
     const [isPlaying, setIsPlaying] = useState(false);
     const chartContainerRef = useRef(null);
@@ -108,78 +106,55 @@ const PopulationChart = () => {
     const intervalRef = useRef(null);
 
     useEffect(() => {
-        import('https://esm.sh/highcharts').then(HighchartsModule => {
-            const H = HighchartsModule.default;
-            applyHighchartsPlugin(H);
-            setHighcharts(H);
-        }).catch(error => {
-            console.error("Failed to load Highcharts", error);
-        });
+        applyHighchartsPlugin(Highcharts);
     }, []);
 
     const getData = (currentYear) => {
-        const output = Object.entries(dataset)
-            .map(([countryName, countryData]) => {
-                return [countryName, Number(countryData[currentYear] || 0)];
-            })
-            .sort((a, b) => b[1] - a[1]);
-        return output.slice(0, nbr);
+        return Object.entries(dataset)
+            .map(([country, data]) => [country, Number(data[currentYear] || 0)])
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, nbr);
     };
 
     const getSubtitle = (currentYear) => {
-        const yearData = Object.values(dataset)?.map(countryData => countryData[currentYear] || 0);
-        const totalPublications = yearData?.reduce((sum, count) => sum + count, 0);
-        return `<span style="font-size: 80px">${currentYear}</span>
-            <br>
-            <span style="font-size: 22px">
-                Total: <b>${totalPublications?.toLocaleString()}</b> publications
-            </span>`;
-    };
-
-    const updateState = (newYear) => {
-       if (isPlaying) {
-            pause();
-        }
-        setYear(newYear);
+        const total = Object.values(dataset).reduce((sum, d) => sum + (d[currentYear] || 0), 0);
+        return `<span style="font-size: 80px">${currentYear}</span><br><span style="font-size: 22px">Total: <b>${total.toLocaleString()}</b> publications</span>`;
     };
 
     const pause = () => {
         setIsPlaying(false);
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-        }
-        if(chartInstanceRef.current){
-             chartInstanceRef.current.sequenceTimer = undefined;
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+        if (chartInstanceRef.current) {
+            chartInstanceRef.current.sequenceTimer = undefined;
         }
     };
 
     const play = () => {
         setIsPlaying(true);
         intervalRef.current = setInterval(() => {
-            setYear(prevYear => {
-                const newYear = prevYear + 1;
-                if (newYear > endYear) { // Use > to stop at the end year
+            setYear(prev => {
+                const next = prev + 1;
+                if (next > endYear) {
                     pause();
                     return endYear;
                 }
-                return newYear;
+                return next;
             });
-        }, 1500); // Changed interval to 2000ms for slower animation
+        }, 1500);
     };
 
     useEffect(() => {
         if (chartInstanceRef.current) {
-             chartInstanceRef.current.sequenceTimer = intervalRef.current;
+            chartInstanceRef.current.sequenceTimer = intervalRef.current;
         }
     }, [isPlaying]);
 
     useEffect(() => {
-       if (Highcharts && chartContainerRef.current) {
+        if (chartContainerRef.current) {
             if (!chartInstanceRef.current) {
-                // Create chart
                 chartInstanceRef.current = Highcharts.chart(chartContainerRef.current, {
-                     chart: { animation: { duration: 500 }, marginRight: 50 },
+                    chart: { animation: { duration: 500 }, marginRight: 50 },
                     title: { text: 'Publications per Country by Year', align: 'left' },
                     subtitle: { useHTML: true, text: getSubtitle(year), floating: true, align: 'right', verticalAlign: 'bottom', y: -80, x: -100 },
                     legend: { enabled: false },
@@ -187,7 +162,11 @@ const PopulationChart = () => {
                     yAxis: { opposite: true, tickPixelInterval: 150, title: { text: 'Number of Publications' } },
                     plotOptions: {
                         series: {
-                            animation: false, groupPadding: 0, pointPadding: 0.1, borderWidth: 0, colorByPoint: true,
+                            animation: false,
+                            groupPadding: 0,
+                            pointPadding: 0.1,
+                            borderWidth: 0,
+                            colorByPoint: true,
                             dataSorting: { enabled: true, matchByName: true },
                             type: 'bar',
                             dataLabels: { enabled: true }
@@ -200,28 +179,27 @@ const PopulationChart = () => {
                             chartOptions: {
                                 xAxis: { visible: false },
                                 subtitle: { x: 0 },
-                                plotOptions: { series: { dataLabels: [{ enabled: true, y: 8 }, { enabled: true, format: '{point.name}', y: -8, style: { fontWeight: 'normal', opacity: 0.7 } }] } }
+                                plotOptions: {
+                                    series: {
+                                        dataLabels: [
+                                            { enabled: true, y: 8 },
+                                            { enabled: true, format: '{point.name}', y: -8, style: { fontWeight: 'normal', opacity: 0.7 } }
+                                        ]
+                                    }
+                                }
                             }
                         }]
                     }
                 });
             } else {
-                // Update chart
                 chartInstanceRef.current.update({ subtitle: { text: getSubtitle(year) } }, false, false, false);
                 chartInstanceRef.current.series[0].update({ name: year, data: getData(year) });
             }
         }
-    }, [year, Highcharts]);
-
+    }, [year]);
 
     useEffect(() => {
-        return () => {
-            pause(); // Cleanup on unmount
-            // if (chartInstanceRef.current) {
-            //     chartInstanceRef.current?.destroy();
-            //     chartInstanceRef.current = null;
-            // }
-        };
+        return () => pause();
     }, []);
 
     const handlePlayPauseClick = () => {
@@ -229,40 +207,33 @@ const PopulationChart = () => {
             pause();
         } else {
             if (year === endYear) {
-                setYear(startYear); // Reset to start if at the end
+                setYear(startYear);
             }
             play();
         }
     };
-    
-    if (!Highcharts) {
-        return (
-            <div className="flex justify-center items-center h-screen bg-gray-100">
-                <div className="text-xl font-semibold text-gray-700">Loading Chart...</div>
-            </div>
-        );
-    }
 
     return (
         <div className="bg-gray-100 md:p-8 font-sans">
-            <div className=" bg-white rounded-xl shadow-lg" style={{marginTop:"10px"}}>
+            <div className="bg-white rounded-xl shadow-lg mt-4">
                 <div ref={chartContainerRef} />
-                <div className="flex items-center justify-center mt-6 space-x-4">
+                <div className="flex items-center justify-center mt-6 space-x-4 px-4 pb-4">
                     <button
-                        id="play-pause-button"
                         onClick={handlePlayPauseClick}
-                        className="text-2xl text-gray-600 hover:text-blue-600 transition-colors duration-300 w-12 h-12 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        className="text-2xl text-gray-600 hover:text-blue-600 w-12 h-12 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         title={isPlaying ? 'Pause' : 'Play'}
                     >
-                       {isPlaying ? '❚❚' : '▶'}
+                        {isPlaying ? '❚❚' : '▶'}
                     </button>
                     <input
-                        id="play-range"
                         type="range"
                         value={year}
                         min={startYear}
                         max={endYear}
-                        onChange={(e) => updateState(parseInt(e.target.value, 10))}
+                        onChange={(e) => {
+                            pause();
+                            setYear(Number(e.target.value));
+                        }}
                         className="w-full max-w-lg h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                     />
                     <span className="font-semibold text-gray-700 text-lg w-16 text-center">{year}</span>

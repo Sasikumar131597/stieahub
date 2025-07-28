@@ -15,9 +15,12 @@ import Header from "./components/header_sidebar_components/Header";
 import SideBar from "./components/header_sidebar_components/SideBar";
 import Main from "./components/Main";
 import GERD_Home from "./components/GERD_Dashboard/GERD_Home";
+import Footer from "./components/header_sidebar_components/Footer";
 
 function App() {
   return (
+    <>
+    
     <Router>
       <Header />
       <SideBar />
@@ -32,7 +35,9 @@ function App() {
           );
         })}
             </Routes>
+        <Footer />
     </Router>
+    </>
   );
 }
 

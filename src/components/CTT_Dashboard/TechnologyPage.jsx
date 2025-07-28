@@ -30,9 +30,9 @@ import {
 } from 'recharts';
 
 import PieGraph from './PieGraph';
-import PopulationChart from './PopulationChart';
-// import EastIcon from '@mui/icons-material/East';
+// import PopulationChart from './PopulationChart';
 import { FaArrowRight } from "react-icons/fa";
+import PopulationChart from './PopulationChart';
 
 // Styled components
 const TitleButton = styled(Button)({
@@ -148,7 +148,7 @@ const TechnologyPage = () => {
     },
     {
       title: 'Patents',
-      count: 8920,
+      count: 197698,
       image: 'https://development.stieahub.in/Codigniter_api/public/assets/images/CTT/Patents.jpeg'
     },
     {
@@ -398,9 +398,6 @@ const TechnologyPage = () => {
               </Typography>
             </Box>
           </Grid>
-
-          {/* You can add LineChart or other cards here */}
-          {/* Line Chart Card */}
         <Grid container spacing={1} style={{marginTop:"10px"}}>
             <Grid size={12}>
              {renderLineChartCard()}
