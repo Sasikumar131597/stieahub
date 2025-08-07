@@ -144,15 +144,17 @@ const TechnologyPage = () => {
     {
       title: 'Publications',
       count: 56016,
-      image: 'https://development.stieahub.in/Codigniter_api/public/assets/images/CTT/Publications.jpeg'
+      image: 'https://development.stieahub.in/Codigniter_api/public/assets/images/CTT/Publications.jpeg',
+      url: '/ctt_dashboard/Publications'
     },
     {
-      title: 'Patents',
-      count: 197698,
-      image: 'https://development.stieahub.in/Codigniter_api/public/assets/images/CTT/Patents.jpeg'
+      title: 'Patent Records',
+      count: 204235,
+      image: 'https://development.stieahub.in/Codigniter_api/public/assets/images/CTT/Patents.jpeg',
+      url: '/ctt_dashboard/Patents'
     },
     {
-      title: 'Publications/Patents Ratio',
+      title: 'Publications/Patent Records Ratio',
       count: 42,
       image: 'https://development.stieahub.in/Codigniter_api/public/assets/images/Industry_imgs/3.png'
     }
@@ -160,8 +162,8 @@ const TechnologyPage = () => {
 
   // Pie chart data
   const pieData = [
-    { name: 'Publications', value: 30, color: '#0088FE' },
-    { name: 'Patents', value: 70, color: '#FF8042' }
+    { name: 'Publications', value: 21.5, color: '#0088FE' },
+    { name: 'Patent Records', value: 78.5, color: '#FF8042' }
   ];
 
   // Countries & Regions
@@ -195,9 +197,13 @@ const TechnologyPage = () => {
         </Box>
         
       </StatCardContent>
-      <div style={{display:"flex",justifyContent:"right"}}>
-          <FaArrowRight />
-        </div>
+        <div
+        style={{ display: 'flex', justifyContent: 'right', cursor: 'pointer', marginTop: '10px' }}
+        onClick={() => navigate(data.url)}
+        title={`Expand ${data.title}`}
+      >
+        <FaArrowRight />
+      </div>
     </DashboardCard>
   );
 
@@ -206,7 +212,7 @@ const TechnologyPage = () => {
       <RatioCardContent>
         <LeftContent>
           <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
-            Publications/Patents Ratio
+            Publications/Patent Records Ratio
           </Typography>
           <Box>
             {pieData?.map((item, index) => (
@@ -249,22 +255,25 @@ const TechnologyPage = () => {
 };
   
     const lineChartData = [
-    { year: '2015', publications: 200, patents: 500 },
-    { year: '2016', publications: 300, patents: 600 },
-    { year: '2017', publications: 400, patents: 800 },
-    { year: '2018', publications: 450, patents: 1000 },
-    { year: '2019', publications: 600, patents: 1200 },
-    { year: '2020', publications: 800, patents: 1500 },
-    { year: '2021', publications: 900, patents: 1800 },
-    { year: '2022', publications: 1000, patents: 2000 },
-    { year: '2023', publications: 1100, patents: 2200 },
-    { year: '2024', publications: 1245, patents: 2500 }
+    { year: '2015', publications: 1357, patents: 3257 },
+    { year: '2016', publications: 1880, patents: 7676 },
+    { year: '2017', publications: 2391, patents: 13259 },
+    { year: '2018', publications: 3355, patents: 20124 },
+    { year: '2019', publications: 4713, patents: 21028 },
+    { year: '2020', publications: 5906, patents: 24647 },
+    { year: '2021', publications: 7572, patents: 29239 },
+    { year: '2022', publications: 8576, patents: 27926 },
+    { year: '2023', publications: 9163, patents: 26295 },
+    { year: '2024', publications: 10428, patents: 30784 }
   ];
 
     const renderLineChartCard = () => (
     <LargeDashboardCard>
-      <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
+      <Typography variant="h6" fontWeight="bold" gutterBottom>
         Publications and Patents Trend (2015-2024)
+      </Typography>
+      <Typography variant="p" style={{marginBottom:"20px"}}>
+        Between 2015 and 2024, there has been a consistent rise in research publications on UAV technology, indicating strong academic and institutional interest. Patent filings have also grown steadily, reflecting a sync between research output and commercialization. This trend suggests that while innovation is accelerating, translation into market-ready technologies is also maturing.
       </Typography>
       <Box sx={{ flexGrow: 1 }}>
         <ResponsiveContainer width="100%" height="100%">
@@ -293,8 +302,10 @@ const TechnologyPage = () => {
               name="Patents"
             />
           </LineChart>
+          
         </ResponsiveContainer>
       </Box>
+      <span>Data : Source :</span>
     </LargeDashboardCard>
   );
 
@@ -325,7 +336,7 @@ const TechnologyPage = () => {
           </Typography>
           <DropdownContainer>
             <FormControl sx={{ minWidth: 180 }} size="small">
-              <InputLabel>Global</InputLabel>
+              <InputLabel>GLOBAL</InputLabel>
               <Select value={globalCountry} onChange={handleGlobalCountryChange} label="Global">
                 <MenuItem value="">
                   <em>Select Country</em>
@@ -338,17 +349,14 @@ const TechnologyPage = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ minWidth: 180 }} size="small">
-              <InputLabel>India</InputLabel>
-              <Select value={indiaRegion} onChange={handleIndiaRegionChange} label="India">
-                <MenuItem value=""></MenuItem>
-                {indiaRegions?.map((region, index) => (
-                  <MenuItem key={index} value={region}>
-                    {region}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              onClick={handleIndiaRegionChange}
+            >
+              {"India"}
+            </Button>
+
           </DropdownContainer>
         </HeaderRow>
 

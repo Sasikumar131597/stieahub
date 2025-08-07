@@ -15,6 +15,8 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { styled } from '@mui/material/styles';
+import CustomChart from "./CustomChart";
+import WorldMap from "./WorldMap";
 
 const NavButton = styled(Button)(({ theme }) => ({
   color: 'white',
@@ -144,6 +146,8 @@ const HomePage = () => {
           </Toolbar>
         </Container>
       </AppBar>
+
+      <CustomChart />
 {/* navigate(`technology/${tech?.id}`) */}
       {/* Cards Section */}
       <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -163,6 +167,7 @@ const HomePage = () => {
           ))}
         </Grid>
       </Container>
+      <WorldMap />
 
     </>
   );

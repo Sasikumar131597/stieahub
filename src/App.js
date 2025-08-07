@@ -16,12 +16,13 @@ import SideBar from "./components/header_sidebar_components/SideBar";
 import Main from "./components/Main";
 import GERD_Home from "./components/GERD_Dashboard/GERD_Home";
 import Footer from "./components/header_sidebar_components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <>
-    
     <Router>
+      <ScrollToTop />
       <Header />
       <SideBar />
       <Routes>
@@ -34,7 +35,7 @@ function App() {
             </Route>
           );
         })}
-            </Routes>
+      </Routes>
         <Footer />
     </Router>
     </>
