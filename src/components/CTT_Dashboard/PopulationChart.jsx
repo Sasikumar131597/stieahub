@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Highcharts from 'highcharts';
 
 // Apply Highcharts animation plugin
@@ -15,13 +15,13 @@ const applyHighchartsPlugin = (H) => {
             }
 
             const replaceRegEx = new RegExp(thousandsSep, 'g');
-            let startValue = this?.start?.replace(replaceRegEx, '');
-            let endValue = this?.end?.replace(replaceRegEx, '');
-            let currentValue = this?.end?.replace(replaceRegEx, '');
+            let startValue = (this?.start || '').replace(replaceRegEx, '');
+            let endValue = (this?.end || '').replace(replaceRegEx, '');
+            let currentValue = (this?.end || '').replace(replaceRegEx, '');
 
             if ((startValue || '').match(FLOAT)) {
-                startValue = parseInt(startValue, 10);
-                endValue = parseInt(endValue, 10);
+                startValue = parseFloat(startValue);
+                endValue = parseFloat(endValue);
                 currentValue = chart.numberFormatter(
                     Math.round(startValue + (endValue - startValue) * this.pos),
                     0
@@ -45,18 +45,18 @@ const applyHighchartsPlugin = (H) => {
                 this.points.forEach(point =>
                     (point.dataLabels || []).forEach(
                         label =>
-                            (label.attr = function (hash) {
-                                if (
-                                    hash &&
-                                    hash.text !== undefined &&
-                                    chart.isResizing === 0
-                                ) {
-                                    const text = hash.text;
-                                    delete hash.text;
-                                    return this.attr(hash).animate({ text });
-                                }
-                                return attr.apply(this, arguments);
-                            })
+                        (label.attr = function (hash) {
+                            if (
+                                hash &&
+                                hash.text !== undefined &&
+                                chart.isResizing === 0
+                            ) {
+                                const text = hash.text;
+                                delete hash.text;
+                                return this.attr(hash).animate({ text });
+                            }
+                            return attr.apply(this, arguments);
+                        })
                     )
                 );
             }
@@ -109,29 +109,29 @@ const PopulationChart = () => {
         applyHighchartsPlugin(Highcharts);
     }, []);
 
-    const getData = (currentYear) => {
+    const getData = useCallback((currentYear) => {
         return Object.entries(dataset)
             .map(([country, data]) => [country, Number(data[currentYear] || 0)])
             .sort((a, b) => b[1] - a[1])
             .slice(0, nbr);
-    };
+    }, []);
 
-    const getSubtitle = (currentYear) => {
-        const total = Object.values(dataset).reduce((sum, d) => sum + (d[currentYear] || 0), 0);
-        return `<span style="font-size: 80px">${currentYear}</span><br><span style="font-size: 22px">Total: <b>${total.toLocaleString()}</b> publications</span>`;
-    };
+    const getSubtitle = useCallback((currentYear) => {
+        return `<span style="font-size: 80px">${currentYear}</span>`;
+    }, []);
 
-    const pause = () => {
+    const pause = useCallback(() => {
         setIsPlaying(false);
         clearInterval(intervalRef.current);
         intervalRef.current = null;
         if (chartInstanceRef.current) {
             chartInstanceRef.current.sequenceTimer = undefined;
         }
-    };
+    }, []);
 
-    const play = () => {
+    const play = useCallback(() => {
         setIsPlaying(true);
+        clearInterval(intervalRef.current);
         intervalRef.current = setInterval(() => {
             setYear(prev => {
                 const next = prev + 1;
@@ -142,7 +142,7 @@ const PopulationChart = () => {
                 return next;
             });
         }, 1500);
-    };
+    }, [pause]);
 
     useEffect(() => {
         if (chartInstanceRef.current) {
@@ -154,12 +154,16 @@ const PopulationChart = () => {
         if (chartContainerRef.current) {
             if (!chartInstanceRef.current) {
                 chartInstanceRef.current = Highcharts.chart(chartContainerRef.current, {
-                    chart: { animation: { duration: 500 }, marginRight: 50 },
+                    chart: {
+                        animation: { duration: 500 },
+                        marginRight: 50,
+                        type: 'bar',
+                    },
                     title: { text: 'Publications per Country by Year', align: 'left' },
                     subtitle: { useHTML: true, text: getSubtitle(year), floating: true, align: 'right', verticalAlign: 'bottom', y: -80, x: -100 },
                     legend: { enabled: false },
                     xAxis: { type: 'category' },
-                    yAxis: { opposite: true, tickPixelInterval: 150, title: { text: 'Number of Publications' } },
+                    yAxis: { opposite: true, tickPixelInterval: 150, title: { text: 'Publications Count' } },
                     plotOptions: {
                         series: {
                             animation: false,
@@ -172,7 +176,7 @@ const PopulationChart = () => {
                             dataLabels: { enabled: true }
                         }
                     },
-                    series: [{ type: 'bar', name: year, data: getData(year) }],
+                    series: [{ name: year.toString(), data: getData(year) }],
                     responsive: {
                         rules: [{
                             condition: { maxWidth: 550 },
@@ -193,14 +197,14 @@ const PopulationChart = () => {
                 });
             } else {
                 chartInstanceRef.current.update({ subtitle: { text: getSubtitle(year) } }, false, false, false);
-                chartInstanceRef.current.series[0].update({ name: year, data: getData(year) });
+                chartInstanceRef.current.series[0].update({ name: year.toString(), data: getData(year) });
             }
         }
-    }, [year]);
+    }, [year, getData, getSubtitle]);
 
     useEffect(() => {
         return () => pause();
-    }, []);
+    }, [pause]);
 
     const handlePlayPauseClick = () => {
         if (isPlaying) {
@@ -216,7 +220,14 @@ const PopulationChart = () => {
     return (
         <div className="bg-gray-100 md:p-8 font-sans">
             <div className="bg-white rounded-xl shadow-lg mt-4">
-                <div ref={chartContainerRef} />
+                <div ref={chartContainerRef} className="h-96 w-full" /> {/* Added height and width for chart */}
+
+                {/* --- Graph Analysis Section --- */}
+                <div className="p-6 pt-0 text-gray-700" style={{padding:"10px"}}>
+                    <p className="leading-relaxed">There has been a steady rise in the UAV publications for China between the years of 2015 to 2024, and they have overtaken United States for the number of publications per year since the year 2019. India has shown improvement in rankings from 13th in 2015, to 5th in 2024, but in terms of number of publications, the country lags well behind the likes of China and United States.</p>
+                </div>
+                {/* --- End Graph Analysis Section --- */}
+
                 <div className="flex items-center justify-center mt-6 space-x-4 px-4 pb-4">
                     <button
                         onClick={handlePlayPauseClick}

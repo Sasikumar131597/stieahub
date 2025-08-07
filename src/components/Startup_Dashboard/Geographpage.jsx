@@ -175,7 +175,7 @@ const Geographpage = () => {
                 fontWeight: '600',
                 color: '#333'
               }}>
-                No. of {currentTab.label} 
+                Startup Count
               </th>
             </tr>
           </thead>

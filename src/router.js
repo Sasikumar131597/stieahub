@@ -14,6 +14,8 @@ import Geographpage from "./components/Startup_Dashboard/Geographpage";
 import CTTDashboardLayout from "./components/CTT_Dashboard";
 import HomePage from "./components/CTT_Dashboard/Home_Page";
 import TechnologyPage from "./components/CTT_Dashboard/TechnologyPage";
+import Publications from "./components/CTT_Dashboard/Publications";
+import Patents from "./components/CTT_Dashboard/Patents";
 
 
 export const routes = [
@@ -32,6 +34,14 @@ export const routes = [
       {
         path: "technology/:techid",
         element: <TechnologyPage />
+      },
+      {
+        path: "Publications",
+        element: <Publications />
+      },
+      {
+        path: "Patents",
+        element: <Patents />
       },
     ],
   },

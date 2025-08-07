@@ -1,15 +1,13 @@
 import React from "react";
 import "./header_sidebar_components/styles/main.css";
-import PageTitle from "./PageTitle";
 import DashboardCards from "./GERD_Dashboard/DashboardCards";
 
 function Main() {
   return (
     <main id="main" className="main">
-      {/* <PageTitle page="STI Ecosystem Metrics and Analytics" /> */}
 
       <section>
-            <img src="https://development.stieahub.in/Codigniter_api/public/assets/images/Banners/STIEA-Home.png"  />
+        <img src="https://development.stieahub.in/Codigniter_api/public/assets/images/Banners/STIEA-Home.png"  alt="STIEA Home Banner"/>
       </section>
 
       {/* <section className="description">
@@ -17,8 +15,6 @@ function Main() {
           Science, Technology and Innovation (STI) play a crucial role in addressing economic, social, and ecological challenges. The STI ecosystem can be understood from key indicators covering inputs, processes, drivers, incentives, outputs, outcomes, and impact. These indicators provide essential resources for policymakers and stakeholders, enabling evidence-driven policy and programme implementation. Global comparative reports on STI use these indicators or composite versions to compare countries and economies.
         </p>
       </section> */}
-
-      
 
       <section className="dashboard-cards-container">
         <DashboardCards />

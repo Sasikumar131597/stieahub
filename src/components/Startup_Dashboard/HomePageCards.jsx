@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { FaIndustry, FaChartPie, FaUsers, FaRegBuilding } from 'react-icons/fa';
-import { HiMiniBuildingOffice } from "react-icons/hi2";
+import { FaUsers, FaRegBuilding } from 'react-icons/fa';
 import { BsBuildingsFill } from "react-icons/bs";
 import axios from 'axios';
 import Styles from './css/HomePageCards.module.css';
 import StagePiechart from './StagePiechart';
 import TopStates from './TopStates';
 import Grid from '@mui/material/Grid2';
-import StatusStartup from './StatusStartup';
-import TopTenSectors from './TopTenSectors';
+// import StatusStartup from './StatusStartup';
+// import TopTenSectors from './TopTenSectors';
 import IndustryBubbleChart from './IndustryBubbleChart';
 
 const HomePageCards = () => {
   const [counts, setCounts] = useState({ startups: 0, industries: 0, sectors: 0 });
   const [businessTypes, setBusinessTypes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     const fetchData = async () => {
-      try {
         // Fetch counts data
         const countsResponse = await axios.get('https://development.stieahub.in/Codigniter_api/public/getcardscounts');
         setCounts(countsResponse.data);
@@ -26,12 +24,6 @@ const HomePageCards = () => {
         // Fetch business types data
         const typesResponse = await axios.get('https://development.stieahub.in/Codigniter_api/public/getcardsnatureofentity');
         setBusinessTypes(typesResponse.data.data);
-
-        setLoading(false);
-      } catch (error) {
-        console.error('Error:', error);
-        setLoading(false);
-      }
     };
     fetchData();
   }, []);
@@ -46,7 +38,7 @@ const HomePageCards = () => {
 
   return (
     <div>
-      <img src="https://development.stieahub.in/Codigniter_api/public/assets/images/Banners/STIEA_Startup.png"  />
+      <img src="https://development.stieahub.in/Codigniter_api/public/assets/images/Banners/STIEA_Startup.png"  alt='STIEA Startup Banner'/>
     <div className={Styles.container}>
       <div className={Styles.cardRow}>
           <Grid container spacing={2}>
@@ -63,40 +55,23 @@ const HomePageCards = () => {
 
       <div className={Styles.cardRow}>
          <Grid container spacing={2}>
-        <Grid size={4} className={Styles.statcard}>
-            <div className={Styles.cardheader} style={{ backgroundColor: '#3b669d', borderColor: '#3B82F6' }}>
-            <HiMiniBuildingOffice className={Styles.cardicon} style={{ color: 'white' }} />
-          </div>
+        <Grid size={4} className={Styles.cardcontent_div}>
           <div className={Styles.cardcontent}>
             <h3 className={Styles.cardtitle}>No. of Startups</h3>
             <p className={Styles.cardvalue}>{counts.startups}</p>
           </div>
         </Grid>
         <Grid size={8} className={Styles.statcard}>
-          <div className={Styles.cardheader} style={{ backgroundColor: '#329a69', borderColor: '#10B981' }}>
-            <FaIndustry className={Styles.cardicon} style={{ color: 'white' }} />
+          <div className={Styles.cardcontent_div}>
+            <h3 className={Styles.cardtitle}>No. of Industrial Sectors <span className={Styles.cardvalue}>{counts.industries} </span></h3>
           </div>
-          <div className={Styles.cardcontent}>
-            <h3 className={Styles.cardtitle}>No. of Industries <span className={Styles.cardvalue}>{counts.industries} </span></h3>
-            {/* <p className={Styles.cardvalue}>{counts.industries}</p> */}
-          </div>
-          <div className={Styles.cardheader} style={{ backgroundColor: '#943735', borderColor: '#EF4444' }}>
-            <FaChartPie className={Styles.cardicon} style={{ color: 'white' }} />
-          </div>
-          <div className={Styles.cardcontent}>
-            <h3 className={Styles.cardtitle}>No. of Sectors  <span className={Styles.cardvalue}>{counts.sectors}</span></h3>
-            {/* <p className={Styles.cardvalue}>{counts.sectors}</p> */}
+          <div className={Styles.cardcontent_div}>
+            <h3 className={Styles.cardtitle}>No. of Sub-Sectors  <span className={Styles.cardvalue}>{counts.sectors}</span></h3>
           </div>
         </Grid>
-        {/* <Grid size={4} className={Styles.statcard}>
-
-        </Grid> */}
       </Grid>
         
       </div>
-
-
-      
 
      <div className={Styles.cardRow}>
        <Grid container spacing={2}>
@@ -117,12 +92,7 @@ const HomePageCards = () => {
        <div className={Styles.cardRow}>
        <Grid container spacing={2}>
 
-              <Grid size={6}>
-                      <h3 className={Styles.Topindustrihead}>Top Sectors</h3>
-                      <TopTenSectors />
-                      <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Startup Sectors is from DPIIT (Startup India).</p>
-              </Grid>
-                <Grid size={6}>
+                <Grid size={12}>
                     <h3 className={Styles.Topindustrihead}>Top 10 States</h3>
                     <TopStates />
                     <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Startup geographies is from DPIIT (Startup India).</p>
@@ -133,7 +103,7 @@ const HomePageCards = () => {
 
        <div className={Styles.cardRow}>
        <Grid container spacing={2}>
-            <Grid size={6}>
+            <Grid size={12}>
                   <div className={Styles.statcard}> 
                   <b><h2 className={Styles.cardtitle} align="center" style={{ fontSize: '20px', fontWeight: 'bold' , marginBottom: '20px'}}>Nature of Entity</h2></b>
                   <div className={Styles.businesstypescontainer}>
@@ -167,11 +137,11 @@ const HomePageCards = () => {
                     <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Nature of Entity - Limited Liability Partnership, Private Limited Company, and Registered Partnership are from DPIIT (Startup India).</p>
                 </div>
             </Grid>
-                <Grid size={6}>
+                {/* <Grid size={6}>
                   <StatusStartup />
                   <p style={{fontSize:"12px",textAlign:"center"}}><b>Source: </b>Data on the Status - Approved, Cancelled, and Expired are from DPIIT (Startup India).</p>
                  
-                </Grid>
+                </Grid> */}
        </Grid>
                 
        </div>

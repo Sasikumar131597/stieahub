@@ -30,6 +30,15 @@
   text-align: center;
 }
 
+.cardcontent_div {
+  padding: 20px;
+  text-align: center;
+  /* border: 1px solid; */
+  border-radius: 10px;
+  background-color: #c3dcf2;
+  margin-bottom: 2px;
+}
+
 .cardtitle {
   font-size: 22px;
   font-weight: 500;
@@ -66,7 +75,7 @@
 
 .businesstypescontainer {
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
   gap: 24px;
   padding: 24px;
   /* background-color: #F9FAFB; */
