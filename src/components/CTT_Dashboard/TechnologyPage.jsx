@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  AppBar,
   Container,
-  Toolbar,
   Box,
   Button,
   Card,
@@ -16,9 +14,6 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { 
-  PieChart, 
-  Pie, 
-  Cell, 
   ResponsiveContainer, 
   Tooltip,
   LineChart,
@@ -33,29 +28,7 @@ import PieGraph from './PieGraph';
 // import PopulationChart from './PopulationChart';
 import { FaArrowRight } from "react-icons/fa";
 import PopulationChart from './PopulationChart';
-
-// Styled components
-const TitleButton = styled(Button)({
-  color: 'white',
-  fontWeight: 'bold',
-  fontSize: '1.2rem',
-  textTransform: 'none',
-  '&:hover': {
-    backgroundColor: 'transparent'
-  }
-});
-
-const NavButton = styled(Button)({
-  color: 'white',
-  textTransform: 'none',
-  marginLeft: '10px',
-  '&.active': {
-    borderBottom: '2px solid white'
-  },
-  '&:hover': {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)'
-  }
-});
+import CTTHeader from './CTT_Header';
 
 const DashboardCard = styled(Card)(({ theme }) => ({
   display: 'flex',
@@ -137,7 +110,7 @@ const DropdownContainer = styled(Box)({
 const TechnologyPage = () => {
   const navigate = useNavigate();
   const [globalCountry, setGlobalCountry] = useState('');
-  const [indiaRegion, setIndiaRegion] = useState('');
+  
 
   // Data for cards
   const cardData = [
@@ -168,14 +141,10 @@ const TechnologyPage = () => {
 
   // Countries & Regions
   const countries = ['United States', 'China', 'United Kingdom', 'Australia'];
-  const indiaRegions = ['India'];
+  
 
   const handleGlobalCountryChange = (event) => {
     setGlobalCountry(event.target.value);
-  };
-
-  const handleIndiaRegionChange = (event) => {
-    setIndiaRegion(event.target.value);
   };
 
   const renderStatCard = (data) => (
@@ -311,23 +280,7 @@ const TechnologyPage = () => {
 
   return (
     <div>
-      {/* AppBar */}
-      <AppBar position="static" sx={{ backgroundColor: '#5f6f80', mb: 3 }}>
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <TitleButton onClick={() => navigate('/ctt_dashboard')} disableRipple>
-              Critical Technology Tracker
-            </TitleButton>
-            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-              <NavButton onClick={() => navigate('')}>Home</NavButton>
-              <NavButton onClick={() => navigate('')}>About Us</NavButton>
-              <NavButton onClick={() => navigate('')}>FAQ</NavButton>
-              <NavButton onClick={() => navigate('')}>Contact</NavButton>
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-
+      <CTTHeader />
       {/* Stats Grid Section */}
       <Container maxWidth="xl" sx={{ mt: 4 }}>
         <HeaderRow>
@@ -352,7 +305,6 @@ const TechnologyPage = () => {
             <Button 
               variant="contained" 
               color="primary" 
-              onClick={handleIndiaRegionChange}
             >
               {"India"}
             </Button>
