@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { 
-  AppBar, 
-  Toolbar, 
-  Button, 
+import {  
   Container, 
   Box,  
   Card, 
@@ -17,28 +14,8 @@ import Grid from '@mui/material/Grid2';
 import { styled } from '@mui/material/styles';
 import CustomChart from "./CustomChart";
 import WorldMap from "./WorldMap";
-
-const NavButton = styled(Button)(({ theme }) => ({
-  color: 'white',
-  margin: theme.spacing(0, 1),
-  '&.active': {
-    fontWeight: 'bold',
-    borderBottom: '2px solid white'
-  },
-  '&:hover': {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)'
-  }
-}));
-
-// Styled title button
-const TitleButton = styled(Button)(({ theme }) => ({
-  color: 'white',
-  fontSize: '16px',
-  marginRight: theme.spacing(2),
-  '&:hover': {
-    backgroundColor: 'transparent'
-  }
-}));
+import CTTHeader from "./CTT_Header";
+import PopulationPyramidChart from "./PopulationPyramidChart";
 
 // Styled card component with fixed height and color
 const SmallCard = styled(Card)(({ theme }) => ({
@@ -108,44 +85,7 @@ const HomePage = () => {
 
   return (
     <>
-      {/* Navigation Bar */}
-      <AppBar position="static" sx={{ backgroundColor: '#5f6f80', mb: 3 }}>
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            {/* Left side - Title */}
-            <TitleButton 
-              onClick={() => navigate('/ctt_dashboard')}
-              disableRipple
-            >
-              Critical Technology Tracker
-            </TitleButton>
-            
-            {/* Right side - Navigation buttons */}
-            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-              <NavButton 
-                onClick={() => navigate('')}
-              >
-                Home
-              </NavButton>
-              <NavButton 
-                onClick={() => navigate('')}
-              >
-                About Us
-              </NavButton>
-              <NavButton 
-                onClick={() => navigate('')}
-              >
-                FAQ
-              </NavButton>
-              <NavButton 
-                onClick={() => navigate('')}
-              >
-                Contact
-              </NavButton>
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
+      <CTTHeader />
 
       <CustomChart />
 {/* navigate(`technology/${tech?.id}`) */}
@@ -168,6 +108,7 @@ const HomePage = () => {
         </Grid>
       </Container>
       <WorldMap />
+      <PopulationPyramidChart />
 
     </>
   );
