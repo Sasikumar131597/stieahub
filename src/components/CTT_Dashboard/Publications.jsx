@@ -22,6 +22,10 @@ import {
   Legend
 } from 'recharts';
 import Publication_Bar from "./Publication_Bar";
+import GlobalSynergy from "./GlobalSynergy";
+import Switch from '@mui/material/Switch';
+import TopTenPublications from "./TopTenPublications";
+import TopTenPublicBar from "./TopTenPublicBar";
 
 // Styled NavButton
 const NavButton = styled(Button)(({ theme }) => ({
@@ -120,6 +124,8 @@ const lineChartData = [
     boxShadow: theme.shadows[4]
   }
 }));
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   const renderLineChartCard = () => (
     <LargeDashboardCard>
@@ -230,11 +236,17 @@ const Publications = () => {
 
       {/* Temporal Trends Section */}
       <Grid item size={12}>
-        <h6>Temporal Trends in Research Publications</h6>
-        <p>See how knowledge creation has accelerated over time.</p>
+        <Grid container spacing={2}>
+          <Grid item size={6}>
+            <h6>Temporal Trends in Research Publications</h6>
+            <p>See how knowledge creation has accelerated over time.</p>
+          </Grid>
+          <Grid item size={6}>
+            <Switch {...label} /> %
+          </Grid>
+         </Grid>
       </Grid>
 
-      {/* Two-column Welcome Section */}
       <Grid item size={12}>
         <Grid container spacing={2}>
           <Grid item size={6}>
@@ -247,8 +259,15 @@ const Publications = () => {
       </Grid>
 
       <Grid item size={12}>
-        <h6>Research That Resonates: Top 10% Publications</h6>
-        <p>Visualize where the world’s most impactful scientific contributions are being produced.</p>
+        <Grid container spacing={2}>
+          <Grid item size={6}>
+            <h6>Research That Resonates: Top 10% Publications</h6>
+            <p>Visualize where the world’s most impactful scientific contributions are being produced.</p>
+            </Grid>
+            <Grid item size={6}>
+              <Switch {...label} /> %
+            </Grid>
+          </Grid>
       </Grid>
 
       <Grid item size={12}>
@@ -267,14 +286,19 @@ const Publications = () => {
       <Grid item size={12}>
         <Grid container spacing={2}>
           <Grid item size={6}>
-              <Publication_Bar />
+              {/* <Publication_Bar /> */}
+              <TopTenPublicBar />
           </Grid>
           <Grid item size={6}>
-              map graph
+              <TopTenPublications />
           </Grid>
         </Grid>
       </Grid>
 
+    </Grid>
+
+    <Grid item size={12}>
+      <GlobalSynergy />
     </Grid>
 
            

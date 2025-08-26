@@ -21,6 +21,8 @@ import {
   CartesianGrid,
   Legend
 } from 'recharts';
+import InternationalPatents from "./InternationalPatents";
+import WorldMap from "./WorldMap";
 
 // Styled NavButton
 const NavButton = styled(Button)(({ theme }) => ({
@@ -226,6 +228,12 @@ const Patents = () => {
           </Grid>
         </Grid>
       </Grid>
+
+      <Grid item size={12}>
+        <InternationalPatents />
+        {/* <WorldMap /> */}
+      </Grid>
+
     </Grid>
 
            
