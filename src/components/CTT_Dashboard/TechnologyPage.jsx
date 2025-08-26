@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -23,12 +23,15 @@ import {
   CartesianGrid,
   Legend
 } from 'recharts';
+import { useParams } from "react-router-dom";
 
 import PieGraph from './PieGraph';
 // import PopulationChart from './PopulationChart';
 import { FaArrowRight } from "react-icons/fa";
 import PopulationChart from './PopulationChart';
 import CTTHeader from './CTT_Header';
+import ComparisonPublications from './ComparisonPublications';
+import PatentActivity from './PatentActivity';
 
 const DashboardCard = styled(Card)(({ theme }) => ({
   display: 'flex',
@@ -46,7 +49,8 @@ const DashboardCard = styled(Card)(({ theme }) => ({
 const LargeDashboardCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  height: '400px',
+  height: '600px',
+  marginTop : '10px',
   padding: theme.spacing(2),
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.shadows[2],
@@ -110,6 +114,20 @@ const DropdownContainer = styled(Box)({
 const TechnologyPage = () => {
   const navigate = useNavigate();
   const [globalCountry, setGlobalCountry] = useState('');
+  const { techid } = useParams(); // e.g. /technology/3 → "3"
+  const [technology, setTechnology] = useState(null);
+
+  useEffect(() => {
+    fetch("https://development.stieahub.in/Codigniter_api/public/get_technologies")
+      .then((res) => res.json())
+      .then((data) => {
+        // data is an array of technologies
+        const tech = data.find((item) => item.id === techid);
+        setTechnology(tech || null);
+      })
+      .catch((err) => console.error("Error fetching data:", err));
+  }, [techid]);
+
   
 
   // Data for cards
@@ -140,7 +158,7 @@ const TechnologyPage = () => {
   ];
 
   // Countries & Regions
-  const countries = ['United States', 'China', 'United Kingdom', 'Australia'];
+  const countries = ['Global','United States', 'China', 'United Kingdom', 'Australia'];
   
 
   const handleGlobalCountryChange = (event) => {
@@ -285,7 +303,7 @@ const TechnologyPage = () => {
       <Container maxWidth="xl" sx={{ mt: 4 }}>
         <HeaderRow>
           <Typography variant="h4" fontWeight="bold">
-            Unmanned Aerial Vehicle (UAV)
+            {technology?.technology_name}
           </Typography>
           <DropdownContainer>
             <FormControl sx={{ minWidth: 180 }} size="small">
@@ -365,7 +383,28 @@ const TechnologyPage = () => {
         </Grid>
 
         <PopulationChart />
+
+        <LargeDashboardCard>
+        <Grid container spacing={1}>
+           <Typography variant="h6" gutterBottom>
+                Stacked Comparison of Total and Elite Publications by Country
+            </Typography>
+            <ComparisonPublications />
+        </Grid>
+        </LargeDashboardCard>
+
+          <LargeDashboardCard>
+            <Grid container spacing={1}>
+              <Typography variant="h6" gutterBottom>
+                    Stacked Comparison of Total and Elite Publications by Country
+                </Typography>
+                <PatentActivity />
+            </Grid>
+        </LargeDashboardCard>
+
+
       </Container>
+      
     </div>
   );
 };
