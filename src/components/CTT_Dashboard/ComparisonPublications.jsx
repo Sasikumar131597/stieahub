@@ -139,6 +139,8 @@ const ComparisonPublications = () => {
       strokeOpacity: 0.1,
     });
 
+    root._logo.dispose();
+
     root.setThemes([am5themes_Animated.new(root), myTheme]);
 
     let chart = root.container.children.push(

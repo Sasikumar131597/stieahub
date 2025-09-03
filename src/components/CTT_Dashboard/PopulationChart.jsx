@@ -75,6 +75,8 @@ const applyHighchartsPlugin = (H) => {
     })(H);
 };
 
+
+
 // Dataset
 const dataset = {
     "USA": { "2015": 384, "2016": 500, "2017": 680, "2018": 949, "2019": 1032, "2020": 1263, "2021": 1499, "2022": 1709, "2023": 1788, "2024": 743 },
@@ -162,6 +164,7 @@ const PopulationChart = () => {
                     title: { text: 'Publications per Country by Year', align: 'left' },
                     subtitle: { useHTML: true, text: getSubtitle(year), floating: true, align: 'right', verticalAlign: 'bottom', y: -80, x: -100 },
                     legend: { enabled: false },
+                    credits: { enabled: false },
                     xAxis: { type: 'category' },
                     yAxis: { opposite: true, tickPixelInterval: 150, title: { text: 'Publications Count' } },
                     plotOptions: {

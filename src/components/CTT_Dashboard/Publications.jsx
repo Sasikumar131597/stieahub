@@ -87,17 +87,17 @@ const TitleButton = styled(Button)(({ theme }) => ({
 };
 
 const lineChartData = [
-    { year: '2015', publications: 1357},
-    { year: '2016', publications: 1880},
-    { year: '2017', publications: 2391},
-    { year: '2018', publications: 3355},
-    { year: '2019', publications: 4713},
-    { year: '2020', publications: 5906},
-    { year: '2021', publications: 7572},
-    { year: '2022', publications: 8576},
-    { year: '2023', publications: 9163},
-    { year: '2024', publications: 10428}
-  ];
+  { year: "2015", publications: 1357, patents: 500, citations: 2000 },
+  { year: "2016", publications: 1880, patents: 650, citations: 2400 },
+  { year: "2017", publications: 2391, patents: 820, citations: 2900 },
+  { year: "2018", publications: 3355, patents: 1100, citations: 3600 },
+  { year: "2019", publications: 4713, patents: 1450, citations: 4300 },
+  { year: "2020", publications: 5906, patents: 1700, citations: 5100 },
+  { year: "2021", publications: 7572, patents: 2100, citations: 6100 },
+  { year: "2022", publications: 8576, patents: 2400, citations: 7200 },
+  { year: "2023", publications: 9163, patents: 2700, citations: 8100 },
+  { year: "2024", publications: 10428, patents: 3000, citations: 9200 }
+];
 
   const lineChartgrowthdata = [
     { year: '2015', publications: 5.44 },
@@ -146,14 +146,29 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } };
             <YAxis />
             <Tooltip content={<LineChartTooltip />} />
             <Legend />
-            <Line 
-              type="monotone" 
-              dataKey="publications" 
-              stroke="#0088FE" 
-              activeDot={{ r: 8 }} 
-              strokeWidth={2}
-              name="Publications"
-            />
+            <Line
+            type="monotone"
+            dataKey="publications"
+            stroke="#0088FE"
+            strokeWidth={2}
+            activeDot={{ r: 8 }}
+            name="Publications"
+          />
+          <Line
+            type="monotone"
+            dataKey="patents"
+            stroke="#00C49F"
+            strokeWidth={2}
+            name="Top 10 publications"
+          />
+          <Line
+            type="monotone"
+            dataKey="citations"
+            stroke="#FF8042"
+            strokeWidth={2}
+            name="Top 1 publications"
+          />
+            
           </LineChart>
           
         </ResponsiveContainer>

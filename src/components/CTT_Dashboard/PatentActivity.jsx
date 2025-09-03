@@ -122,6 +122,9 @@ const PatentActivity = () => {
     if (chartRef.current) {
       let root = am5.Root.new(chartRef.current);
 
+      // 🚀 Remove watermark
+      root._logo.dispose();
+
       root.setThemes([am5themes_Animated.new(root)]);
 
       // Data
@@ -213,4 +216,5 @@ const PatentActivity = () => {
 };
 
 export default PatentActivity;
+
 
