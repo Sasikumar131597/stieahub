@@ -9,6 +9,9 @@ const TopTenPublicBar = () => {
   useEffect(() => {
     const root = am5.Root.new(chartRef.current);
 
+    // 🚀 Remove amCharts watermark
+    root._logo.dispose();
+
     // Custom theme to lighten grid
     let myTheme = am5.Theme.new(root);
     myTheme.rule("Grid", ["base"]).setAll({

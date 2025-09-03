@@ -20,14 +20,16 @@ const TopTenPublications = () => {
     const root = am5.Root.new(chartRef.current);
     root.setThemes([am5themes_Animated.new(root)]);
 
+    root._logo.dispose();
+
     // Static map (no pan, no zoom)
     const chart = root.container.children.push(
       am5map.MapChart.new(root, {
         projection: am5map.geoMercator(),
-        wheelX: "none", // disable wheel zoom horizontally
-        wheelY: "none", // disable wheel zoom vertically
-        panX: "none",   // disable drag pan horizontally
-        panY: "none",   // disable drag pan vertically
+        wheelX: "none",
+        wheelY: "none",
+        panX: "none",
+        panY: "none",
       })
     );
 
@@ -119,7 +121,7 @@ const TopTenPublications = () => {
   return (
     <div
       ref={chartRef}
-      style={{ width: "100%", height: "500px" }} // fixed 500px height
+      style={{ width: "100%", height: "500px" }}
     />
   );
 };
