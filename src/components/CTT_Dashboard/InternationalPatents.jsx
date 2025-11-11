@@ -20,6 +20,8 @@ const InternationalPatents = () => {
     const root = am5.Root.new(chartRef.current);
     root.setThemes([am5themes_Animated.new(root)]);
 
+    root._logo.dispose();
+
     // Static (no zoom/pan)
     const chart = root.container.children.push(
       am5map.MapChart.new(root, {
@@ -63,10 +65,10 @@ const InternationalPatents = () => {
     );
 
     pointSeries.data.setAll([
-      { title: "India", geometry: { type: "Point", coordinates: [77.1025, 28.7041] } },
-    //   { title: "London", geometry: { type: "Point", coordinates: [-0.1276, 51.5074] } },
-    { title: "United Kingdom", geometry: { type: "Point", coordinates: [-0.1276, 51.5074] } },
-    //   { title: "New York", geometry: { type: "Point", coordinates: [-74.006, 40.7128] } }
+      { title: "Delhi (India)", geometry: { type: "Point", coordinates: [77.1025, 28.7041] } },
+      { title: "Paris (France)", geometry: { type: "Point", coordinates: [2.3522, 48.8566] } },
+      { title: "United Kingdom", geometry: { type: "Point", coordinates: [-0.1276, 51.5074] } },
+      { title: "Tokyo (Japan)", geometry: { type: "Point", coordinates: [139.6917, 35.6895] } }
     ]);
 
     // Connections (optional)
@@ -91,11 +93,20 @@ const InternationalPatents = () => {
         geometry: {
           type: "LineString",
           coordinates: [
-            [-0.1276, 51.5074], // London
-            // [-74.006, 40.7128] // New York
+            [77.1025, 28.7041], // Delhi (India)
+            [2.3522, 48.8566]   // Paris (France)
           ]
         }
-      }
+      },
+       {
+          geometry: {
+            type: "LineString",
+            coordinates: [
+              [77.1025, 28.7041], // Delhi (India)
+              [139.6917, 35.6895] // Tokyo (Japan)
+            ]
+          }
+        },
     ]);
 
     chart.appear(1000, 100);

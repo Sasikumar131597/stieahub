@@ -130,7 +130,7 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } };
   const renderLineChartCard = () => (
     <LargeDashboardCard>
       <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
-        Publications Over period of time (2015-2024)
+        Publications Over period of time (2003-2023)
       </Typography>
       <Typography variant="p">
         Here we look at research papers published and patent applications for UAV technology between years 2015 and 2024.
