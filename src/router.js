@@ -32,7 +32,7 @@ export const routes = [
         element: <HomePage />,
       },
       {
-        path: "technology/:techid",
+        path: "technology/:sub_tech_id",
         element: <TechnologyPage />
       },
       {
