@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
-  Container,
   CircularProgress,
   Alert,
   TextField,
@@ -12,42 +11,58 @@ import {
   ListItemButton,
   ListItemText,
   Button,
-  Divider,
   InputAdornment,
   IconButton,
+  Fade,
+  Grow,
 } from "@mui/material";
+
 import CTTHeader from "./CTT_Header";
+import HamletWordCloud from "./HamletWordCloud";
+
+import "./css/HomePage.css";   // <-- NEW CSS IMPORT
 
 const HomePage = () => {
   const navigate = useNavigate();
+
+  const inputRef = useRef(null);
   const dropdownRef = useRef(null);
 
   const [technologies, setTechnologies] = useState([]);
   const [filteredTechs, setFilteredTechs] = useState([]);
   const [selectedTech, setSelectedTech] = useState(null);
   const [selectedSubTech, setSelectedSubTech] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const [search, setSearch] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
 
+  const [dropdownCoords, setDropdownCoords] = useState({
+    top: 0,
+    left: 0,
+    width: 0,
+  });
+
   useEffect(() => {
-    const fetchTechnologies = async () => {
+    const fetchTech = async () => {
       try {
         const res = await fetch(
           "https://development.stieahub.in/Codigniter_api/public/get_sub_techlogies"
         );
-        if (!res.ok) throw new Error("Failed to fetch technologies");
+
         const data = await res.json();
-        setTechnologies(data || []);
-        setFilteredTechs(data || []);
-      } catch (err) {
-        setError(err.message);
+        setTechnologies(data);
+        setFilteredTechs(data);
+      } catch {
+        setError("Failed to fetch technologies.");
       } finally {
         setLoading(false);
       }
     };
-    fetchTechnologies();
+
+    fetchTech();
   }, []);
 
   useEffect(() => {
@@ -55,237 +70,204 @@ const HomePage = () => {
       setFilteredTechs(technologies);
       return;
     }
+
     const lower = search.toLowerCase();
-    const results = technologies
+
+    const result = technologies
       .map((tech) => ({
         ...tech,
-        sub_techs: tech.sub_techs?.filter((sub) =>
-          sub.sub_tech_name.toLowerCase().includes(lower)
-        ),
+        sub_techs:
+          tech.sub_techs?.filter((s) =>
+            s.sub_tech_name.toLowerCase().includes(lower)
+          ) || [],
       }))
       .filter(
         (tech) =>
           tech.technology_name.toLowerCase().includes(lower) ||
-          tech.sub_techs?.length > 0
+          tech.sub_techs.length > 0
       );
-    setFilteredTechs(results);
-    setShowDropdown(true);
+
+    setFilteredTechs(result);
   }, [search, technologies]);
 
+  const openDropdown = () => {
+    if (inputRef.current) {
+      const rect = inputRef.current.getBoundingClientRect();
+      setDropdownCoords({
+        top: rect.bottom + window.scrollY + 5,
+        left: rect.left + window.scrollX,
+        width: rect.width,
+      });
+    }
+    setShowDropdown(true);
+  };
+
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+    const close = (e) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target) &&
+        !inputRef.current.contains(e.target)
+      ) {
         setShowDropdown(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
   }, []);
 
-  const handleSubTechSelect = (subTech, mainTech) => {
-    setSelectedSubTech(subTech);
-    setSelectedTech(mainTech);
-    setSearch(subTech.sub_tech_name);
+  const handleSelectSub = (sub, tech) => {
+    setSelectedTech(tech);
+    setSelectedSubTech(sub);
+    setSearch(sub.sub_tech_name);
     setShowDropdown(false);
   };
 
-  const handleExplore = () => {
-    if (selectedSubTech) {
-      navigate(`/ctt_dashboard/technology/${selectedSubTech.sub_tech_id}`);
-    } else {
+  const explore = () => {
+    if (!selectedSubTech) {
       alert("Please select a sub-technology first!");
+      return;
     }
+    navigate(`/ctt_dashboard/technology/${selectedSubTech.sub_tech_id}`);
   };
 
   if (loading)
     return (
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+      <Box className="center-loader">
         <CircularProgress />
       </Box>
     );
 
   if (error)
     return (
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Alert severity="error">{error}</Alert>
-      </Container>
+      <Alert severity="error" className="error-alert">
+        {error}
+      </Alert>
     );
 
   return (
     <>
       <CTTHeader />
-      <Container maxWidth="md" sx={{ py: 4 }}>
-        {/* Search and Explore */}
-        <Box sx={{ display: "flex", gap: 2, alignItems: "center", mb: 2 }}>
-          <TextField
-            variant="outlined"
-            placeholder="Search technology or sub-technology"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              setShowDropdown(true);
-            }}
-            onClick={() => setShowDropdown(true)} // 👈 show dropdown when clicked
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowDropdown((p) => !p)}
-                    edge="end"
-                    size="small"
-                  >
-                    <span
-                      style={{
-                        display: "inline-block",
-                        fontSize: "18px",
-                        transition: "transform 0.3s",
-                        transform: showDropdown
-                          ? "rotate(180deg)"
-                          : "rotate(0deg)",
-                      }}
-                    >
-                      ▼
-                    </span>
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleExplore}
-            sx={{ height: "56px", textTransform: "none" }}
-          >
-            Explore
-          </Button>
+
+      <Box className="wc-section">
+        <Box className="wc-overlay">
+          <HamletWordCloud />
         </Box>
 
-        {/* Dropdown */}
-        {showDropdown && filteredTechs.length > 0 && (
+        <Box className="search-container">
+          <Grow in timeout={500}>
+            <Paper className="search-card" elevation={6}>
+              <Box className="search-row">
+
+                <TextField
+                  inputRef={inputRef}
+                  placeholder="Search technology or sub-technology"
+                  className="search-input"
+                  fullWidth
+                  value={search}
+                  onClick={openDropdown}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    openDropdown();
+                  }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          size="small"
+                          onClick={() =>
+                            showDropdown ? setShowDropdown(false) : openDropdown()
+                          }
+                        >
+                          <span
+                            className={
+                              showDropdown
+                                ? "dropdown-arrow rotated"
+                                : "dropdown-arrow"
+                            }
+                          >
+                            ▼
+                          </span>
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+
+                <Button variant="contained" onClick={explore} className="explore-btn">
+                  EXPLORE
+                </Button>
+              </Box>
+
+              {selectedSubTech && (
+                <Fade in timeout={400}>
+                  <Typography className="selected-text">
+                    Selected: {selectedSubTech.sub_tech_name}
+                  </Typography>
+                </Fade>
+              )}
+            </Paper>
+          </Grow>
+        </Box>
+      </Box>
+
+      {showDropdown && (
+        <Fade in timeout={200}>
           <Paper
             ref={dropdownRef}
-            elevation={5}
-            sx={{
-              borderRadius: 3,
-              overflow: "hidden",
-              display: "flex",
-              flexDirection: "column",
-              mt: 1,
+            className="dropdown-panel"
+            elevation={10}
+            style={{
+              top: dropdownCoords.top,
+              left: dropdownCoords.left,
+              minWidth: dropdownCoords.width,
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                border: "1px solid #e0e0e0",
-                borderRadius: 2,
-                overflow: "hidden",
-                height: 400,
-              }}
-            >
-              {/* Left: Main Technologies */}
-              <Box
-                sx={{
-                  width: "50%",
-                  overflowY: "auto",
-                  borderRight: "1px solid #e0e0e0",
-                  bgcolor: "#fafafa",
-                }}
-              >
+            <Box className="dropdown-inner">
+
+              <Box className="tech-list">
                 <List disablePadding>
                   {filteredTechs.map((tech) => (
                     <ListItemButton
                       key={tech.tech_id}
                       onMouseEnter={() => setSelectedTech(tech)}
                       selected={selectedTech?.tech_id === tech.tech_id}
-                      sx={{
-                        py: 1.2,
-                        px: 2,
-                        "&.Mui-selected": {
-                          bgcolor: "#1976d2",
-                          color: "white",
-                        },
-                      }}
+                      className="list-item"
                     >
                       <ListItemText
-                        primary={
-                          <Typography
-                            sx={{
-                              fontSize: 15,
-                              fontWeight: 500,
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}
-                          >
-                            {tech.technology_name}
-                          </Typography>
-                        }
+                        primary={<Typography className="list-item-title">{tech.technology_name}</Typography>}
                       />
-                      <span style={{ marginLeft: "auto" }}>→</span>
                     </ListItemButton>
                   ))}
                 </List>
               </Box>
 
-              {/* Right: Sub-Techs */}
-              <Box sx={{ width: "50%", overflowY: "auto", bgcolor: "#fff" }}>
-                <Typography
-                  variant="subtitle2"
-                  sx={{
-                    p: 2,
-                    fontWeight: 600,
-                    color: "#555",
-                    borderBottom: "1px solid #eee",
-                  }}
-                >
-                  {selectedTech
-                    ? "Select Sub-Technology"
-                    : "Hover a category"}
+              <Box className="subtech-list">
+                <Typography className="subtech-title">
+                  {selectedTech ? "Select Sub-Technology" : "Hover a category"}
                 </Typography>
-                <Divider />
+
                 <List disablePadding>
-                  {selectedTech?.sub_techs?.length > 0 ? (
-                    selectedTech.sub_techs.map((sub) => (
-                      <ListItemButton
-                        key={sub.sub_tech_id}
-                        onClick={() => handleSubTechSelect(sub, selectedTech)}
-                        sx={{
-                          py: 1,
-                          px: 2,
-                          "&:hover": { bgcolor: "#e3f2fd" },
-                        }}
-                      >
-                        <ListItemText
-                          primary={
-                            <Typography
-                              sx={{
-                                fontSize: 14,
-                                color: "#333",
-                                whiteSpace: "nowrap",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                              }}
-                            >
-                              {sub.sub_tech_name}
-                            </Typography>
-                          }
-                        />
-                      </ListItemButton>
-                    ))
-                  ) : (
-                    <Typography sx={{ p: 2, color: "#888" }}>
-                      No sub-technologies
-                    </Typography>
-                  )}
+                  {selectedTech?.sub_techs?.map((sub) => (
+                    <ListItemButton
+                      key={sub.sub_tech_id}
+                      onClick={() => handleSelectSub(sub, selectedTech)}
+                      selected={selectedSubTech?.sub_tech_id === sub.sub_tech_id}
+                      className="list-item"
+                    >
+                      <ListItemText
+                        primary={<Typography className="list-sub">{sub.sub_tech_name}</Typography>}
+                      />
+                    </ListItemButton>
+                  ))}
                 </List>
               </Box>
+
             </Box>
           </Paper>
-        )}
-      </Container>
+        </Fade>
+      )}
     </>
   );
 };

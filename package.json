@@ -4,6 +4,7 @@
   "homepage": "https://test.stieahub.in/",
   "dependencies": {
     "@amcharts/amcharts5": "^5.13.5",
+    "@amcharts/amcharts5-geodata": "^5.1.5",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
