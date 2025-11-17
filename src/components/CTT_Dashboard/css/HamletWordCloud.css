@@ -1,0 +1,24 @@
+/* ============================
+   WORD CLOUD CONTAINER
+============================ */
+.wordcloud-container {
+  width: 100%;
+  height: 600px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* OPTIONAL — if you want the word cloud text to be smoother */
+.wordcloud-container canvas {
+  image-rendering: optimizeQuality;
+}
+
+/* OPTIONAL - if you want fade-in effect */
+.wordcloud-container {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

@@ -9,7 +9,7 @@ const PatentActivity = () => {
   const [chartData, setChartData] = useState([]);
   const { sub_tech_id } = useParams();
 
-  // ✅ Helper: Add ordinal suffix to ranks
+  //  Helper: Add ordinal suffix to ranks
   const getOrdinalSuffix = (n) => {
     const j = n % 10,
       k = n % 100;
@@ -19,7 +19,7 @@ const PatentActivity = () => {
     return `${n}th`;
   };
 
-  // ✅ Fetch data
+  //  Fetch data
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,7 +27,7 @@ const PatentActivity = () => {
           `https://development.stieahub.in/Codigniter_api/public/get_patents_country_rank/${sub_tech_id}`
         );
 
-        // ✅ Sort data descending by patents granted
+        //  Sort data descending by patents granted
         const sorted = res.data
           .map((item) => ({
             country: item.country_name,
@@ -52,7 +52,7 @@ const PatentActivity = () => {
     fetchData();
   }, [sub_tech_id]);
 
-  // ✅ Setup chart
+  //  Setup chart
   useLayoutEffect(() => {
     if (chartData.length === 0) return;
 
@@ -67,7 +67,7 @@ const PatentActivity = () => {
     root._logo.dispose();
     root.setThemes([am5themes_Animated.new(root)]);
 
-    // ✅ Main chart
+    //  Main chart
     let chart = root.container.children.push(
       am5xy.XYChart.new(root, {
         panX: true,
@@ -78,7 +78,7 @@ const PatentActivity = () => {
       })
     );
 
-    // ✅ Scrollbar for zoom
+    //  Scrollbar for zoom
     chart.set(
       "scrollbarX",
       am5.Scrollbar.new(root, {
@@ -86,7 +86,7 @@ const PatentActivity = () => {
       })
     );
 
-    // ✅ Y-Axis with bold smaller labels
+    //  Y-Axis with bold smaller labels
     let yRenderer = am5xy.AxisRendererY.new(root, {
       inversed: true,
       cellStartLocation: 0.1,
@@ -108,7 +108,7 @@ const PatentActivity = () => {
     );
     yAxis.data.setAll(chartData);
 
-    // ✅ X-Axis
+    //  X-Axis
     let xAxis = chart.xAxes.push(
       am5xy.ValueAxis.new(root, {
         min: 0,
@@ -118,7 +118,7 @@ const PatentActivity = () => {
       })
     );
 
-    // ✅ Series helper
+    //  Series helper
     function createSeries(field, name, color) {
       let series = chart.series.push(
         am5xy.ColumnSeries.new(root, {
@@ -144,11 +144,11 @@ const PatentActivity = () => {
       return series;
     }
 
-    // ✅ Create both series
+    //  Create both series
     createSeries("patentGranted", "Patent Granted", am5.color(0x4e79a7));
     createSeries("totalApplications", "Patent Applications", am5.color(0xf28e2b));
 
-    // ✅ Legend
+    //  Legend
     let legend = chart.children.push(
       am5.Legend.new(root, {
         centerX: am5.p50,
@@ -158,7 +158,7 @@ const PatentActivity = () => {
     );
     legend.data.setAll(chart.series.values);
 
-    // ✅ Enable zoom + cursor
+    //  Enable zoom + cursor
     let cursor = chart.set(
       "cursor",
       am5xy.XYCursor.new(root, {
@@ -167,10 +167,10 @@ const PatentActivity = () => {
     );
     cursor.lineY.set("visible", false);
 
-    // ✅ Animate chart
+    //  Animate chart
     chart.appear(1000, 100);
 
-    // ✅ Cleanup
+    //  Cleanup
     return () => {
       if (root && !root.isDisposed()) root.dispose();
     };
