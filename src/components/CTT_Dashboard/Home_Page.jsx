@@ -21,6 +21,8 @@ import CTTHeader from "./CTT_Header";
 import HamletWordCloud from "./HamletWordCloud";
 
 import "./css/HomePage.css";   // <-- NEW CSS IMPORT
+import PublicationPatentRatio from "./PublicationPatentRatio";
+import TrendPublicationsPatents from "./TrendPublicationsPatents";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -268,6 +270,32 @@ const HomePage = () => {
           </Paper>
         </Fade>
       )}
+      
+      <Box className="triple-graph-row">
+
+        {/* Ratio Chart */}
+        <Box className="graph-col same-size">
+          <h2 className="trend-title">
+                  Publication vs Patent Ratio
+                </h2>
+          <div className="graph-wrapper">
+            <PublicationPatentRatio />
+          </div>
+        </Box>
+
+        {/* Trend Chart */}
+        <Box className="graph-col same-size">
+          <h2 className="trend-title">
+                  Publications and Patents Trend (2003–2023)
+                </h2>
+          <div className="graph-wrapper">
+            <TrendPublicationsPatents />
+          </div>
+        </Box>
+
+      </Box>
+
+
     </>
   );
 };

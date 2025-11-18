@@ -1,0 +1,25 @@
+/* Chart container */
+.ratio-chart-container {
+  width: 100%;
+  height: 100px;
+  position: relative;
+}
+
+/* Improve rendering */
+.ratio-chart-container canvas {
+  image-rendering: optimizeQuality;
+}
+
+/* Fade-in effect */
+.ratio-chart-container {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

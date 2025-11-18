@@ -48,14 +48,14 @@ const HamletWordCloud = () => {
     const series = root.container.children.push(
       am5wc.WordCloud.new(root, {
         maxCount: 150,
-        minWordLength: 1,
-        maxFontSize: am5.percent(35),
+        // minWordLength: 1,
+        maxFontSize: am5.percent(25),
         text: wordText,
       })
     );
 
     series.labels.template.setAll({
-      paddingTop: 5,
+      // paddingTop: 5,
       paddingBottom: 5,
       fontFamily: "Times New Roman", 
     });
