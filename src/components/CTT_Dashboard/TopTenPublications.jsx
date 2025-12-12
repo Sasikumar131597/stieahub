@@ -67,14 +67,6 @@ const TopTenPublications = () => {
         })
       );
 
-      const circle2 = container.children.push(
-        am5.Circle.new(root, {
-          radius: 4,
-          fill: colorset.next(),
-          strokeOpacity: 0,
-          tooltipText: "{title}",
-        })
-      );
 
       circle.animate({
         key: "scale",

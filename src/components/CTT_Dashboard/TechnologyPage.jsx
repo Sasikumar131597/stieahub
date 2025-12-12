@@ -3,14 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   Container,
   Box,
-  Button,
   Card,
   Typography,
   styled,
   MenuItem,
   Select,
-  FormControl,
-  InputLabel,
+  FormControl
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import {
@@ -30,11 +28,12 @@ import PieGraph from "./PieGraph";
 import ComparisonPublications from "./ComparisonPublications";
 import PatentActivity from "./PatentActivity";
 import axios from "axios";
+import MultiLinePublicationGraph from "./MultiLinePublicationGraph";
 
 const DashboardCard = styled(Card)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  height: "200px",
+  height: "260px",
   padding: theme.spacing(2),
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.shadows[2],
@@ -93,18 +92,22 @@ const TechnologyPage = () => {
   const { sub_tech_id } = useParams();
   const [subTech, setSubTech] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [globalCountry, setGlobalCountry] = useState("");
+  const [globalCountry, setGlobalCountry] = useState(0);
   const [counts, setCounts] = useState(null); 
   const [chartData, setChartData] = useState([]);
+  const [patentCounts, setPatentCounts] = useState(null);
+  const [pubPie, setPubPie] = useState(null);
+
+
 
   const countries = [
-    "Global",
-    "United States",
-    "China",
-    "United Kingdom",
-    "Australia",
-  ];
-
+  { id: 0, name: "Global" },
+  { id: 1, name: "India" },
+  { id: 2, name: "China" },
+  { id: 3, name: "United States" },
+  { id: 4, name: "United Kingdom" },
+  { id: 5, name: "Australia" }
+];
 
   useEffect(() => {
     fetch("https://development.stieahub.in/Codigniter_api/public/get_sub_techlogies")
@@ -121,13 +124,13 @@ const TechnologyPage = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("❌ Error fetching sub-technology:", err);
+        console.error(" Error fetching sub-technology:", err);
         setLoading(false);
       });
   }, [sub_tech_id]);
 
   useEffect(() => {
-    fetch("https://development.stieahub.in/Codigniter_api/public/get_publication_counts")
+    fetch("https://development.stieahub.in/Codigniter_api/public/get_global_publication_count")
       .then((res) => res.json())
       .then((data) => {
         const match = data.find(
@@ -136,41 +139,73 @@ const TechnologyPage = () => {
         if (match) setCounts(match);
       })
       .catch((err) =>
-        console.error("❌ Error fetching publication counts:", err)
+        console.error(" Error fetching publication counts:", err)
       );
   }, [sub_tech_id]);
 
-   useEffect(() => {
-    const loadTrendData = async () => {
-      try {
-        const res = await axios.get(
-          "https://development.stieahub.in/Codigniter_api/public/get_publication_yearwise_data"
-        );
+  useEffect(() => {
+  fetch("https://development.stieahub.in/Codigniter_api/public/get_global_patent_count")
+    .then((res) => res.json())
+    .then((data) => {
+      const match = data.find(
+        (item) => String(item.sub_tech_id) === String(sub_tech_id)
+      );
+      if (match) setPatentCounts(match);
+    })
+    .catch((err) =>
+      console.error(" Error fetching patent counts:", err)
+    );
+}, [sub_tech_id]);
 
-        const id = parseInt(sub_tech_id, 10);
 
-        
-        const filtered = res.data.filter(
-          (item) => parseInt(item.sub_tech_id, 10) === id
-        );
-
-        const formatted = filtered.map((row) => ({
-          year: row.year,
-          Publications: Number(row.total_publications),
-          Patents: Number(row.total_patents)
-        }));
-
-        setChartData(formatted);
-      } catch (err) {
-        console.error("Error loading trend data", err);
+useEffect(() => {
+  fetch("https://development.stieahub.in/Codigniter_api/public/get_global_publication_piedata")
+    .then((res) => res.json())
+    .then((data) => {
+      if (String(data.sub_tech_id) === String(sub_tech_id)) {
+        setPubPie(data);
       }
+    })
+    .catch((err) => console.error("Error fetching publication pie data:", err));
+}, [sub_tech_id]);
+
+
+
+  useEffect(() => {
+  const loadTrendData = async () => {
+    try {
+      const res = await axios.get(
+        "https://development.stieahub.in/Codigniter_api/public/get_global_publication_trenddata"
+      );
+
+      const id = parseInt(sub_tech_id, 10);
+
+      // Filter records for this sub_tech
+      const filtered = res.data.filter(
+        (item) => parseInt(item.sub_tech_id, 10) === id
+      );
+
+      // Format for Recharts
+      const formatted = filtered.map((row) => ({
+        year: row.year,
+        Publications: Number(row.total_publications),
+        Patents: Number(row.patent_count),
+      }));
+
+      setChartData(formatted);
+    } catch (err) {
+      console.error("Error loading trend data:", err);
+    }
+  };
+
+  loadTrendData();
+}, [sub_tech_id]);
+
+
+  const handleGlobalCountryChange = (event) => {
+      setGlobalCountry(event.target.value);
     };
 
-    loadTrendData();
-  }, [sub_tech_id]);
-
-  const handleGlobalCountryChange = (event) =>
-    setGlobalCountry(event.target.value);
 
   if (loading)
     return (
@@ -189,7 +224,7 @@ const TechnologyPage = () => {
     );
 
   const totalPublications = Number(counts?.total_publications || 0);
-  const totalPatents = Number(counts?.total_patents || 0);
+  const totalPatents = Number(patentCounts?.total_patents || 0);
   const total = totalPublications + totalPatents;
   const pubRatio = total ? ((totalPublications / total) * 100).toFixed(1) : 0;
   const patRatio = total ? ((totalPatents / total) * 100).toFixed(1) : 0;
@@ -215,6 +250,28 @@ const TechnologyPage = () => {
     { name: "Publications", value: pubRatio, color: "#0088FE" },
     { name: "Patent Records", value: patRatio, color: "#FF8042" },
   ];
+
+  const pubPieData = pubPie
+  ? [
+      {
+        name: "Top 1 Country",
+        value: Number(pubPie.top_1_publication_count),
+        color: "#0088FE",
+      },
+      {
+        name: "Top 10 Countries",
+        value: Number(pubPie.top_10_publication_count),
+        color: "#00C49F",
+      },
+      {
+        name: "Rest of World",
+        value:Number(pubPie.total_publications),
+        color: "#FFBB28",
+      },
+    ]
+  : null;   // IMPORTANT: not []
+
+
 
   const renderStatCard = (data) => (
     <DashboardCard>
@@ -258,26 +315,19 @@ const TechnologyPage = () => {
           </Typography>
 
           <DropdownContainer>
-            <FormControl sx={{ minWidth: 180 }} size="small">
-              <InputLabel>GLOBAL</InputLabel>
-              <Select
-                value={globalCountry}
-                onChange={handleGlobalCountryChange}
-                label="Global"
-              >
-                <MenuItem value="">
-                  <em>Select Country</em>
-                </MenuItem>
-                {countries.map((c) => (
-                  <MenuItem key={c} value={c}>
-                    {c}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <Button variant="contained" color="primary">
-              India
-            </Button>
+            <FormControl sx={{ minWidth: 180 }} size="small" variant="outlined">
+                <Select
+                  value={globalCountry}
+                  onChange={handleGlobalCountryChange}
+                  displayEmpty
+                >
+                  {countries.map((c) => (
+                    <MenuItem key={c.id} value={c.id}>
+                      {c.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
           </DropdownContainer>
         </HeaderRow>
 
@@ -288,25 +338,37 @@ const TechnologyPage = () => {
           <Grid xs={12} sm={6} md={3}>
             {renderStatCard(cardData[1])}
           </Grid>
-          <Grid xs={12} md={6}>
+          {/* <Grid xs={12} sm={6} md={3}>
             <DashboardCard>
               <RatioCardContent>
                 <LeftContent>
                   <Typography variant="h6" color="primary" fontWeight="bold">
-                    Publications / Patent Ratio
+                    Publications
                   </Typography>
-                  {pieData.map((item) => (
-                    <Typography key={item.name} variant="body2">
-                      {item.name}: {item.value}%
-                    </Typography>
-                  ))}
+                </LeftContent>
+                <ChartWrapper>
+                  <PieGraph chartData={pubPieData} />
+                </ChartWrapper>
+              </RatioCardContent>
+            </DashboardCard>
+          </Grid> */}
+
+          {/* <Grid xs={6} md={6}>
+            <DashboardCard>
+              <RatioCardContent>
+                <LeftContent>
+                  <Typography variant="h6" color="primary" fontWeight="bold">
+                     Patent
+                  </Typography>
                 </LeftContent>
                 <ChartWrapper>
                   <PieGraph chartData={pieData} />
                 </ChartWrapper>
               </RatioCardContent>
             </DashboardCard>
-          </Grid>
+          </Grid> */}
+
+
         </Grid>
 
         <LargeDashboardCard>
@@ -330,7 +392,7 @@ const TechnologyPage = () => {
 
         <LargeDashboardCard>
           <Typography variant="h6" fontWeight="bold" gutterBottom>
-            Publications and Patents Trend (2003–2023)
+            Publications and Patents Trend (2003–2024)
           </Typography>
 
           <ResponsiveContainer width="100%" height={350}>
@@ -360,7 +422,12 @@ const TechnologyPage = () => {
           </ResponsiveContainer>
         </LargeDashboardCard>
 
-        {/* <PopulationChart /> */}
+        <LargeDashboardCard>
+              <h6>Title</h6>
+              <p>Description</p>
+              <MultiLinePublicationGraph />
+        </LargeDashboardCard>
+
         <LargeDashboardCard>
               <h6>Title</h6>
               <p>Description</p>

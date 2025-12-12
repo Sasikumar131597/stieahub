@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import "./styles/nav.css";
-import NavNotice from "./NavNotice";
-import NavMessage from "./NavMessage";
-import NavAvatar from "./NavAvatar";
-import SearchBar from "./SearchBar";
 function Nav() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

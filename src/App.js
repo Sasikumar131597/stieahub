@@ -13,8 +13,6 @@ import "bootstrap/dist/js/bootstrap.min.js";
 // Import Components
 import Header from "./components/header_sidebar_components/Header";
 import SideBar from "./components/header_sidebar_components/SideBar";
-import Main from "./components/Main";
-import GERD_Home from "./components/GERD_Dashboard/GERD_Home";
 import Footer from "./components/header_sidebar_components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -23,8 +21,8 @@ function App() {
     <>
     <Router>
       <ScrollToTop />
-      <Header />
-      <SideBar />
+      {/* <Header />
+      <SideBar /> */}
       <Routes>
              {routes?.map((config) => {
           return (
