@@ -9,30 +9,20 @@ const PatentActivity = () => {
   const [chartData, setChartData] = useState([]);
   const { sub_tech_id } = useParams();
 
-  //  Helper: Add ordinal suffix to ranks
-  const getOrdinalSuffix = (n) => {
-    const j = n % 10,
-      k = n % 100;
-    if (j === 1 && k !== 11) return `${n}st`;
-    if (j === 2 && k !== 12) return `${n}nd`;
-    if (j === 3 && k !== 13) return `${n}rd`;
-    return `${n}th`;
-  };
-
   //  Fetch data
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `https://development.stieahub.in/Codigniter_api/public/get_patents_country_rank/${sub_tech_id}`
+          `https://development.stieahub.in/Codigniter_api/public/get_global_patents_country_rank/${sub_tech_id}`
         );
 
         //  Sort data descending by patents granted
         const sorted = res.data
           .map((item) => ({
             country: item.country_name,
-            patentGranted: Number(item.patent_granted_count),
-            totalApplications: Number(item.total_patent_applications),
+            patentGranted: Number(item.patentGranted),      
+            totalApplications: Number(item.totalApplications),
           }))
           .sort((a, b) => b.patentGranted - a.patentGranted)
           .map((item, index) => {
@@ -40,7 +30,7 @@ const PatentActivity = () => {
             return {
               ...item,
               rank,
-              displayName: `${item.country}  ${getOrdinalSuffix(rank)} `, // 👈 rank after country
+              displayName: `${item.country} `, // 👈 rank after country
             };
           });
 
@@ -165,6 +155,7 @@ const PatentActivity = () => {
         behavior: "zoomX",
       })
     );
+    cursor.lineX.set("visible", false);
     cursor.lineY.set("visible", false);
 
     //  Animate chart

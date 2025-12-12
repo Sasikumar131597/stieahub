@@ -22,7 +22,6 @@ import {
   Legend
 } from 'recharts';
 import InternationalPatents from "./InternationalPatents";
-import WorldMap from "./WorldMap";
 
 // Styled NavButton
 const NavButton = styled(Button)(({ theme }) => ({

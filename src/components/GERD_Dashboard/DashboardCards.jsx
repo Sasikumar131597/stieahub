@@ -48,7 +48,7 @@ const DashboardCards = () => {
 
         {
             label: "STI-Partnership",
-            link: "https://sticonnect.info/public/",
+            link: "https://www.psa.gov.in/sti-partnership/",
             icon: <FaHandshake />,
             description: "View bilateral STI partnership projects"
         },

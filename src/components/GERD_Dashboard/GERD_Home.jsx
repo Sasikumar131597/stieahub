@@ -96,7 +96,7 @@ function GERD_Home() {
 
   return (
     <div>
-      <img src="https://development.stieahub.in/Codigniter_api/public/assets/images/Banners/GERD_Home.png"  />
+      <img src="https://development.stieahub.in/Codigniter_api/public/assets/images/Banners/GERD_Home.png"  alt="GERD Home"/>
     <main className="p-4 max-w-7xl mx-auto" >
       <div style={Styles.cardRow} >
               <div className={Styles.modernContent}>

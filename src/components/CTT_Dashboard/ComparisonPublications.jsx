@@ -13,7 +13,7 @@ const ComparisonPublications = () => {
     const loadData = async () => {
       try {
         const res = await axios.get(
-          `https://development.stieahub.in/Codigniter_api/public/get_publication_country_rank/${sub_tech_id}`
+          `https://development.stieahub.in/Codigniter_api/public/get_global_publication_country_rank/${sub_tech_id}`
         );
 
         // Sort descending by total publications
@@ -22,16 +22,9 @@ const ComparisonPublications = () => {
             Number(b.total_publication_count) - Number(a.total_publication_count)
         );
 
-        // Helper: get ordinal suffix
-        const getOrdinal = (n) => {
-          const s = ["th", "st", "nd", "rd"];
-          const v = n % 100;
-          return n + (s[(v - 20) % 10] || s[v] || s[0]);
-        };
-
         // Format country names like "USA (1st)"
         const formatted = sorted.map((item, index) => ({
-          country: `${item.country_name}  ${getOrdinal(index + 1)} `,
+          country: `${item.country_name} `,
           top1: Number(item.top_1_publication_count),
           top10: Number(item.top_10_publication_count),
           total: Number(item.total_publication_count),
