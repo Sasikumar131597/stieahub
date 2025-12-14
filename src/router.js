@@ -36,11 +36,11 @@ export const routes = [
         element: <TechnologyPage />
       },
       {
-        path: "Publications",
+        path: "publications/:sub_tech_id",
         element: <Publications />
       },
       {
-        path: "Patents",
+        path: "patents/:sub_tech_id",
         element: <Patents />
       },
     ],
