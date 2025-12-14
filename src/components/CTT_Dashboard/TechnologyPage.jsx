@@ -235,14 +235,15 @@ useEffect(() => {
       count: totalPublications,
       image:
         "https://development.stieahub.in/Codigniter_api/public/assets/images/CTT/Publications.jpeg",
-      url: "/ctt_dashboard/Publications",
+      url: `/ctt_dashboard/Publications/${sub_tech_id}`,
     },
     {
       title: "Patent Records",
       count: totalPatents,
       image:
         "https://development.stieahub.in/Codigniter_api/public/assets/images/CTT/Patents.jpeg",
-      url: "/ctt_dashboard/Patents",
+      url: `/ctt_dashboard/Patents/${sub_tech_id}`,
+
     },
   ];
 
