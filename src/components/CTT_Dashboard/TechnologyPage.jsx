@@ -243,7 +243,6 @@ useEffect(() => {
       image:
         "https://development.stieahub.in/Codigniter_api/public/assets/images/CTT/Patents.jpeg",
       url: `/ctt_dashboard/Patents/${sub_tech_id}`,
-
     },
   ];
 
@@ -339,36 +338,6 @@ useEffect(() => {
           <Grid xs={12} sm={6} md={3}>
             {renderStatCard(cardData[1])}
           </Grid>
-          {/* <Grid xs={12} sm={6} md={3}>
-            <DashboardCard>
-              <RatioCardContent>
-                <LeftContent>
-                  <Typography variant="h6" color="primary" fontWeight="bold">
-                    Publications
-                  </Typography>
-                </LeftContent>
-                <ChartWrapper>
-                  <PieGraph chartData={pubPieData} />
-                </ChartWrapper>
-              </RatioCardContent>
-            </DashboardCard>
-          </Grid> */}
-
-          {/* <Grid xs={6} md={6}>
-            <DashboardCard>
-              <RatioCardContent>
-                <LeftContent>
-                  <Typography variant="h6" color="primary" fontWeight="bold">
-                     Patent
-                  </Typography>
-                </LeftContent>
-                <ChartWrapper>
-                  <PieGraph chartData={pieData} />
-                </ChartWrapper>
-              </RatioCardContent>
-            </DashboardCard>
-          </Grid> */}
-
 
         </Grid>
 
@@ -425,7 +394,7 @@ useEffect(() => {
 
         <LargeDashboardCard>
               <h6>Title</h6>
-              <p>Description</p>
+              <p>Description 1</p>
               <MultiLinePublicationGraph />
         </LargeDashboardCard>
 
