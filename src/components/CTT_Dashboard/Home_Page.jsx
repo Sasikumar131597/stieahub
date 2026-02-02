@@ -154,7 +154,7 @@ const HomePage = () => {
 
       <Box className="wc-section">
         <Box className="wc-overlay">
-          <HamletWordCloud />
+          {/* <HamletWordCloud /> */}
         </Box>
 
         <Box className="search-container">
