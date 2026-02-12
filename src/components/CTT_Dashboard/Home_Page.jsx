@@ -21,6 +21,7 @@ import CTTHeader from "./CTT_Header";
 import HamletWordCloud from "./HamletWordCloud";
 
 import "./css/HomePage.css";   // <-- NEW CSS IMPORT
+import WorldMapBackground from "./WorldMapBackground";
 // import PublicationPatentRatio from "./PublicationPatentRatio";
 // import TrendPublicationsPatents from "./TrendPublicationsPatents";
 
@@ -151,6 +152,7 @@ const HomePage = () => {
   return (
     <>
       <CTTHeader />
+      <WorldMapBackground />
 
       <Box className="wc-section">
         <Box className="wc-overlay">
