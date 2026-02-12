@@ -1,244 +1,3 @@
-// import React from "react";
-// import { useNavigate } from "react-router-dom";
-// import { 
-//   AppBar, 
-//   Toolbar, 
-//   Button, 
-//   Container, 
-//   Box,
-//   Typography,
-//   Card
-// } from '@mui/material';
-// import Grid from '@mui/material/Grid2';
-// import { styled } from '@mui/material/styles';
-// import { 
-//   ResponsiveContainer, 
-//   Tooltip,
-//   LineChart,
-//   Line,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Legend
-// } from 'recharts';
-// import InternationalPatents from "./InternationalPatents";
-
-// // Styled NavButton
-// const NavButton = styled(Button)(({ theme }) => ({
-//   color: 'white',
-//   margin: theme.spacing(0, 1),
-//   '&.active': {
-//     fontWeight: 'bold',
-//     borderBottom: '2px solid white'
-//   },
-//   '&:hover': {
-//     backgroundColor: 'rgba(255, 255, 255, 0.1)'
-//   }
-// }));
-
-// // Styled TitleButton
-// const TitleButton = styled(Button)(({ theme }) => ({
-//   color: 'white',
-//   fontWeight: 'bold',
-//   fontSize: '1.1rem',
-//   textTransform: 'none',
-//   '&:hover': {
-//     backgroundColor: 'transparent'
-//   }
-// }));
-
-
-//   const LineChartTooltip = ({ active, payload }) => {
-//   if (active && payload && payload?.length) {
-//     return (
-//       <Box sx={{ 
-//         backgroundColor: 'white', 
-//         padding: '8px', 
-//         border: '1px solid #ccc',
-//         borderRadius: '4px',
-//         boxShadow: 1,
-//       }}>
-//         <Typography variant="body2">{`Year: ${payload[0]?.payload?.year}`}</Typography>
-//         {payload?.map((item, index) => (
-//           <Typography key={index} variant="body2" color={item?.color}>
-//             {`${item?.name}: ${item?.value}`}
-//           </Typography>
-//         ))}
-//       </Box>
-//     );
-//   }
-//   return null;
-// };
-
-// const lineChartData = [
-//     { year: '2015', Patents: 1357},
-//     { year: '2016', Patents: 1880},
-//     { year: '2017', Patents: 2391},
-//     { year: '2018', Patents: 3355},
-//     { year: '2019', Patents: 4713},
-//     { year: '2020', Patents: 5906},
-//     { year: '2021', Patents: 7572},
-//     { year: '2022', Patents: 8576},
-//     { year: '2023', Patents: 9163},
-//     { year: '2024', Patents: 10428}
-//   ];
-
-//   const lineChartgrowthdata = [
-//     { year: '2015', Patents: 5.44 },
-//     { year: '2016', Patents: 38.54},
-//     { year: '2017', Patents: 27.18},
-//     { year: '2018', Patents: 40.32},
-//     { year: '2019', Patents: 40.48},
-//     { year: '2020', Patents: 25.31},
-//     { year: '2021', Patents: 28.21},
-//     { year: '2022', Patents: 13.26},
-//     { year: '2023', Patents: 6.84},
-//     { year: '2024', Patents: 13.81}
-//   ];
-
-//   const LargeDashboardCard = styled(Card)(({ theme }) => ({
-//   display: 'flex',
-//   flexDirection: 'column',
-//   height: '400px',
-//   padding: theme.spacing(2),
-//   borderRadius: theme.shape.borderRadius,
-//   boxShadow: theme.shadows[2],
-//   transition: 'box-shadow 0.3s ease',
-//   '&:hover': {
-//     boxShadow: theme.shadows[4]
-//   }
-// }));
-
-//   const renderLineChartCard = () => (
-//     <LargeDashboardCard>
-//       <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
-//         Publications and Patents Trend (2015-2024)
-//       </Typography>
-//       <Typography variant="p">
-//         Here we look at research papers published and patent applications for UAV technology between years 2015 and 2024.
-//       </Typography>
-//       <Box sx={{ flexGrow: 1 }}>
-//         <ResponsiveContainer width="100%" height="100%">
-//           <LineChart
-//             data={lineChartData}
-//             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-//           >
-//             <CartesianGrid strokeDasharray="3 3" />
-//             <XAxis dataKey="year" />
-//             <YAxis />
-//             <Tooltip content={<LineChartTooltip />} />
-//             <Legend />
-//             <Line 
-//               type="monotone" 
-//               dataKey="Patents" 
-//               stroke="#FF8042" 
-//               activeDot={{ r: 8 }} 
-//               strokeWidth={2}
-//               name="Patents"
-//             />
-//           </LineChart>
-          
-//         </ResponsiveContainer>
-//       </Box>
-//       <span>Data : Source :</span>
-//     </LargeDashboardCard>
-//   );
-
-//   const renderLineChartgrowth = () => (
-//     <LargeDashboardCard>
-//       <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
-//         Publications growth rate (2015-2024)
-//       </Typography>
-//       <Typography variant="p">
-//         Here we look at research papers published and patent applications for UAV technology between years 2015 and 2024.
-//       </Typography>
-//       <Box sx={{ flexGrow: 1 }}>
-//         <ResponsiveContainer width="100%" height="100%">
-//           <LineChart
-//             data={lineChartgrowthdata}
-//             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-//           >
-//             <CartesianGrid strokeDasharray="3 3" />
-//             <XAxis dataKey="year" />
-//             <YAxis />
-//             <Tooltip content={<LineChartTooltip />} />
-//             <Legend />
-//             <Line 
-//               type="monotone" 
-//               dataKey="Patents" 
-//               stroke="#FF8042" 
-//               activeDot={{ r: 8 }} 
-//               strokeWidth={2}
-//               name="Patents"
-//             />
-//           </LineChart>
-          
-//         </ResponsiveContainer>
-//       </Box>
-//       <span>Data : Source :</span>
-//     </LargeDashboardCard>
-//   );
-
-// const Patents = () => {
-//   const navigate = useNavigate();
-
-//   return (
-//     <>
-//       <AppBar position="static" sx={{ backgroundColor: '#5f6f80', mb: 3 }}>
-//         <Container maxWidth="xl">
-//           <Toolbar disableGutters>
-//             <TitleButton 
-//               onClick={() => navigate('/ctt_dashboard')}
-//               disableRipple
-//             >
-//               Critical Technology Tracker
-//             </TitleButton>
-            
-//           </Toolbar>
-//         </Container>
-//       </AppBar>
-
-//      <Grid container spacing={2} style={{padding:"15px"}}>
-//       <Grid item size={12}>
-//         <h6>Description</h6>
-//         <p>
-//           Unlock valuable insights into user behavior and preferences through our comprehensive user analysis, empowering your decision-making with data-driven strategies.
-//         </p>
-//       </Grid>
-
-//       <Grid item size={12}>
-//         <h6>Temporal Trends in Research Publications</h6>
-//         <p>See how knowledge creation has accelerated over time.</p>
-//       </Grid>
-
-//       <Grid item size={12}>
-//         <Grid container spacing={2}>
-//           <Grid item size={6}>
-//             {renderLineChartCard()}
-//           </Grid>
-//           <Grid item size={6} >
-//             {renderLineChartgrowth()}
-//           </Grid>
-//         </Grid>
-//       </Grid>
-
-//       <Grid item size={12}>
-//         <InternationalPatents />
-//         {/* <WorldMap /> */}
-//       </Grid>
-
-//     </Grid>
-
-           
-//     </>
-//   );
-// };
-
-// export default Patents;
-
-
-// 2nd
-
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -265,6 +24,8 @@ import {
   Legend
 } from "recharts";
 import InternationalPatents from "./InternationalPatents";
+import axios from "axios";
+
 
 /* ---------------- STYLES ---------------- */
 const TitleButton = styled(Button)(({ theme }) => ({
@@ -307,20 +68,6 @@ const colorPalette = [
   "#6D4C41", "#00ACC1"
 ];
 
-/* ---------------- STATIC VOLUME DATA ---------------- */
-const lineChartData = [
-  { year: "2015", Patents: 1357 },
-  { year: "2016", Patents: 1880 },
-  { year: "2017", Patents: 2391 },
-  { year: "2018", Patents: 3355 },
-  { year: "2019", Patents: 4713 },
-  { year: "2020", Patents: 5906 },
-  { year: "2021", Patents: 7572 },
-  { year: "2022", Patents: 8576 },
-  { year: "2023", Patents: 9163 },
-  { year: "2024", Patents: 10428 }
-];
-
 const Patents = () => {
   const navigate = useNavigate();
   const { sub_tech_id } = useParams();
@@ -329,6 +76,43 @@ const Patents = () => {
   const [rankedCountries, setRankedCountries] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [lineChartData, setLineChartData] = useState([]);
+
+  useEffect(() => {
+  axios
+    .get(
+      "https://development.stieahub.in/Codigniter_api/public/get_patent_trendline_country/44"
+    )
+    .then((res) => {
+      const rawData = res.data;
+
+      const transformed = Object.values(
+        rawData.reduce((acc, item) => {
+          const year = item.year;
+
+          if (!acc[year]) {
+            acc[year] = {
+              year: year,
+              granted: 0,
+              application: 0,
+            };
+          }
+
+          if (item.document_type === "Granted Patent") {
+            acc[year].granted = Number(item.patent_count);
+          }
+
+          if (item.document_type === "Patent Application") {
+            acc[year].application = Number(item.patent_count);
+          }
+
+          return acc;
+        }, {})
+      );
+
+      setLineChartData(transformed);
+    });
+}, []);
 
   /* ---------------- FETCH + RANK ---------------- */
   useEffect(() => {
@@ -385,33 +169,44 @@ const Patents = () => {
     [rankedCountries, search]
   );
 
-  /* ---------------- RENDER CARDS ---------------- */
   const renderVolumeChart = () => (
-    <LargeDashboardCard>
-      <Typography variant="h6" fontWeight="bold" color="primary">
-        Publications and Patents Trend (2015–2024)
-      </Typography>
+  <LargeDashboardCard>
+    <Typography variant="h6" fontWeight="bold" color="primary">
+      Patent Trend by Document Type
+    </Typography>
 
-      <Box sx={{ flexGrow: 1 }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={lineChartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="Patents"
-              stroke="#FF8042"
-              strokeWidth={2}
-              dot={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </Box>
-    </LargeDashboardCard>
-  );
+    <Box sx={{ width: "100%", height: 350 }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={lineChartData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="year" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+
+          <Line
+            type="monotone"
+            dataKey="granted"
+            name="Granted Patent"
+            stroke="#4CAF50"
+            strokeWidth={2}
+            dot={false}
+          />
+
+          <Line
+            type="monotone"
+            dataKey="application"
+            name="Patent Application"
+            stroke="#FF9800"
+            strokeWidth={2}
+            dot={false}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </Box>
+  </LargeDashboardCard>
+);
+
 
   const renderGrowthChart = () => (
     <LargeDashboardCard>
@@ -442,7 +237,7 @@ const Patents = () => {
               <Tooltip content={<LineChartTooltip />} />
               <Legend layout="vertical" align="right" verticalAlign="middle" />
 
-              {/* 🔥 RANKED + FILTERED LINES */}
+              {/*  RANKED + FILTERED LINES */}
               {displayedCountries.map((country, index) => (
                 <Line
                   key={country}
@@ -478,6 +273,15 @@ const Patents = () => {
         <Grid size={12}>
           <Typography variant="h6">Description</Typography>
           <Typography>
+            Year-over-year patent trends.
+          </Typography>
+        </Grid>
+        <Grid size={12}>{renderVolumeChart()}</Grid>
+
+
+        <Grid size={12}>
+          <Typography variant="h6">Description</Typography>
+          <Typography>
             Country-wise year-over-year patent growth trends ranked by latest growth rate.
           </Typography>
         </Grid>
@@ -485,6 +289,12 @@ const Patents = () => {
         {/* <Grid size={12}>{renderVolumeChart()}</Grid> */}
         <Grid size={12}>{renderGrowthChart()}</Grid>
 
+    <Grid size={12}>
+          <Typography variant="h6">Description</Typography>
+          <Typography>
+            International patent collaboration
+          </Typography>
+        </Grid>
         <Grid size={12}>
           <InternationalPatents />
         </Grid>
