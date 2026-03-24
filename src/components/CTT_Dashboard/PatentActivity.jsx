@@ -21,8 +21,8 @@ const PatentActivity = () => {
         const sorted = res.data
           .map((item) => ({
             country: item.country_name,
-            patentGranted: Number(item.patentGranted),      
-            totalApplications: Number(item.totalApplications),
+            patentGranted: Number(item.Patent_granted),      
+            totalApplications: Number(item.Patents_applied),
           }))
           .sort((a, b) => b.patentGranted - a.patentGranted)
           .map((item, index) => {
@@ -136,7 +136,7 @@ const PatentActivity = () => {
 
     //  Create both series
     createSeries("patentGranted", "Patent Granted", am5.color(0x4e79a7));
-    createSeries("totalApplications", "Patent Applications", am5.color(0xf28e2b));
+    createSeries("totalApplications", "Patents Applied", am5.color(0xf28e2b));
 
     //  Legend
     let legend = chart.children.push(

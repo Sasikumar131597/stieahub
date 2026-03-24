@@ -152,11 +152,16 @@ const HomePage = () => {
   return (
     <>
       <CTTHeader />
-      <WorldMapBackground />
+      {/* <WorldMapBackground /> */}
+
+      <div>
+        <WorldMapBackground />
+      </div>
 
       <Box className="wc-section">
         <Box className="wc-overlay">
           {/* <HamletWordCloud /> */}
+          {/* <WorldMapBackground /> */}
         </Box>
 
         <Box className="search-container">

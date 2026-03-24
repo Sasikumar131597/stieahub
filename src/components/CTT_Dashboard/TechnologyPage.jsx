@@ -79,7 +79,8 @@ const HeaderRow = styled(Box)({
   justifyContent: "space-between",
   alignItems: "center",
   width: "100%",
-  marginBottom: "16px",
+  marginTop: "70px",
+  marginBottom: "20px"
 });
 
 const DropdownContainer = styled(Box)({
@@ -189,7 +190,8 @@ useEffect(() => {
       const formatted = filtered.map((row) => ({
         year: row.year,
         Publications: Number(row.total_publications),
-        Patents: Number(row.patent_count),
+        // Patents: Number(row.Patents_applied),
+        "Patents Applied" : Number(row.Patents_applied),
       }));
 
       setChartData(formatted);
@@ -306,9 +308,11 @@ useEffect(() => {
   );
 
   return (
-    <div>
-      <CTTHeader />
-      <Container maxWidth="xl" sx={{ mt: 4 }}>
+    <>
+  <CTTHeader />
+    <div Style={{marginTop: 10}}>
+ 
+   
         <HeaderRow>
           <Typography variant="h4" fontWeight="bold">
             {subTech.sub_tech_name}
@@ -384,7 +388,7 @@ useEffect(() => {
               />
               <Line
                 type="monotone"
-                dataKey="Patents"
+                dataKey="Patents Applied"
                 stroke="#FF8042"
                 strokeWidth={2}
               />
@@ -409,8 +413,9 @@ useEffect(() => {
               <PatentActivity />
         </LargeDashboardCard>
         
-      </Container>
+
     </div>
+    </>
   );
 };
 

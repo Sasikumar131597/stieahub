@@ -131,7 +131,8 @@ const CTTHeader = () => {
   const navigate = useNavigate();
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#5f6f80", mb: 3 }}>
+    <div>
+    <AppBar sx={{ backgroundColor: "#5f6f80", mb: 3 }}>
       <Container maxWidth="xl">
         <Toolbar
           disableGutters
@@ -171,6 +172,7 @@ const CTTHeader = () => {
         </Toolbar>
       </Container>
     </AppBar>
+    </div>
   );
 };
 

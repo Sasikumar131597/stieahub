@@ -9,7 +9,8 @@ import {
   Typography,
   Card,
   CircularProgress,
-  TextField
+  TextField,
+  Divider
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { styled } from "@mui/material/styles";
@@ -25,10 +26,10 @@ import {
 } from "recharts";
 import InternationalPatents from "./InternationalPatents";
 import axios from "axios";
-
+import CTTHeader from "./CTT_Header";
 
 /* ---------------- STYLES ---------------- */
-const TitleButton = styled(Button)(({ theme }) => ({
+const TitleButton = styled(Button)(() => ({
   color: "white",
   fontWeight: "bold",
   fontSize: "1.1rem",
@@ -77,42 +78,60 @@ const Patents = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [lineChartData, setLineChartData] = useState([]);
+  const [subTech, setSubTech] = useState(null);
 
   useEffect(() => {
-  axios
-    .get(
-      "https://development.stieahub.in/Codigniter_api/public/get_patent_trendline_country/44"
-    )
-    .then((res) => {
-      const rawData = res.data;
+      fetch("https://development.stieahub.in/Codigniter_api/public/get_sub_techlogies")
+        .then(res => res.json())
+        .then(data => {
+          let found = null;
+          data.forEach(tech => {
+            const sub = tech.sub_techs?.find(
+              s => String(s.sub_tech_id) === String(sub_tech_id)
+            );
+            if (sub) found = sub;
+          });
+          setSubTech(found);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    }, [sub_tech_id]);
 
-      const transformed = Object.values(
-        rawData.reduce((acc, item) => {
-          const year = item.year;
+  /* ---------------- PATENT TREND (UPDATED) ---------------- */
+  useEffect(() => {
+    axios
+      .get(
+        `https://development.stieahub.in/Codigniter_api/public/get_patent_trendline_country/${sub_tech_id}`
+      )
+      .then((res) => {
+        const rawData = res.data;
 
-          if (!acc[year]) {
-            acc[year] = {
-              year: year,
-              granted: 0,
-              application: 0,
-            };
-          }
+        // Aggregate by year (no document_type logic)
+        const grouped = Object.values(
+          rawData.reduce((acc, item) => {
+            const year = item.year;
 
-          if (item.document_type === "Granted Patent") {
-            acc[year].granted = Number(item.patent_count);
-          }
+            if (!acc[year]) {
+              acc[year] = {
+                year,
+                granted: 0,
+                application: 0
+              };
+            }
 
-          if (item.document_type === "Patent Application") {
-            acc[year].application = Number(item.patent_count);
-          }
+            acc[year].granted += Number(item.Patent_granted) || 0;
+            acc[year].application += Number(item.Patents_applied) || 0;
 
-          return acc;
-        }, {})
-      );
+            return acc;
+          }, {})
+        ).sort((a, b) => a.year - b.year);
 
-      setLineChartData(transformed);
-    });
-}, []);
+        setLineChartData(grouped);
+      })
+      .catch((err) => {
+        console.error("Patent Trend API Error:", err);
+      });
+  }, [sub_tech_id]);
 
   /* ---------------- FETCH + RANK ---------------- */
   useEffect(() => {
@@ -132,16 +151,13 @@ const Patents = () => {
           const growth = Number(row.total_growth_rate);
 
           if (!yearMap[year]) yearMap[year] = { year };
-          yearMap[year][country] =
-            isNaN(growth) ? null : growth;
+          yearMap[year][country] = isNaN(growth) ? null : growth;
 
-          // Track latest growth for ranking
           if (!isNaN(growth)) {
             latestGrowthByCountry[country] = growth;
           }
         });
 
-        // Rank countries by latest growth (DESC)
         const sortedCountries = Object.entries(latestGrowthByCountry)
           .sort((a, b) => b[1] - a[1])
           .map(([country]) => country);
@@ -169,52 +185,52 @@ const Patents = () => {
     [rankedCountries, search]
   );
 
+  /* ---------------- VOLUME CHART ---------------- */
   const renderVolumeChart = () => (
-  <LargeDashboardCard>
-    <Typography variant="h6" fontWeight="bold" color="primary">
-      Patent Trend by Document Type
-    </Typography>
+    <LargeDashboardCard>
+      <Typography variant="h6" fontWeight="bold" color="primary">
+        Patent Trend by Granted Vs Applied
+      </Typography>
 
-    <Box sx={{ width: "100%", height: 350 }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={lineChartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
+      <Box sx={{ width: "100%", height: 350 }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={lineChartData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="year" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
 
-          <Line
-            type="monotone"
-            dataKey="granted"
-            name="Granted Patent"
-            stroke="#4CAF50"
-            strokeWidth={2}
-            dot={false}
-          />
+            <Line
+              type="monotone"
+              dataKey="granted"
+              name="Patent Granted "
+              stroke="#4CAF50"
+              strokeWidth={2}
+              dot={false}
+            />
 
-          <Line
-            type="monotone"
-            dataKey="application"
-            name="Patent Application"
-            stroke="#FF9800"
-            strokeWidth={2}
-            dot={false}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </Box>
-  </LargeDashboardCard>
-);
+            <Line
+              type="monotone"
+              dataKey="application"
+              name="Patents Applied"
+              stroke="#0011ff"
+              strokeWidth={2}
+              dot={false}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </Box>
+    </LargeDashboardCard>
+  );
 
-
+  /* ---------------- GROWTH CHART ---------------- */
   const renderGrowthChart = () => (
     <LargeDashboardCard>
       <Typography variant="h6" fontWeight="bold" color="primary">
         Patent Growth Rate by Country
       </Typography>
 
-      {/* 🔍 COUNTRY SEARCH */}
       <TextField
         size="small"
         placeholder="Search country"
@@ -237,7 +253,6 @@ const Patents = () => {
               <Tooltip content={<LineChartTooltip />} />
               <Legend layout="vertical" align="right" verticalAlign="middle" />
 
-              {/*  RANKED + FILTERED LINES */}
               {displayedCountries.map((country, index) => (
                 <Line
                   key={country}
@@ -257,27 +272,36 @@ const Patents = () => {
     </LargeDashboardCard>
   );
 
+  if (!subTech)
+      return (
+        <Container sx={{ mt: 10 }}>
+          <Typography align="center" color="error">
+            No sub-technology found for ID: {sub_tech_id}
+          </Typography>
+        </Container>
+      );
+
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: "#5f6f80", mb: 3 }}>
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <TitleButton onClick={() => navigate("/ctt_dashboard")}>
-              Critical Technology Tracker
-            </TitleButton>
-          </Toolbar>
-        </Container>
-      </AppBar>
+
+      <CTTHeader />
+    <div style={{marginTop: "60px"}}>
+
+      <Box sx={{ px: 2, py: 2 }}>
+        <Typography variant="h4" fontWeight="bold">
+          {subTech.sub_tech_name}
+        </Typography>
+        <Divider sx={{ mt: 1 }} />
+      </Box>
+      
 
       <Grid container spacing={2} sx={{ p: 2 }}>
         <Grid size={12}>
           <Typography variant="h6">Description</Typography>
-          <Typography>
-            Year-over-year patent trends.
-          </Typography>
+          <Typography>Year-over-year patent trends.</Typography>
         </Grid>
-        <Grid size={12}>{renderVolumeChart()}</Grid>
 
+        <Grid size={12}>{renderVolumeChart()}</Grid>
 
         <Grid size={12}>
           <Typography variant="h6">Description</Typography>
@@ -286,25 +310,21 @@ const Patents = () => {
           </Typography>
         </Grid>
 
-        {/* <Grid size={12}>{renderVolumeChart()}</Grid> */}
         <Grid size={12}>{renderGrowthChart()}</Grid>
 
-    <Grid size={12}>
+        <Grid size={12}>
           <Typography variant="h6">Description</Typography>
-          <Typography>
-            International patent collaboration
-          </Typography>
+          <Typography>International patent collaboration</Typography>
         </Grid>
+
         <Grid size={12}>
           <InternationalPatents />
         </Grid>
       </Grid>
+      </div>
     </>
   );
 };
 
 export default Patents;
-
-
-
 

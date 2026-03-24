@@ -46,7 +46,7 @@ const Footer = () => {
       padding: '2rem 0',
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       width: '100%',
-      marginTop: '40px',
+      marginTop: '20%',
       borderTop: '1px solid #ddd'
     },
     container: {
@@ -56,6 +56,7 @@ const Footer = () => {
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'space-between',
+      marginTop: "25px"
     },
     column: {
       flex: '1',

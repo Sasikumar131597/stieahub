@@ -1,14 +1,137 @@
+// import React, { useEffect, useRef } from "react";
+// import * as am5 from "@amcharts/amcharts5";
+// import * as am5map from "@amcharts/amcharts5/map";
+// import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+// import * as topojson from "topojson-client";
+
+// // Import TopoJSON file
+// import worldData from "./countries-topo.json";
+
+// const TopTenPublications = () => {
+//   const chartRef = useRef(null);
+
+//   useEffect(() => {
+//     const geoObjectName = Object.keys(worldData.objects)[0];
+//     const geojson = topojson.feature(
+//       worldData,
+//       worldData.objects[geoObjectName]
+//     );
+
+//     const root = am5.Root.new(chartRef.current);
+//     root.setThemes([am5themes_Animated.new(root)]);
+
+//     root._logo.dispose();
+
+//     // Static map (no pan, no zoom)
+//     const chart = root.container.children.push(
+//       am5map.MapChart.new(root, {
+//         projection: am5map.geoMercator(),
+//         wheelX: "none",
+//         wheelY: "none",
+//         panX: "none",
+//         panY: "none",
+//       })
+//     );
+
+//     const polygonSeries = chart.series.push(
+//       am5map.MapPolygonSeries.new(root, {
+//         geoJSON: geojson,
+//       })
+//     );
+
+//     polygonSeries.mapPolygons.template.setAll({
+//       tooltipText: "{name}",
+//       interactive: true,
+//       fill: am5.color(0x90caf9), // light blue
+//       stroke: am5.color(0xffffff),
+//     });
+
+//     polygonSeries.mapPolygons.template.states.create("hover", {
+//       fill: am5.color(0x64b5f6),
+//     });
+
+//     const pointSeries = chart.series.push(am5map.MapPointSeries.new(root, {}));
+//     const colorset = am5.ColorSet.new(root, {});
+
+//     pointSeries.bullets.push(() => {
+//       const container = am5.Container.new(root, {
+//         tooltipText: "{title}",
+//         cursorOverStyle: "pointer",
+//       });
+
+//       const circle = container.children.push(
+//         am5.Circle.new(root, {
+//           radius: 4,
+//           fill: colorset.next(),
+//           strokeOpacity: 0,
+//         })
+//       );
+
+
+//       circle.animate({
+//         key: "scale",
+//         from: 1,
+//         to: 5,
+//         duration: 600,
+//         easing: am5.ease.out(am5.ease.cubic),
+//         loops: Infinity,
+//       });
+//       circle.animate({
+//         key: "opacity",
+//         from: 1,
+//         to: 0.1,
+//         duration: 600,
+//         easing: am5.ease.out(am5.ease.cubic),
+//         loops: Infinity,
+//       });
+
+//       return am5.Bullet.new(root, { sprite: container });
+//     });
+
+//     const cities = [
+//       { title: "London", latitude: 51.5074, longitude: -0.1278 },
+//       { title: "Manchester", latitude: 53.4808, longitude: -2.2426 },
+//       { title: "Birmingham", latitude: 52.4862, longitude: -1.8904 },
+//       { title: "New Delhi", latitude: 28.6139, longitude: 77.209 },
+//       { title: "New York", latitude: 40.7128, longitude: -74.006 },
+//     ];
+
+//     cities.forEach((city) => {
+//       pointSeries.data.push({
+//         geometry: { type: "Point", coordinates: [city.longitude, city.latitude] },
+//         title: city.title,
+//       });
+//     });
+
+//     chart.appear(1000, 100);
+
+//     return () => {
+//       root.dispose();
+//     };
+//   }, []);
+
+//   return (
+//     <div
+//       ref={chartRef}
+//       style={{ width: "100%", height: "500px" }}
+//     />
+//   );
+// };
+
+// export default TopTenPublications;
+
+
 import React, { useEffect, useRef } from "react";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as topojson from "topojson-client";
-
-// Import TopoJSON file
+import { useParams } from "react-router-dom";
 import worldData from "./countries-topo.json";
 
 const TopTenPublications = () => {
   const chartRef = useRef(null);
+  const { sub_tech_id } = useParams();
 
   useEffect(() => {
     const geoObjectName = Object.keys(worldData.objects)[0];
@@ -19,20 +142,21 @@ const TopTenPublications = () => {
 
     const root = am5.Root.new(chartRef.current);
     root.setThemes([am5themes_Animated.new(root)]);
-
     root._logo.dispose();
 
-    // Static map (no pan, no zoom)
+    // 🚫 Disable zoom + pan completely
     const chart = root.container.children.push(
       am5map.MapChart.new(root, {
         projection: am5map.geoMercator(),
-        wheelX: "none",
-        wheelY: "none",
         panX: "none",
         panY: "none",
+        wheelX: "none",
+        wheelY: "none",
+        pinchZoom: false,
       })
     );
 
+    // Countries
     const polygonSeries = chart.series.push(
       am5map.MapPolygonSeries.new(root, {
         geoJSON: geojson,
@@ -40,75 +164,121 @@ const TopTenPublications = () => {
     );
 
     polygonSeries.mapPolygons.template.setAll({
-      tooltipText: "{name}",
-      interactive: true,
-      fill: am5.color(0x90caf9), // light blue
+      fill: am5.color(0xe0e0e0),
       stroke: am5.color(0xffffff),
     });
 
-    polygonSeries.mapPolygons.template.states.create("hover", {
-      fill: am5.color(0x64b5f6),
+    // Line series
+    const lineSeries = chart.series.push(
+      am5map.MapLineSeries.new(root, {})
+    );
+
+    lineSeries.mapLines.template.setAll({
+      stroke: am5.color(0xff5722),
+      strokeWidth: 2,
+      strokeOpacity: 0.8,
     });
 
-    const pointSeries = chart.series.push(am5map.MapPointSeries.new(root, {}));
-    const colorset = am5.ColorSet.new(root, {});
+    // Arrow series
+    const arrowSeries = chart.series.push(
+      am5map.MapPointSeries.new(root, {})
+    );
 
-    pointSeries.bullets.push(() => {
-      const container = am5.Container.new(root, {
-        tooltipText: "{title}",
-        cursorOverStyle: "pointer",
+    arrowSeries.bullets.push(() => {
+      const arrow = am5.Graphics.new(root, {
+        fill: am5.color(0xff5722),
+        stroke: am5.color(0xff5722),
+        draw: function (display) {
+          display.moveTo(0, -3);
+          display.lineTo(8, 0);
+          display.lineTo(0, 3);
+          display.lineTo(0, -3);
+        },
       });
 
-      const circle = container.children.push(
-        am5.Circle.new(root, {
-          radius: 4,
-          fill: colorset.next(),
-          strokeOpacity: 0,
+      return am5.Bullet.new(root, { sprite: arrow });
+    });
+
+    // 🔥 Normalize names (IMPORTANT)
+    const normalizeName = (name) => {
+      const map = {
+        USA: "United States of America",
+        UK: "United Kingdom",
+      };
+      return map[name] || name;
+    };
+
+    // 🔥 Get polygon safely
+    const getPolygonByName = (name) => {
+      return polygonSeries.mapPolygons.values.find((p) => {
+        const data = p.dataItem?.dataContext;
+
+        return (
+          data?.name === name ||
+          data?.properties?.name === name ||
+          data?.properties?.ADMIN === name
+        );
+      });
+    };
+
+    // Wait for map ready
+    polygonSeries.events.on("datavalidated", () => {
+      fetch(
+        `https://development.stieahub.in/Codigniter_api/public/publication_international_collaboration/${sub_tech_id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data || data.length === 0) return;
+
+          const parentName = normalizeName(
+            data[0].parent_country_name
+          );
+
+          const parentPolygon = getPolygonByName(parentName);
+
+          if (!parentPolygon) {
+            console.log("❌ Parent not found:", parentName);
+            return;
+          }
+
+          const parentCentroid = parentPolygon.geoCentroid();
+
+          data.forEach((item) => {
+            const targetName = normalizeName(
+              item.collaboration_country_name
+            );
+
+            const targetPolygon = getPolygonByName(targetName);
+
+            if (!targetPolygon) {
+              console.log("❌ Missing:", targetName);
+              return;
+            }
+
+            const targetCentroid = targetPolygon.geoCentroid();
+
+            const lineDataItem = lineSeries.pushDataItem({
+              geometry: {
+                type: "LineString",
+                coordinates: [parentCentroid, targetCentroid],
+              },
+            });
+
+            // Arrow animation
+            arrowSeries.pushDataItem({
+              lineDataItem: lineDataItem,
+              positionOnLine: 0.5,
+              autoRotate: true,
+            });
+          });
         })
-      );
-
-
-      circle.animate({
-        key: "scale",
-        from: 1,
-        to: 5,
-        duration: 600,
-        easing: am5.ease.out(am5.ease.cubic),
-        loops: Infinity,
-      });
-      circle.animate({
-        key: "opacity",
-        from: 1,
-        to: 0.1,
-        duration: 600,
-        easing: am5.ease.out(am5.ease.cubic),
-        loops: Infinity,
-      });
-
-      return am5.Bullet.new(root, { sprite: container });
-    });
-
-    const cities = [
-      { title: "London", latitude: 51.5074, longitude: -0.1278 },
-      { title: "Manchester", latitude: 53.4808, longitude: -2.2426 },
-      { title: "Birmingham", latitude: 52.4862, longitude: -1.8904 },
-      { title: "New Delhi", latitude: 28.6139, longitude: 77.209 },
-      { title: "New York", latitude: 40.7128, longitude: -74.006 },
-    ];
-
-    cities.forEach((city) => {
-      pointSeries.data.push({
-        geometry: { type: "Point", coordinates: [city.longitude, city.latitude] },
-        title: city.title,
-      });
+        .catch((err) => console.error("API Error:", err));
     });
 
     chart.appear(1000, 100);
 
-    return () => {
-      root.dispose();
-    };
-  }, []);
+    return () => root.dispose();
+  }, [sub_tech_id]);
 
   return (
     <div
