@@ -25,6 +25,7 @@ import GlobalSynergy from "./GlobalSynergy";
 import TopTenPublications from "./TopTenPublications";
 import TopTenPublicBar from "./TopTenPublicBar";
 import CTTHeader from "./CTT_Header";
+import PublicationCollaboration from "./PublicationCollaboration";
 
 /* ---------------- STYLES ---------------- */
 const NavButton2 = styled("button")(({ active }) => ({
@@ -164,6 +165,7 @@ const Publications = () => {
   return (
     <>
       <CTTHeader />
+    <div style={{marginTop: "55x"}}>
 
       {/* TITLE */}
       <Box sx={{ px: 2, py: 2 }}>
@@ -237,7 +239,8 @@ const Publications = () => {
           {viewType === "countries" && (
             <Grid container spacing={2}>
               <Grid item size={6}><TopTenPublicBar /></Grid>
-              <Grid item size={6}><TopTenPublications /></Grid>
+              {/* <Grid item size={6}><TopTenPublications /></Grid> */}
+              <Grid item size={6}><PublicationCollaboration /></Grid>
             </Grid>
           )}
 
@@ -256,6 +259,7 @@ const Publications = () => {
       </Grid>
 
       <GlobalSynergy />
+      </div>
     </>
   );
 };

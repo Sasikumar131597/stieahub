@@ -40,7 +40,8 @@ const RankedTooltip = ({ active, payload, label }) => {
             display: "flex",
             justifyContent: "space-between",
             color: item.color,
-            fontSize: 13
+            fontSize: 13,
+            gap: 2
           }}
         >
           <span>{idx + 1}. {item.name}</span>
@@ -97,8 +98,8 @@ const MultiLinePublicationGraph = () => {
             total: +row.total_publication_count,
             top10: +row.top_10_publication_count,
             top1: +row.top_1_publication_count,
-            patentgranted: +row.granted_patent_count,
-            patentapplication: +row.other_patent_count
+            patentgranted: +row.Patent_granted,
+            patentapplication: +row.Patents_applied
           });
         });
 
@@ -156,7 +157,7 @@ const MultiLinePublicationGraph = () => {
           ["top10", "Top 10% Publication"],
           ["top1", "Top 1% Publication"],
           ["patentgranted", "Patent Granted"],
-          ["patentapplication", "Patent Records"]
+          ["patentapplication", "Patents Applied"]
         ].map(([key, label]) => (
           <Button
             key={key}

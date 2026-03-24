@@ -1,0 +1,47 @@
+.world-map-container {
+  position: relative;
+  font-family: 'Arial', sans-serif;
+  background: transparent !important;
+}
+
+.world-map-svg {
+  display: block;
+}
+
+.world-map-svg path {
+  transition: all 0.3s ease;
+  vector-effect: non-scaling-stroke;
+}
+
+.world-map-svg path:hover {
+  filter: brightness(1.2);
+}
+
+.map-tooltip {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 1000;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .world-map-svg path {
+    stroke-width: 0.3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .world-map-svg path {
+    stroke-width: 0.2px;
+  }
+  
+  .map-tooltip {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}

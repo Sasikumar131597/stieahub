@@ -112,10 +112,11 @@ const ComparisonPublications = () => {
   series.data.setAll(chartData);
   legend.data.push(series);
 }
-
+  makeSeries("Total Publications", "total", 0x00897b);
+  makeSeries("Top 10 % Publications", "top10", 0x42a5f5);  
   makeSeries("Top 1 % Publications", "top1", 0x0d47a1);   
-  makeSeries("Top 10 % Publications", "top10", 0x42a5f5); 
-  makeSeries("Total Publications", "total", 0x00897b);    
+  
+     
 
 
     return () => root.dispose();
