@@ -34,6 +34,8 @@
   background: rgba(255, 255, 255, 0.92) !important;
   backdrop-filter: blur(8px);
   transition: 0.3s;
+  margin-right: 25vh; /* newly added */
+  margin-bottom: 25px
 }
 
 .search-card:hover {

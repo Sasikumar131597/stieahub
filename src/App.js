@@ -11,9 +11,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 
 // Import Components
-import Header from "./components/header_sidebar_components/Header";
-import SideBar from "./components/header_sidebar_components/SideBar";
-import Footer from "./components/header_sidebar_components/Footer";
+// import Header from "./components/header_sidebar_components/Header";
+// import SideBar from "./components/header_sidebar_components/SideBar";
+// import Footer from "./components/header_sidebar_components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
           );
         })}
       </Routes>
-        <Footer />
+        {/* <Footer /> */}
     </Router>
     </>
   );

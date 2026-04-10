@@ -42,11 +42,13 @@ import React from 'react';
 const Footer = () => {
   const styles = {
     footer: {
+      // position: 'staic',
+      // bottom: '0px',
       backgroundColor: '#f5f5f5',
       padding: '2rem 0',
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       width: '100%',
-      marginTop: '20%',
+      // marginTop: '20%',
       borderTop: '1px solid #ddd'
     },
     container: {
@@ -109,11 +111,10 @@ const Footer = () => {
         <div style={styles.column}>
           <h3 style={styles.title}>Address</h3>
           <p>
-            Office of the Principal Scientific Adviser to the Government of India <br />
-            Vigyan Bhavan Annexe <br />
-            Maulana Azad Road, New Delhi – 110011
+            Room No. 33010, 3rd Floor, Kartavya Bhavan 3,<br />
+            Central Secretariat, New Delhi - 110001
           </p>
-          <p>Email: support@example.com</p>
+          {/* <p>Email: support@example.com</p> */}
         </div>
 
       </div>

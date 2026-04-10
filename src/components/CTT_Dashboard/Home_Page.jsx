@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 
 import CTTHeader from "./CTT_Header";
-import HamletWordCloud from "./HamletWordCloud";
+// import HamletWordCloud from "./HamletWordCloud";
 
 import "./css/HomePage.css";   // <-- NEW CSS IMPORT
 import WorldMapBackground from "./WorldMapBackground";
@@ -152,16 +152,14 @@ const HomePage = () => {
   return (
     <>
       <CTTHeader />
-      {/* <WorldMapBackground /> */}
 
-      <div>
+
+      <div style={{marginTop: '10px'}}>
         <WorldMapBackground />
       </div>
 
       <Box className="wc-section">
         <Box className="wc-overlay">
-          {/* <HamletWordCloud /> */}
-          {/* <WorldMapBackground /> */}
         </Box>
 
         <Box className="search-container">
@@ -209,13 +207,13 @@ const HomePage = () => {
                 </Button>
               </Box>
 
-              {selectedSubTech && (
+              {/* {selectedSubTech && (
                 <Fade in timeout={400}>
                   <Typography className="selected-text">
                     Selected: {selectedSubTech.sub_tech_name}
                   </Typography>
                 </Fade>
-              )}
+              )} */}
             </Paper>
           </Grow>
         </Box>
@@ -278,17 +276,6 @@ const HomePage = () => {
         </Fade>
       )}
       
-      {/* <Box className="triple-graph-row">
-        <Box className="graph-col same-size">
-          <h2 className="trend-title">
-                  Publications and Patents Trend (2003–2023)
-                </h2>
-          <div className="graph-wrapper">
-            <TrendPublicationsPatents />
-          </div>
-        </Box>
-
-      </Box> */}
 
 
     </>
