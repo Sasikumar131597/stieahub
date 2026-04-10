@@ -1,9 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
-  AppBar,
-  Toolbar,
-  Button,
   Container,
   Box,
   Typography,
@@ -28,13 +25,6 @@ import InternationalPatents from "./InternationalPatents";
 import axios from "axios";
 import CTTHeader from "./CTT_Header";
 
-/* ---------------- STYLES ---------------- */
-const TitleButton = styled(Button)(() => ({
-  color: "white",
-  fontWeight: "bold",
-  fontSize: "1.1rem",
-  textTransform: "none"
-}));
 
 const LargeDashboardCard = styled(Card)(({ theme }) => ({
   display: "flex",
@@ -70,7 +60,6 @@ const colorPalette = [
 ];
 
 const Patents = () => {
-  const navigate = useNavigate();
   const { sub_tech_id } = useParams();
 
   const [growthData, setGrowthData] = useState([]);

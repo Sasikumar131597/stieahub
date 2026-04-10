@@ -16,20 +16,32 @@ import HomePage from "./components/CTT_Dashboard/Home_Page";
 import TechnologyPage from "./components/CTT_Dashboard/TechnologyPage";
 import Publications from "./components/CTT_Dashboard/Publications";
 import Patents from "./components/CTT_Dashboard/Patents";
+import Footer from "./components/header_sidebar_components/Footer";
 
 
 export const routes = [
   {
     path: "/",
-    element: <Main />,
+    element: <>
+    <Main />
+    <Footer />
+    </>,
   },
   {
-    path: "ctt_dashboard",
-    element: <CTTDashboardLayout />,
+    path: "/ctt_dashboard",
+    element: <>
+    <CTTDashboardLayout />
+    <div style={{marginTop: "350px"}}>
+     <Footer />
+     </div>
+    </>,
     children: [
       {
         path: "/ctt_dashboard",
-        element: <HomePage />,
+        element: <>
+        <HomePage />
+        {/* <Footer /> */}
+        </>,
       },
       {
         path: "technology/:sub_tech_id",
@@ -65,7 +77,10 @@ export const routes = [
   },
   {
     path: "gerd_dashboard",
-    element: <GerdDashboardLayout />,
+    element: <>
+    <GerdDashboardLayout />
+      <Footer />
+    </>,
     children: [
       {
         path: "/gerd_dashboard",
